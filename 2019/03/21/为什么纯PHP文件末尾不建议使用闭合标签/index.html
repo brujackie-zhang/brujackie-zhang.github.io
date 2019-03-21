@@ -96,22 +96,25 @@
 
 
 
-  <meta name="keywords" content="随笔">
+  <meta name="description" content="先看两个PHP文件，A.php ?&amp;gt; 后面有空行123456&amp;lt;?phpclass A&amp;#123;    const A_TEST = &apos;A&apos;;&amp;#125;?&amp;gt; B.php 引入 A.php,在输出之前有header等函数调用12345require_once(__DIR__ . &apos;/A.php&apos;);header(&apos;HTTP/1.1 404 Not Found&apos;);header(&apos;">
+<meta name="keywords" content="PHP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="photo">
-<meta property="og:url" content="http://www.coderzj.com/2019/03/20/photo/index.html">
+<meta property="og:title" content="为什么纯PHP文件末尾不建议使用闭合标签">
+<meta property="og:url" content="http://www.coderzj.com/2019/03/21/为什么纯PHP文件末尾不建议使用闭合标签/index.html">
 <meta property="og:site_name" content="BJLC&#39;s Blog">
+<meta property="og:description" content="先看两个PHP文件，A.php ?&amp;gt; 后面有空行123456&amp;lt;?phpclass A&amp;#123;    const A_TEST = &apos;A&apos;;&amp;#125;?&amp;gt; B.php 引入 A.php,在输出之前有header等函数调用12345require_once(__DIR__ . &apos;/A.php&apos;);header(&apos;HTTP/1.1 404 Not Found&apos;);header(&apos;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-20T11:30:36.535Z">
+<meta property="og:updated_time" content="2019-03-21T05:41:48.496Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="photo">
+<meta name="twitter:title" content="为什么纯PHP文件末尾不建议使用闭合标签">
+<meta name="twitter:description" content="先看两个PHP文件，A.php ?&amp;gt; 后面有空行123456&amp;lt;?phpclass A&amp;#123;    const A_TEST = &apos;A&apos;;&amp;#125;?&amp;gt; B.php 引入 A.php,在输出之前有header等函数调用12345require_once(__DIR__ . &apos;/A.php&apos;);header(&apos;HTTP/1.1 404 Not Found&apos;);header(&apos;">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.coderzj.com/2019/03/20/photo/">
+  <link rel="canonical" href="http://www.coderzj.com/2019/03/21/为什么纯PHP文件末尾不建议使用闭合标签/">
 
 
 
@@ -121,7 +124,7 @@
   };
 </script>
 
-  <title>photo | BJLC's Blog</title>
+  <title>为什么纯PHP文件末尾不建议使用闭合标签 | BJLC's Blog</title>
   
 
 
@@ -341,7 +344,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/03/20/photo/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/03/21/为什么纯PHP文件末尾不建议使用闭合标签/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -358,7 +361,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">photo
+          <h1 class="post-title" itemprop="name headline">为什么纯PHP文件末尾不建议使用闭合标签
 
               
             
@@ -384,7 +387,7 @@
                 
               
 
-              <time title="创建时间：2019-03-20 17:59:56 / 修改时间：19:30:36" itemprop="dateCreated datePublished" datetime="2019-03-20T17:59:56+08:00">2019-03-20</time>
+              <time title="创建时间：2019-03-21 13:22:56 / 修改时间：13:41:48" itemprop="dateCreated datePublished" datetime="2019-03-21T13:22:56+08:00">2019-03-21</time>
             
 
             
@@ -394,6 +397,24 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -432,7 +453,14 @@
       
 
       
-        
+        <p>先看两个PHP文件，<br><code>A.php ?&gt; 后面有空行</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> A_TEST = <span class="string">'A'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><code>B.php 引入 A.php,在输出之前有header等函数调用</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require_once</span>(<span class="keyword">__DIR__</span> . <span class="string">'/A.php'</span>);</span><br><span class="line"></span><br><span class="line">header(<span class="string">'HTTP/1.1 404 Not Found'</span>);</span><br><span class="line">header(<span class="string">'status:404 Not Found'</span>);</span><br><span class="line"><span class="keyword">echo</span> A::A_TEST;</span><br></pre></td></tr></table></figure></p>
+<p><code>此时执行B.php报错如下：</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\demo\short1.php:<span class="number">10</span>) in D:\xampp\htdocs\demo\short2.php on line <span class="number">5</span></span><br><span class="line">PHP Stack trace:</span><br><span class="line">PHP   <span class="number">1.</span> &#123;main&#125;() D:\xampp\htdocs\demo\short2.php:<span class="number">0</span></span><br><span class="line">PHP   <span class="number">2.</span> header() D:\xampp\htdocs\demo\short2.php:<span class="number">5</span></span><br><span class="line"></span><br><span class="line">Warning: Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\demo\short1.php:<span class="number">10</span>) in D:\xampp\htdocs\demo\short2.php on line <span class="number">5</span></span><br><span class="line"></span><br><span class="line">Call Stack:</span><br><span class="line">    <span class="number">0.0003</span>     <span class="number">375864</span>   <span class="number">1.</span> &#123;main&#125;() D:\xampp\htdocs\demo\short2.php:<span class="number">0</span></span><br><span class="line">    <span class="number">0.0006</span>     <span class="number">376280</span>   <span class="number">2.</span> header() D:\xampp\htdocs\demo\short2.php:<span class="number">5</span></span><br><span class="line"></span><br><span class="line">PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\demo\short1.php:<span class="number">10</span>) in D:\xampp\htdocs\demo\short2.php on line <span class="number">6</span></span><br><span class="line">PHP Stack trace:</span><br><span class="line">PHP   <span class="number">1.</span> &#123;main&#125;() D:\xampp\htdocs\demo\short2.php:<span class="number">0</span></span><br><span class="line">PHP   <span class="number">2.</span> header() D:\xampp\htdocs\demo\short2.php:<span class="number">6</span></span><br><span class="line"></span><br><span class="line">Warning: Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\demo\short1.php:<span class="number">10</span>) in D:\xampp\htdocs\demo\short2.php on line <span class="number">6</span></span><br><span class="line"></span><br><span class="line">Call Stack:</span><br><span class="line">    <span class="number">0.0003</span>     <span class="number">375864</span>   <span class="number">1.</span> &#123;main&#125;() D:\xampp\htdocs\demo\short2.php:<span class="number">0</span></span><br><span class="line">    <span class="number">0.0013</span>     <span class="number">376280</span>   <span class="number">2.</span> header() D:\xampp\htdocs\demo\short2.php:<span class="number">6</span></span><br><span class="line"></span><br><span class="line">short1[Finished in <span class="number">0.2</span>s]</span><br></pre></td></tr></table></figure></p>
+<p><code>这是因为在调用header函数之前已经有空行输出了，而这些函数在调用前是不允许有输出的，所以如果文件是纯PHP代码，那么建议去掉PHP文件的闭合标签，这样可以避免在PHP文件结束标记之后输入空格或者空行之后，输出无意义的空格或者空行。</code></p>
+<blockquote>
+<p>header() 用于发送原生的 HTTP 头。header() 必须在任何实际输出之前调用，不管是普通的 HTML 标签，还是文件或 PHP 输出的空行，空格。这是个常见的错误，在通过include，require，或者其访问其他文件里面的函数的时候，如果在header()被调用之前，其中有空格或者空行。 同样的问题也存在于单独的 PHP/HTML 文件中。</p>
+</blockquote>
+
       
     </div>
 
@@ -455,7 +483,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/随笔/" rel="tag"># 随笔</a>
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
           
         </div>
       
@@ -464,26 +492,6 @@
       
       
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/03/20/test-my-site/" rel="next" title="test_my_site">
-                <i class="fa fa-chevron-left"></i> test_my_site
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/20/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
 
       
@@ -540,7 +548,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">1</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
