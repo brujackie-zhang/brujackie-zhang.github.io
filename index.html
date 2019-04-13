@@ -340,6 +340,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/04/14/LNMP源码编译安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/14/LNMP源码编译安装/" class="post-title-link" itemprop="url">LNMP源码编译安装</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-14 00:10:03" itemprop="dateCreated datePublished" datetime="2019-04-14T00:10:03+08:00">2019-04-14</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>LNMP是一个Web应用软件组合，即（Linux+Nginx+MySQL+PHP）</p>
+</blockquote>
+<p>&emsp;&emsp;首先你需要一个<code>Linux</code>系统，可以是<code>Centos</code>、<code>Debian</code>、<code>Ubuntu</code>等类<code>Linux/Unix</code>系统，下面我们来逐个进行编译安装，这里以<code>Centos</code>为例：</p>
+<h3 id="1、Nginx（Nginx1-14-2）"><a href="#1、Nginx（Nginx1-14-2）" class="headerlink" title="1、Nginx（Nginx1.14.2）"></a>1、Nginx（Nginx1.14.2）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//安装依赖</span><br><span class="line">yum install -y pcre-devel zlib-devel openssl-devel</span><br><span class="line">//获取源码</span><br><span class="line">wget http://nginx.org/download/nginx-1.14.2.tar.gz</span><br><span class="line">//解压安装</span><br><span class="line">tar -zxvf nginx-1.14.2.tar.gz</span><br><span class="line">cd nginx-1.14.2</span><br><span class="line">./configure --prefix=/usr/local/nginx</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//创建用户www</span><br><span class="line">groupadd www</span><br><span class="line">useradd -g www www</span><br><span class="line">//修改nginx.conf配置文件支持php</span><br><span class="line"> fastcgi_param  SCRIPT_FILENAME </span><br><span class="line"><span class="meta">$</span>document_root$fastcgi_script_name;</span><br></pre></td></tr></table></figure>
+<h3 id="2、MySQL（MySQL5-7）"><a href="#2、MySQL（MySQL5-7）" class="headerlink" title="2、MySQL（MySQL5.7）"></a>2、MySQL（MySQL5.7）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line">//安装依赖</span><br><span class="line">yum -y install gcc gcc-c++ ncurses ncurses-devel cmake bison</span><br><span class="line">//获取源码</span><br><span class="line">wget https://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz</span><br><span class="line">wget http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.13.tar.gz</span><br><span class="line">//创建MySQL用户和用户组</span><br><span class="line">groupadd -r mysql &amp;&amp; useradd -r -g mysql -s /sbin/nologin -M mysql</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf  boost_1_59_0.tar.gz</span><br><span class="line">tar -zxvf  mysql-5.7.13.tar.gz</span><br><span class="line">//创建数据目录</span><br><span class="line">mkdir -p /data/mysql</span><br><span class="line">//进入mysql-5.7.13预编译MySQL</span><br><span class="line">cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \</span><br><span class="line">-DMYSQL_DATADIR=/data/mysql \</span><br><span class="line">-DWITH_BOOST=../boost_1_59_0 \</span><br><span class="line">-DSYSCONFDIR=/etc \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_PARTITION_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_FEDERATED_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_BLACKHOLE_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DENABLE_DTRACE=0 \</span><br><span class="line">-DDEFAULT_CHARSET=utf8mb4 \</span><br><span class="line">-DDEFAULT_COLLATION=utf8mb4_general_ci \</span><br><span class="line">-DWITH_EMBEDDED_SERVER=1</span><br><span class="line">//编译安装</span><br><span class="line">make -j `grep processor /proc/cpuinfo | wc -l`</span><br><span class="line">make install</span><br><span class="line">//设置启动脚本，开机自启动</span><br><span class="line">cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line">chmod +x /etc/init.d/mysqld</span><br><span class="line">systemctl enable mysqld</span><br><span class="line">//修改my.cnf配置文件</span><br><span class="line">cat &gt; /etc/my.cnf &lt;&lt; EOF</span><br><span class="line">[client]</span><br><span class="line">port = 3306</span><br><span class="line">socket = /dev/shm/mysql.sock</span><br><span class="line">[mysqld]</span><br><span class="line">port = 3306</span><br><span class="line">socket = /dev/shm/mysql.sock</span><br><span class="line">basedir = /usr/local/mysql</span><br><span class="line">datadir = /data/mysql</span><br><span class="line">pid-file = /data/mysql/mysql.pid</span><br><span class="line">user = mysql</span><br><span class="line">bind-address = 0.0.0.0</span><br><span class="line">server-id = 1</span><br><span class="line">init-connect = 'SET NAMES utf8mb4'</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line"><span class="meta">#</span>skip-name-resolve#skip-networking</span><br><span class="line">back_log = 300</span><br><span class="line">max_connections = 1000</span><br><span class="line">max_connect_errors = 6000</span><br><span class="line">open_files_limit = 65535</span><br><span class="line">table_open_cache = 128</span><br><span class="line">max_allowed_packet = 4M</span><br><span class="line">binlog_cache_size = 1M</span><br><span class="line">max_heap_table_size = 8M</span><br><span class="line">tmp_table_size = 16M</span><br><span class="line">read_buffer_size = 2M</span><br><span class="line">read_rnd_buffer_size = 8M</span><br><span class="line">sort_buffer_size = 8M</span><br><span class="line">join_buffer_size = 8M</span><br><span class="line">key_buffer_size = 4M</span><br><span class="line">thread_cache_size = 8</span><br><span class="line">query_cache_type = 1</span><br><span class="line">query_cache_size = 8M</span><br><span class="line">query_cache_limit = 2M</span><br><span class="line">ft_min_word_len = 4</span><br><span class="line">log_bin = mysql-bin</span><br><span class="line">binlog_format = mixed</span><br><span class="line">expire_logs_days = 30</span><br><span class="line">log_error = /data/mysql/mysql-error.log</span><br><span class="line">slow_query_log = 1</span><br><span class="line">long_query_time = 1</span><br><span class="line">slow_query_log_file = /data/mysql/mysql-slow.log</span><br><span class="line">performance_schema = 0</span><br><span class="line">explicit_defaults_for_timestamp</span><br><span class="line"><span class="meta">#</span>lower_case_table_names = 1</span><br><span class="line">skip-external-locking</span><br><span class="line">default_storage_engine = InnoDB</span><br><span class="line"><span class="meta">#</span>default-storage-engine = MyISAM</span><br><span class="line">innodb_file_per_table = 1</span><br><span class="line">innodb_open_files = 500</span><br><span class="line">innodb_buffer_pool_size = 64M</span><br><span class="line">innodb_write_io_threads = 4</span><br><span class="line">innodb_read_io_threads = 4</span><br><span class="line">innodb_thread_concurrency = 0</span><br><span class="line">innodb_purge_threads = 1</span><br><span class="line">innodb_flush_log_at_trx_commit = 2</span><br><span class="line">innodb_log_buffer_size = 2M</span><br><span class="line">innodb_log_file_size = 32M</span><br><span class="line">innodb_log_files_in_group = 3</span><br><span class="line">innodb_max_dirty_pages_pct = 90</span><br><span class="line">innodb_lock_wait_timeout = 120</span><br><span class="line">bulk_insert_buffer_size = 8M</span><br><span class="line">myisam_sort_buffer_size = 8M</span><br><span class="line">myisam_max_sort_file_size = 10G</span><br><span class="line">myisam_repair_threads = 1</span><br><span class="line">interactive_timeout = 28800</span><br><span class="line">wait_timeout = 28800</span><br><span class="line">[mysqldump]</span><br><span class="line">quick</span><br><span class="line">max_allowed_packet = 16M</span><br><span class="line">[myisamchk]</span><br><span class="line">key_buffer_size = 8M</span><br><span class="line">sort_buffer_size = 8M</span><br><span class="line">read_buffer = 4M</span><br><span class="line">write_buffer = 4M</span><br><span class="line">EOF</span><br><span class="line">//初始化数据库</span><br><span class="line">mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql</span><br><span class="line">//启动数据库</span><br><span class="line">systemctl start mysqld</span><br><span class="line">//设置数据库root用户密码</span><br><span class="line">mysql_secure_installation</span><br><span class="line">//设置MySQL服务可被其他服务调用</span><br><span class="line">echo "/usr/local/mysql/lib" &gt; /etc/ld.so.conf.d/mysql.conf</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
+<h3 id="3、PHP（PHP7-1-6）"><a href="#3、PHP（PHP7-1-6）" class="headerlink" title="3、PHP（PHP7.1.6）"></a>3、PHP（PHP7.1.6）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">//安装依赖</span><br><span class="line">yum -y install libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel libmcrypt-devel</span><br><span class="line">//解压安装</span><br><span class="line">tar -zxvf php-7.1.6.tar.gz</span><br><span class="line">./configure \</span><br><span class="line">--prefix=/usr/local/php71 \</span><br><span class="line">--exec-prefix=/usr/local/php71 \</span><br><span class="line">--bindir=/usr/local/php71/bin \</span><br><span class="line">--sbindir=/usr/local/php71/sbin \</span><br><span class="line">--includedir=/usr/local/php71/include \</span><br><span class="line">--libdir=/usr/local/php71/lib/php \</span><br><span class="line">--mandir=/usr/local/php71/php/man \</span><br><span class="line">--with-config-file-path=/usr/local/php71/etc \</span><br><span class="line">--with-mysql-sock=/dev/shm/mysql.sock \</span><br><span class="line">--with-mcrypt=/usr/include \</span><br><span class="line">--with-mhash \</span><br><span class="line">--with-openssl \</span><br><span class="line">--with-mysqli=shared,mysqlnd \</span><br><span class="line">--with-pdo-mysql=shared,mysqlnd \</span><br><span class="line">--with-gd \</span><br><span class="line">--with-iconv \</span><br><span class="line">--with-zlib \</span><br><span class="line">--enable-zip \</span><br><span class="line">--enable-inline-optimization \</span><br><span class="line">--disable-debug \</span><br><span class="line">--disable-rpath \</span><br><span class="line">--enable-shared \</span><br><span class="line">--enable-xml \</span><br><span class="line">--enable-bcmath \</span><br><span class="line">--enable-shmop \</span><br><span class="line">--enable-sysvsem \</span><br><span class="line">--enable-mbregex \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--enable-ftp \</span><br><span class="line">--enable-gd-native-ttf \</span><br><span class="line">--enable-pcntl \</span><br><span class="line">--enable-sockets \</span><br><span class="line">--with-xmlrpc \</span><br><span class="line">--enable-soap \</span><br><span class="line">--without-pear \</span><br><span class="line">--with-gettext \</span><br><span class="line">--enable-session \</span><br><span class="line">--with-curl \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-freetype-dir \</span><br><span class="line">--enable-opcache \</span><br><span class="line">--enable-fpm \</span><br><span class="line">--with-fpm-user=www \</span><br><span class="line">--with-fpm-group=www \</span><br><span class="line">--without-gdbm \</span><br><span class="line">--disable-fileinfo</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//配置nginx支持php-fpm，首先创建www用户和用户组</span><br><span class="line">groupadd www</span><br><span class="line">useradd -g www www</span><br><span class="line">//复制php-fpm配置文件</span><br><span class="line">cd /usr/local/php71/etc</span><br><span class="line">cp php-fpm.conf.default php-fpm.conf</span><br><span class="line">//进入php-fpm.d目录，复制www.conf文件</span><br><span class="line">cd php-fpm.d</span><br><span class="line">cp www.conf.default www.conf</span><br></pre></td></tr></table></figure>
+<p><code>编译安装扩展时出现如下错误，这是因为没有安装autoconf</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//错误</span><br><span class="line">Cannot find autoconf. Please check your autoconf installation and the $PHP_AUTOCONF environment variable. Then, rerun this scrip</span><br><span class="line">//解决办法</span><br><span class="line">yum -y install m4</span><br><span class="line">yum -y install autoconf</span><br></pre></td></tr></table></figure></p>
+<p><code>安装composer</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//下载composer</span><br><span class="line">curl -sS https://getcomposer.org/installer | php</span><br><span class="line">//将composer.phar移入bin目录，使composer可全局使用</span><br><span class="line">mv composer.phar /usr/local/bin/composer</span><br><span class="line">//切换国内源，以加快composer速度</span><br><span class="line">composer config -g repo.packagist composer https://packagist.laravel-china.org</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/04/03/Go语言urlencode和urldecode操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1799,186 +1966,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/03/20/江城子·丽园拂笔/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/20/江城子·丽园拂笔/" class="post-title-link" itemprop="url">江城子 · 丽园拂笔</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-20 15:41:15" itemprop="dateCreated datePublished" datetime="2019-03-20T15:41:15+08:00">2019-03-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-22 14:41:04" itemprop="dateModified" datetime="2019-03-22T14:41:04+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/缥缃醉/" itemprop="url" rel="index"><span itemprop="name">缥缃醉</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<p><em>&emsp;&emsp;拾遗戊戌，回首春秋。惘怅兮，苦勚矣！怫艴兮，讟黩矣！葸衋兮？餍澍矣。沆瀣一气？薰莸异器！马齿徒增？芊蕙葳蕤！忆往昔雪泥鸿爪，顾今朝细雨梅花。高歌，懋，祎；吟诗，酺，蓺；属文，飨，念。</em></p>
-<p><strong>&emsp;&emsp;瑞犬戊戌吠花篱。走寒舍，奔京畿。丽园而思，庠序勚骸体。凭轩噙涕颎熸息，滨城逸，拾旖旎。</strong><br><strong>&emsp;&emsp;金猪己亥迎春熙。安济奰，心若嘻。遹势则勼，牍札递馨苾。踏舲漫澹楫涟漪，舁荆棘，赴桦霁。</strong></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2018,7 +2012,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2074,7 +2068,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
