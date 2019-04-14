@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="BJLC&#39;s Blog">
 <meta property="og:description" content="12345678//获取源码包wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz//解压tar -zxvf go1.12.4.linux-amd64.tar.gz//修改/etc/profile添加GOPATH和GOROOTexport GOPATH=/home/zj/Goexport GOROOT=/usr/src/go//复制/u">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-14T10:39:24.720Z">
+<meta property="og:updated_time" content="2019-04-14T12:17:54.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go安装">
 <meta name="twitter:description" content="12345678//获取源码包wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz//解压tar -zxvf go1.12.4.linux-amd64.tar.gz//修改/etc/profile添加GOPATH和GOROOTexport GOPATH=/home/zj/Goexport GOROOT=/usr/src/go//复制/u">
@@ -387,7 +387,7 @@
                 
               
 
-              <time title="创建时间：2019-04-14 18:39:24" itemprop="dateCreated datePublished" datetime="2019-04-14T18:39:24+08:00">2019-04-14</time>
+              <time title="创建时间：2019-04-14 20:17:54" itemprop="dateCreated datePublished" datetime="2019-04-14T20:17:54+08:00">2019-04-14</time>
             
 
             
@@ -450,6 +450,7 @@
 
       
         <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取源码包</span><br><span class="line">wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//修改/etc/profile添加GOPATH和GOROOT</span><br><span class="line">export GOPATH=/home/zj/Go</span><br><span class="line">export GOROOT=/usr/src/go</span><br><span class="line">//复制/usr/src/go/bin下文件到/usr/local/bin，使go命令可全局使用</span><br></pre></td></tr></table></figure>
+<p><em><code>vim中go语法高亮</code></em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//更新vim版本到7.4.2，卸载旧版vim</span><br><span class="line">yum remove -y vim-enhanced</span><br><span class="line">//安装新版本vim</span><br><span class="line">wget https://github.com/vim/vim/archive/v7.4.2367.tar.gz</span><br><span class="line">tar zxvf v7.4.2367.tar.gz</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//安装vim插件管理工具</span><br><span class="line">mkdir -p ~/.vim/autoload ~/.vim/bundle</span><br><span class="line">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim</span><br><span class="line">//编辑.vimrc加入如下内容</span><br><span class="line">execute pathogen#infect() </span><br><span class="line">syntax on </span><br><span class="line">filetype plugin indent on</span><br><span class="line">//安装其他vim插件只需要将插件放到~/.vim/bundle里即可</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
