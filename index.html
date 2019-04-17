@@ -340,6 +340,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/04/17/hello/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/17/hello/" class="post-title-link" itemprop="url">Go安装</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-17 22:26:30" itemprop="dateCreated datePublished" datetime="2019-04-17T22:26:30+08:00">2019-04-17</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <table>
+<thead>
+<tr>
+<th style="text-align:left">请求方式</th>
+<th style="text-align:center">ab压测数据（QPS）（ab -c 100 -n 10000）</th>
+<th style="text-align:center">请求时间（单位：ms）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GuzzleHttp</td>
+<td style="text-align:center">87.82</td>
+<td style="text-align:center">81</td>
+</tr>
+<tr>
+<td style="text-align:left">curl_multi</td>
+<td style="text-align:center">171.18</td>
+<td style="text-align:center">49</td>
+</tr>
+<tr>
+<td style="text-align:left">go协程</td>
+<td style="text-align:center">320.23</td>
+<td style="text-align:center">451</td>
+</tr>
+<tr>
+<td style="text-align:left">swoole协程</td>
+<td style="text-align:center">468.06</td>
+<td style="text-align:center">34</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">,QPS,响应时间</span><br><span class="line">GuzzleHttp,87.82,81</span><br><span class="line">curl_multi,171.18,49</span><br><span class="line">go协程,320.23,451</span><br><span class="line">swoole协程,468.06,34</span><br><span class="line"></span><br><span class="line">type:column</span><br><span class="line">title:请求5个接口</span><br><span class="line">x.title:请求方式</span><br><span class="line">y.title:QPS/响应时间（ms）</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/04/14/Go安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1791,175 +1981,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/03/24/PHP7新特性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/24/PHP7新特性/" class="post-title-link" itemprop="url">PHP7新特性</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-24 16:26:53" itemprop="dateCreated datePublished" datetime="2019-03-24T16:26:53+08:00">2019-03-24</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>PHP7除了在性能方面提升了很多，也加入了很多新特性，一起看一下吧。</code></p>
-<p><strong><code>1、太空船操作符（&lt;=&gt;）</code></strong><br>&emsp;&emsp;太空船操作符用于比较两个表达式，大于、等于和小于时分别返回1、0、-1。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="number">1</span> &lt;=&gt; <span class="number">1</span>; <span class="comment">//0</span></span><br><span class="line"><span class="keyword">echo</span> <span class="number">1</span> &lt;=&gt; <span class="number">0</span>; <span class="comment">//1</span></span><br><span class="line"><span class="keyword">echo</span> <span class="number">1.8</span> &lt;=&gt; <span class="number">2</span>; <span class="comment">//-1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'a'</span> &lt;=&gt; <span class="string">'a'</span>; <span class="comment">//0</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'a'</span> &lt;=&gt; <span class="string">'b'</span>; <span class="comment">//-1</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'b'</span> &lt;=&gt; <span class="string">'a'</span>; <span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><code>2、标量类型申明和返回值类型声明</code></strong><br>&emsp;&emsp;PHP7可以对以下几种标量类型的参数做声明：<code>字符串(string)</code>、<code>整型(int)</code>、<code>浮点型(float)</code>，<code>布尔型(bool)</code>。参数类型声明不受限于默认模式和严格模式，默认模式时传入的参数不符合声明类型会进行类型转换，严格模式则会报错。<br><code>参数类型声明</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//声明为严格模式,注释此行将不会报错</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">(int ...$ints)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(sum(<span class="number">1</span>, <span class="string">'1.1'</span>, <span class="number">1.1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">declare(strict_types = 1);</span></span><br><span class="line"><span class="comment">PHP Fatal error:  Uncaught TypeError: Argument 2 passed to sum() must be of the type integer, string given</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">declare(strict_types = 1);</span></span><br><span class="line"><span class="comment">int(3)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p><code>返回值类型声明</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//声明为严格模式，注释此行将不会报错</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">(int ...$ints)</span> : <span class="title">int</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(sum(<span class="number">1</span>, <span class="string">'1.1'</span>, <span class="number">1.1</span>));</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">declare(strict_types = 1);</span></span><br><span class="line"><span class="comment">PHP Fatal error:  Uncaught TypeError: Argument 2 passed to sum() must be of the type integer, string given</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">declare(strict_types = 0);</span></span><br><span class="line"><span class="comment">int(3)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;PHP7.1可以将函数返回值类型定义为 <code>viod</code> ,无论是否开启严格模式，只要函数中有 <code>return;</code>，那么其他 <code>return</code>语句都将报错。<strong>参数类型不可以声明为 <code>viod</code></strong>。<br><code>返回值声明为 void</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testVoid</span><span class="params">(int ...$ints)</span> : <span class="title">void</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(testVoid(<span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>));</span><br><span class="line"><span class="comment">/*运行结果如下：</span></span><br><span class="line"><span class="comment">return array_sum($ints);</span></span><br><span class="line"><span class="comment">PHP Fatal error:  A void function must not return a value</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return null;</span></span><br><span class="line"><span class="comment">PHP Fatal error:  A void function must not return a value (did you mean "return;" instead of "return null;"?)</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return;</span></span><br><span class="line"><span class="comment">NULL</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;PHP7.1对于参数类型和返回值类型还可以是<code>可空类型</code>，在参数或者返回值类型声明前加<code>?</code>即可。<br><code>可空参数类型和返回值类型</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">(?int ...$ints)</span> : ?<span class="title">int</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">    <span class="keyword">return</span> strval(implode(<span class="string">','</span>, $ints));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">var_dump(test(<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>));</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">return array_sum($ints);</span></span><br><span class="line"><span class="comment">int(7)</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return strval(implode(',', $ints));</span></span><br><span class="line"><span class="comment">PHP Fatal error:  Uncaught TypeError: Return value of test() must be of the type integer or null, string returned</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return null;</span></span><br><span class="line"><span class="comment">NULL</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return;</span></span><br><span class="line"><span class="comment">PHP Fatal error:  A function with return type must return a value (did you mean "return null;" instead of "return;"?)</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><code>3、null合并运算符</code></strong><br>&emsp;&emsp;PHP 7以前我们通常会写这样的代码：<br>&emsp;&emsp;<code>$name = isset($res[&#39;name&#39;]) ? $res[&#39;name&#39;] : &#39;&#39;;</code><br>&emsp;&emsp;PHP7以后我们可以这样写：<br>&emsp;&emsp;<code>$name = $res[&#39;name&#39;] ?? &#39;&#39;;</code><br>&emsp;&emsp;这样就极大简化了我们的代码。<br>&emsp;&emsp;对于这样的代码我们也可以做简化：<br>&emsp;&emsp;<code>$name = !empty($res[&#39;name&#39;]) ? $res[&#39;name&#39;] : &#39;&#39;;</code><br>&emsp;&emsp;<code>$name = $res[&#39;name&#39;] ?: &#39;&#39;;</code><br>&emsp;&emsp;对于连续的三元运算符还可以这样写：<br>&emsp;&emsp;<code>$name = $res[&#39;name&#39;] ?? $data[&#39;name&#39;] ?? &#39;&#39;;</code><br><strong><code>4、define定义常量数组</code></strong><br>&emsp;&emsp;PHP7之前无法通过<code>define</code>来定义一个常量数组，PHP7支持。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(<span class="string">'TYPES'</span>, [</span><br><span class="line"><span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">]);</span><br><span class="line">print_r(TYPES);</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">Array</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [0] =&gt; 1</span></span><br><span class="line"><span class="comment">    [1] =&gt; 2</span></span><br><span class="line"><span class="comment">    [2] =&gt; 3</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><code>5、批量导入namespace命名空间</code></strong><br>&emsp;&emsp;PHP7之前如果需要导入同一个<code>namespace</code>的多个类，需要这样写：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\<span class="title">A</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\<span class="title">B</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\<span class="title">C</span>;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;PHP7可以这样写：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\&#123;<span class="title">A</span>, <span class="title">B</span>, <span class="title">C</span>&#125;;</span><br></pre></td></tr></table></figure></p>
-<p><strong><code>6、throwable接口</code></strong><br>&emsp;&emsp;PHP7之前如果代码有<code>语法错误</code>，或者<code>fatal error</code>程序会直接报错退出，PHP7实现了<code>throwable</code>接口，原来的<code>Exception</code>和部分<code>Error</code>实现了该接口，那么这种<code>Error</code>和<code>Exception</code>会被第一个<code>try catch</code>捕获。没有匹配的<code>catch</code>块，则会调用<code>异常处理函数</code>，如果没有注册，则会<code>fatal error</code>。<code>Error</code>类并非继承<code>Exception</code>，所以要想捕获<code>Error</code>，可以<code>catch (Error $e) {}</code>或者通过注册异常处理函数<code>set_exception_handler()</code>来捕获<code>Error</code>。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    test();</span><br><span class="line">&#125; <span class="keyword">catch</span> (Error $e) &#123;</span><br><span class="line">    print_r($e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">set_exception_handler(<span class="function"><span class="keyword">function</span> <span class="params">($e)</span> </span>&#123;</span><br><span class="line">    print_r($e);</span><br><span class="line">&#125;);</span><br><span class="line">test();</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">Error Object</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [message:protected] =&gt; Call to undefined function test()</span></span><br><span class="line"><span class="comment">    [string:Error:private] =&gt;</span></span><br><span class="line"><span class="comment">    [code:protected] =&gt; 0</span></span><br><span class="line"><span class="comment">    [file:protected] =&gt; D:\xampp\htdocs\demo\bz.github.io\exception.php</span></span><br><span class="line"><span class="comment">    [line:protected] =&gt; 14</span></span><br><span class="line"><span class="comment">    [trace:Error:private] =&gt; Array</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    [previous:Error:private] =&gt;</span></span><br><span class="line"><span class="comment">    [xdebug_message] =&gt;</span></span><br><span class="line"><span class="comment">Error: Call to undefined function test()</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><code>7、intdiv函数</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> intdiv(<span class="number">10</span>, <span class="number">3</span>); <span class="comment">// 3</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="number">10</span> / <span class="number">3</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2006,7 +2027,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
