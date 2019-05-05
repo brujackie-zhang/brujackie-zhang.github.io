@@ -96,25 +96,29 @@
 
 
 
-  <meta name="description" content="先看两个PHP文件，A.php ?&amp;gt; 后面有空行123456789&amp;lt;?phpclass A&amp;#123;    const A_TEST = &apos;A&apos;;&amp;#125;?&amp;gt;. B.php 引入 A.php,在输出之前有header等函数调用12345require_once(__DIR__ . &apos;/A.php&apos;);header(&apos;HTTP/1.1 404 Not Found&apos;);head">
-<meta name="keywords" content="PHP">
+  <meta name="description" content="shell类型很多，Linux下默认是bash，经常看到别人炫酷的终端，很羡慕吧，下面咱们基于开源项目oh-my-zsh打造我们自己的炫酷终端。  安装zsh12345678910111213141516//查看单前使用的shell$ echo $SHELL/bin/bash//查看系统是否已经安装zsh$ cat /etc/shells/bin/sh/bin/bash/usr/bin/sh/u">
+<meta name="keywords" content="zsh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="为什么纯PHP文件末尾不建议使用闭合标签">
-<meta property="og:url" content="http://www.coderzj.com/2019/03/21/为什么纯PHP文件末尾不建议使用闭合标签/index.html">
+<meta property="og:title" content="oh-my-zsh打造你的炫酷终端">
+<meta property="og:url" content="http://www.coderzj.com/2019/05/05/oh-my-zsh打造你的炫酷终端/index.html">
 <meta property="og:site_name" content="BJLC&#39;s Blog">
-<meta property="og:description" content="先看两个PHP文件，A.php ?&amp;gt; 后面有空行123456789&amp;lt;?phpclass A&amp;#123;    const A_TEST = &apos;A&apos;;&amp;#125;?&amp;gt;. B.php 引入 A.php,在输出之前有header等函数调用12345require_once(__DIR__ . &apos;/A.php&apos;);header(&apos;HTTP/1.1 404 Not Found&apos;);head">
+<meta property="og:description" content="shell类型很多，Linux下默认是bash，经常看到别人炫酷的终端，很羡慕吧，下面咱们基于开源项目oh-my-zsh打造我们自己的炫酷终端。  安装zsh12345678910111213141516//查看单前使用的shell$ echo $SHELL/bin/bash//查看系统是否已经安装zsh$ cat /etc/shells/bin/sh/bin/bash/usr/bin/sh/u">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-21T06:49:04.000Z">
+<meta property="og:image" content="en-resource://database/556:1">
+<meta property="og:image" content="en-resource://database/558:1">
+<meta property="og:image" content="en-resource://database/560:1">
+<meta property="og:updated_time" content="2019-05-05T08:17:32.147Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="为什么纯PHP文件末尾不建议使用闭合标签">
-<meta name="twitter:description" content="先看两个PHP文件，A.php ?&amp;gt; 后面有空行123456789&amp;lt;?phpclass A&amp;#123;    const A_TEST = &apos;A&apos;;&amp;#125;?&amp;gt;. B.php 引入 A.php,在输出之前有header等函数调用12345require_once(__DIR__ . &apos;/A.php&apos;);header(&apos;HTTP/1.1 404 Not Found&apos;);head">
+<meta name="twitter:title" content="oh-my-zsh打造你的炫酷终端">
+<meta name="twitter:description" content="shell类型很多，Linux下默认是bash，经常看到别人炫酷的终端，很羡慕吧，下面咱们基于开源项目oh-my-zsh打造我们自己的炫酷终端。  安装zsh12345678910111213141516//查看单前使用的shell$ echo $SHELL/bin/bash//查看系统是否已经安装zsh$ cat /etc/shells/bin/sh/bin/bash/usr/bin/sh/u">
+<meta name="twitter:image" content="en-resource://database/556:1">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.coderzj.com/2019/03/21/为什么纯PHP文件末尾不建议使用闭合标签/">
+  <link rel="canonical" href="http://www.coderzj.com/2019/05/05/oh-my-zsh打造你的炫酷终端/">
 
 
 
@@ -124,7 +128,7 @@
   };
 </script>
 
-  <title>为什么纯PHP文件末尾不建议使用闭合标签 | BJLC's Blog</title>
+  <title>oh-my-zsh打造你的炫酷终端 | BJLC's Blog</title>
   
 
 
@@ -344,7 +348,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/03/21/为什么纯PHP文件末尾不建议使用闭合标签/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/oh-my-zsh打造你的炫酷终端/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -361,7 +365,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">为什么纯PHP文件末尾不建议使用闭合标签
+          <h1 class="post-title" itemprop="name headline">oh-my-zsh打造你的炫酷终端
 
               
             
@@ -387,13 +391,9 @@
                 
               
 
-              <time title="创建时间：2019-03-21 13:22:56 / 修改时间：14:49:04" itemprop="dateCreated datePublished" datetime="2019-03-21T13:22:56+08:00">2019-03-21</time>
+              <time title="创建时间：2019-05-05 16:17:32" itemprop="dateCreated datePublished" datetime="2019-05-05T16:17:32+08:00">2019-05-05</time>
             
 
-            
-              
-
-              
             
           </span>
 
@@ -409,7 +409,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
 
                 
                 
@@ -453,13 +453,20 @@
       
 
       
-        <p>先看两个PHP文件，<br><code>A.php ?&gt; 后面有空行</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> A_TEST = <span class="string">'A'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.</span><br></pre></td></tr></table></figure></p>
-<p><code>B.php 引入 A.php,在输出之前有header等函数调用</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require_once</span>(<span class="keyword">__DIR__</span> . <span class="string">'/A.php'</span>);</span><br><span class="line"></span><br><span class="line">header(<span class="string">'HTTP/1.1 404 Not Found'</span>);</span><br><span class="line">header(<span class="string">'status:404 Not Found'</span>);</span><br><span class="line"><span class="keyword">echo</span> A::A_TEST;</span><br></pre></td></tr></table></figure></p>
-<p><code>此时执行B.php报错如下：</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\demo\short1.php:<span class="number">10</span>) in D:\xampp\htdocs\demo\short2.php on line <span class="number">5</span></span><br><span class="line">PHP Stack trace:</span><br><span class="line">PHP   <span class="number">1.</span> &#123;main&#125;() D:\xampp\htdocs\demo\short2.php:<span class="number">0</span></span><br><span class="line">PHP   <span class="number">2.</span> header() D:\xampp\htdocs\demo\short2.php:<span class="number">5</span></span><br><span class="line"></span><br><span class="line">Warning: Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\demo\short1.php:<span class="number">10</span>) in D:\xampp\htdocs\demo\short2.php on line <span class="number">5</span></span><br><span class="line"></span><br><span class="line">Call Stack:</span><br><span class="line">    <span class="number">0.0003</span>     <span class="number">375864</span>   <span class="number">1.</span> &#123;main&#125;() D:\xampp\htdocs\demo\short2.php:<span class="number">0</span></span><br><span class="line">    <span class="number">0.0006</span>     <span class="number">376280</span>   <span class="number">2.</span> header() D:\xampp\htdocs\demo\short2.php:<span class="number">5</span></span><br><span class="line"></span><br><span class="line">PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\demo\short1.php:<span class="number">10</span>) in D:\xampp\htdocs\demo\short2.php on line <span class="number">6</span></span><br><span class="line">PHP Stack trace:</span><br><span class="line">PHP   <span class="number">1.</span> &#123;main&#125;() D:\xampp\htdocs\demo\short2.php:<span class="number">0</span></span><br><span class="line">PHP   <span class="number">2.</span> header() D:\xampp\htdocs\demo\short2.php:<span class="number">6</span></span><br><span class="line"></span><br><span class="line">Warning: Cannot modify header information - headers already sent by (output started at D:\xampp\htdocs\demo\short1.php:<span class="number">10</span>) in D:\xampp\htdocs\demo\short2.php on line <span class="number">6</span></span><br><span class="line"></span><br><span class="line">Call Stack:</span><br><span class="line">    <span class="number">0.0003</span>     <span class="number">375864</span>   <span class="number">1.</span> &#123;main&#125;() D:\xampp\htdocs\demo\short2.php:<span class="number">0</span></span><br><span class="line">    <span class="number">0.0013</span>     <span class="number">376280</span>   <span class="number">2.</span> header() D:\xampp\htdocs\demo\short2.php:<span class="number">6</span></span><br><span class="line"></span><br><span class="line">short1[Finished in <span class="number">0.2</span>s]</span><br></pre></td></tr></table></figure></p>
-<p><code>这是因为在调用header函数之前已经有空行输出了，而这些函数在调用前是不允许有输出的，所以如果文件是纯PHP代码，那么建议去掉PHP文件的闭合标签，这样可以避免在PHP文件结束标记之后输入空格或者空行之后，输出无意义的空格或者空行。</code></p>
-<blockquote>
-<p>header() 用于发送原生的 HTTP 头。header() 必须在任何实际输出之前调用，不管是普通的 HTML 标签，还是文件或 PHP 输出的空行，空格。这是个常见的错误，在通过include，require，或者其访问其他文件里面的函数的时候，如果在header()被调用之前，其中有空格或者空行。 同样的问题也存在于单独的 PHP/HTML 文件中。</p>
+        <blockquote>
+<p>shell类型很多，<code>Linux</code>下默认是<code>bash</code>，经常看到别人炫酷的终端，很羡慕吧，下面咱们基于开源项目<code>oh-my-zsh</code>打造我们自己的炫酷终端。</p>
 </blockquote>
+<h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装<code>zsh</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//查看单前使用的shell</span><br><span class="line"><span class="meta">$</span> echo $SHELL</span><br><span class="line">/bin/bash</span><br><span class="line"></span><br><span class="line">//查看系统是否已经安装zsh</span><br><span class="line"><span class="meta">$</span> cat /etc/shells</span><br><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/usr/bin/sh</span><br><span class="line">/usr/bin/bash</span><br><span class="line"></span><br><span class="line">//安装zsh（以Centos为例）</span><br><span class="line">yum -y install zsh</span><br><span class="line"></span><br><span class="line">//切换默认shell为zsh，并重启</span><br><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+<h3 id="安装oh-my-zsh"><a href="#安装oh-my-zsh" class="headerlink" title="安装oh-my-zsh"></a>安装oh-my-zsh</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//安装之前请确保已安装git</span><br><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安装<code>oh-my-zsh</code>之后可以安装自己喜欢的主题和插件，这里演示一下自动补全插件<code>zsh-autosuggestions</code>和主题<code>agnosterzak</code>的安装方式。</p>
+</blockquote>
+<h5 id="自动补全插件-zsh-autosuggestions"><a href="#自动补全插件-zsh-autosuggestions" class="headerlink" title="自动补全插件 zsh-autosuggestions"></a>自动补全插件 <code>zsh-autosuggestions</code></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//先获取zsh-autosuggestions</span><br><span class="line">git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions</span><br><span class="line">//然后修改 ~/.zshrc</span><br><span class="line">plugins=(git zsh-autosuggestions)</span><br></pre></td></tr></table></figure>
+<h5 id="主题-agnosterzak"><a href="#主题-agnosterzak" class="headerlink" title="主题 agnosterzak"></a>主题 <code>agnosterzak</code></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//安装agnosterzak主题需要依赖 Powerline fonts</span><br><span class="line">git clone https://github.com/powerline/fonts.git --depth=1</span><br><span class="line">cd fonts</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
+<p><code>可以通过打印这些字符来检验是否支持Powerline fonts</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo "\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"</span><br></pre></td></tr></table></figure></p>
+<p><img src="en-resource://database/556:1" alt="c3d05129573a2bad445d71503cde6897.png"><br><a href="https://raw.githubusercontent.com/zakaziko99/agnosterzak-ohmyzsh-theme/master/agnosterzak.zsh-theme" target="_blank" rel="noopener">agnosterzak主题下载地址</a><br><code>将下载的主题放到 ~/.oh-my-zsh/themes，然后修改 ~/.zshrc</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZSH_THEME="agnosterzak"</span><br></pre></td></tr></table></figure></p>
+<p><code>这时候的效果是这样的，这时候如果有新的git文件没被追踪，会是很刺眼的黄色，可以修改刚才下载的主题文件191行自定义颜色。</code><br><img src="en-resource://database/558:1" alt="e2e3564a77fed18566cf05ae058f822f.png"><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bgclr='magenta'</span><br><span class="line">fgclr='yellow'</span><br></pre></td></tr></table></figure></p>
+<p><code>改完的效果这样，舒服了很多</code><br><img src="en-resource://database/560:1" alt="b1e0b4b29e38217b0211b59de25a0c03.png"><br><code>oh-my-zsh</code>还有很多强大的功能等着大家去发现呢？赶紧去试试吧！</p>
 
       
     </div>
@@ -483,7 +490,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/PHP/" rel="tag"># PHP</a>
+            <a href="/tags/zsh/" rel="tag"># zsh</a>
           
         </div>
       
@@ -496,8 +503,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/20/江城子·丽园拂笔/" rel="next" title="江城子 · 丽园拂笔">
-                <i class="fa fa-chevron-left"></i> 江城子 · 丽园拂笔
+              <a href="/2019/05/05/PHP7新特性/" rel="next" title="PHP7新特性">
+                <i class="fa fa-chevron-left"></i> PHP7新特性
               </a>
             
           </div>
@@ -505,10 +512,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/05/神奇的宏替换/" rel="prev" title="神奇的宏替换">
-                神奇的宏替换 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -552,8 +555,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -663,6 +675,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装zsh"><span class="nav-number">1.</span> <span class="nav-text">安装zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装oh-my-zsh"><span class="nav-number">2.</span> <span class="nav-text">安装oh-my-zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自动补全插件-zsh-autosuggestions"><span class="nav-number">2.0.1.</span> <span class="nav-text">自动补全插件 zsh-autosuggestions</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主题-agnosterzak"><span class="nav-number">2.0.2.</span> <span class="nav-text">主题 agnosterzak</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
