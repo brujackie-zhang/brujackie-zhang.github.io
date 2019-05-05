@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="Go语言中可以通过net/url来进行urlencode和urldecode操作：12345678910111213141516171819202122package mainimport (    &quot;fmt&quot;    &quot;net/url&quot;)func main() &amp;#123;    u := url.Values&amp;#123;&amp;#125;    //urlencode    u.Add(&quot;name&quot;,">
-<meta name="keywords" content="Go,url">
+  <meta name="description" content="Go中通过crypto/md5有两种MD5加密方式：12345678910111213141516171819202122232425262728package mainimport (    &quot;fmt&quot;    &quot;crypto/md5&quot;    &quot;encoding/hex&quot;)func main() &amp;#123;    //需要MD5的字符串    str := []byte(&quot;hello world">
+<meta name="keywords" content="Go,MD5">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go语言urlencode和urldecode操作">
-<meta property="og:url" content="http://www.coderzj.com/2019/04/03/Go语言urlencode和urldecode操作/index.html">
+<meta property="og:title" content="Go语言MD5加密">
+<meta property="og:url" content="http://www.coderzj.com/2019/05/05/Go语言MD5加密/index.html">
 <meta property="og:site_name" content="BJLC&#39;s Blog">
-<meta property="og:description" content="Go语言中可以通过net/url来进行urlencode和urldecode操作：12345678910111213141516171819202122package mainimport (    &quot;fmt&quot;    &quot;net/url&quot;)func main() &amp;#123;    u := url.Values&amp;#123;&amp;#125;    //urlencode    u.Add(&quot;name&quot;,">
+<meta property="og:description" content="Go中通过crypto/md5有两种MD5加密方式：12345678910111213141516171819202122232425262728package mainimport (    &quot;fmt&quot;    &quot;crypto/md5&quot;    &quot;encoding/hex&quot;)func main() &amp;#123;    //需要MD5的字符串    str := []byte(&quot;hello world">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-03T14:21:00.987Z">
+<meta property="og:updated_time" content="2019-04-03T10:57:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go语言urlencode和urldecode操作">
-<meta name="twitter:description" content="Go语言中可以通过net/url来进行urlencode和urldecode操作：12345678910111213141516171819202122package mainimport (    &quot;fmt&quot;    &quot;net/url&quot;)func main() &amp;#123;    u := url.Values&amp;#123;&amp;#125;    //urlencode    u.Add(&quot;name&quot;,">
+<meta name="twitter:title" content="Go语言MD5加密">
+<meta name="twitter:description" content="Go中通过crypto/md5有两种MD5加密方式：12345678910111213141516171819202122232425262728package mainimport (    &quot;fmt&quot;    &quot;crypto/md5&quot;    &quot;encoding/hex&quot;)func main() &amp;#123;    //需要MD5的字符串    str := []byte(&quot;hello world">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.coderzj.com/2019/04/03/Go语言urlencode和urldecode操作/">
+  <link rel="canonical" href="http://www.coderzj.com/2019/05/05/Go语言MD5加密/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>Go语言urlencode和urldecode操作 | BJLC's Blog</title>
+  <title>Go语言MD5加密 | BJLC's Blog</title>
   
 
 
@@ -344,7 +344,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/04/03/Go语言urlencode和urldecode操作/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言MD5加密/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -361,7 +361,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Go语言urlencode和urldecode操作
+          <h1 class="post-title" itemprop="name headline">Go语言MD5加密
 
               
             
@@ -387,9 +387,25 @@
                 
               
 
-              <time title="创建时间：2019-04-03 22:21:00" itemprop="dateCreated datePublished" datetime="2019-04-03T22:21:00+08:00">2019-04-03</time>
+              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-03 18:57:41" itemprop="dateModified" datetime="2019-04-03T18:57:41+08:00">2019-04-03</time>
+              
             
           </span>
 
@@ -449,7 +465,7 @@
       
 
       
-        <p>Go语言中可以通过<code>net/url</code>来进行<code>urlencode</code>和<code>urldecode</code>操作：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"net/url"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    u := url.Values&#123;&#125;</span><br><span class="line">    <span class="comment">//urlencode</span></span><br><span class="line">    u.Add(<span class="string">"name"</span>, <span class="string">"golang是编译型语言"</span>)</span><br><span class="line">    u.Add(<span class="string">"type"</span>, <span class="string">"static静态类型"</span>)</span><br><span class="line">    urlencodeStr := u.Encode()</span><br><span class="line">    fmt.Println(urlencodeStr)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//urldecode</span></span><br><span class="line">    urldecodeStr, err := url.ParseQuery(urlencodeStr)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"urldecode错误,Error:%s\n"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(urldecodeStr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <p>Go中通过<code>crypto/md5</code>有两种MD5加密方式：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"crypto/md5"</span></span><br><span class="line">    <span class="string">"encoding/hex"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//需要MD5的字符串</span></span><br><span class="line">    str := []<span class="keyword">byte</span>(<span class="string">"hello world"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法一：</span></span><br><span class="line">    <span class="comment">//实例化md5对象，返回hash.Hash对象</span></span><br><span class="line">    m := md5.New()</span><br><span class="line">    m.Write(str)</span><br><span class="line">    <span class="comment">//计算MD5检验和</span></span><br><span class="line">    md5Str := m.Sum(<span class="literal">nil</span>)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str)</span><br><span class="line">    <span class="comment">//转换成16进制</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法二：</span></span><br><span class="line">    md5Str1 := md5.Sum(str)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str1)</span><br><span class="line">    <span class="comment">//转换成16进制,需要注意md5后的数据类型</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str1[:]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -475,7 +491,7 @@
           
             <a href="/tags/Go/" rel="tag"># Go</a>
           
-            <a href="/tags/url/" rel="tag"># url</a>
+            <a href="/tags/MD5/" rel="tag"># MD5</a>
           
         </div>
       
@@ -488,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/03/Go语言JSON操作/" rel="next" title="Go语言JSON操作">
-                <i class="fa fa-chevron-left"></i> Go语言JSON操作
+              <a href="/2019/05/05/Go语言urlencode和urldecode操作/" rel="next" title="Go语言urlencode和urldecode操作">
+                <i class="fa fa-chevron-left"></i> Go语言urlencode和urldecode操作
               </a>
             
           </div>
@@ -498,8 +514,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/14/LNMP源码编译安装/" rel="prev" title="LNMP源码编译安装">
-                LNMP源码编译安装 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/05/Go安装/" rel="prev" title="Go安装">
+                Go安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
