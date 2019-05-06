@@ -96,25 +96,29 @@
 
 
 
-  <meta name="description" content="Go中通过crypto/md5有两种MD5加密方式：12345678910111213141516171819202122232425262728package mainimport (    &quot;fmt&quot;    &quot;crypto/md5&quot;    &quot;encoding/hex&quot;)func main() &amp;#123;    //需要MD5的字符串    str := []byte(&quot;hello world">
-<meta name="keywords" content="Go,MD5">
+  <meta name="description" content="shell类型很多，Linux下默认是bash，经常看到别人炫酷的终端，很羡慕吧，下面咱们基于开源项目oh-my-zsh打造我们自己的炫酷终端。  安装zsh12345678910111213141516//查看单前使用的shell$ echo $SHELL/bin/bash//查看系统是否已经安装zsh$ cat /etc/shells/bin/sh/bin/bash/usr/bin/sh/u">
+<meta name="keywords" content="zsh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go语言MD5加密">
-<meta property="og:url" content="http://www.coderzj.com/2019/05/05/Go语言MD5加密/index.html">
+<meta property="og:title" content="oh-my-zsh打造你的炫酷终端">
+<meta property="og:url" content="http://www.coderzj.com/2019/05/06/oh-my-zsh打造你的炫酷终端/index.html">
 <meta property="og:site_name" content="BJLC&#39;s Blog">
-<meta property="og:description" content="Go中通过crypto/md5有两种MD5加密方式：12345678910111213141516171819202122232425262728package mainimport (    &quot;fmt&quot;    &quot;crypto/md5&quot;    &quot;encoding/hex&quot;)func main() &amp;#123;    //需要MD5的字符串    str := []byte(&quot;hello world">
+<meta property="og:description" content="shell类型很多，Linux下默认是bash，经常看到别人炫酷的终端，很羡慕吧，下面咱们基于开源项目oh-my-zsh打造我们自己的炫酷终端。  安装zsh12345678910111213141516//查看单前使用的shell$ echo $SHELL/bin/bash//查看系统是否已经安装zsh$ cat /etc/shells/bin/sh/bin/bash/usr/bin/sh/u">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-03T10:57:41.000Z">
+<meta property="og:image" content="http://bjlc-bucket.oss-cn-beijing.aliyuncs.com/powerline_support.png?Expires=1557116885&OSSAccessKeyId=TMP.AgHI33h-N3mlD5kUwwBNSFWiIfEz6JSVlFkohMSgkI-7wx8urwWXooSybBqbMC4CFQC8QrUA0nFaP1DsXQ1lkCZVWB_ZZQIVAPUkKNsZLNkWe_yom3IkODx8_YjK&Signature=LFzflV2Fnad78MOWQoe%2BlFgQTqk%3D">
+<meta property="og:image" content="http://bjlc-bucket.oss-cn-beijing.aliyuncs.com/git_untraced_file.png?Expires=1557116929&OSSAccessKeyId=TMP.AgHI33h-N3mlD5kUwwBNSFWiIfEz6JSVlFkohMSgkI-7wx8urwWXooSybBqbMC4CFQC8QrUA0nFaP1DsXQ1lkCZVWB_ZZQIVAPUkKNsZLNkWe_yom3IkODx8_YjK&Signature=0MXaJ0S5SPlH5bJDYWpQmJmyKuI%3D">
+<meta property="og:image" content="http://bjlc-bucket.oss-cn-beijing.aliyuncs.com/git_untraced_file_alter.png?Expires=1557116971&OSSAccessKeyId=TMP.AgHI33h-N3mlD5kUwwBNSFWiIfEz6JSVlFkohMSgkI-7wx8urwWXooSybBqbMC4CFQC8QrUA0nFaP1DsXQ1lkCZVWB_ZZQIVAPUkKNsZLNkWe_yom3IkODx8_YjK&Signature=LuuwJ1R76VOajq9eV8v4R7JsoYg%3D">
+<meta property="og:updated_time" content="2019-05-06T03:30:14.414Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go语言MD5加密">
-<meta name="twitter:description" content="Go中通过crypto/md5有两种MD5加密方式：12345678910111213141516171819202122232425262728package mainimport (    &quot;fmt&quot;    &quot;crypto/md5&quot;    &quot;encoding/hex&quot;)func main() &amp;#123;    //需要MD5的字符串    str := []byte(&quot;hello world">
+<meta name="twitter:title" content="oh-my-zsh打造你的炫酷终端">
+<meta name="twitter:description" content="shell类型很多，Linux下默认是bash，经常看到别人炫酷的终端，很羡慕吧，下面咱们基于开源项目oh-my-zsh打造我们自己的炫酷终端。  安装zsh12345678910111213141516//查看单前使用的shell$ echo $SHELL/bin/bash//查看系统是否已经安装zsh$ cat /etc/shells/bin/sh/bin/bash/usr/bin/sh/u">
+<meta name="twitter:image" content="http://bjlc-bucket.oss-cn-beijing.aliyuncs.com/powerline_support.png?Expires=1557116885&OSSAccessKeyId=TMP.AgHI33h-N3mlD5kUwwBNSFWiIfEz6JSVlFkohMSgkI-7wx8urwWXooSybBqbMC4CFQC8QrUA0nFaP1DsXQ1lkCZVWB_ZZQIVAPUkKNsZLNkWe_yom3IkODx8_YjK&Signature=LFzflV2Fnad78MOWQoe%2BlFgQTqk%3D">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.coderzj.com/2019/05/05/Go语言MD5加密/">
+  <link rel="canonical" href="http://www.coderzj.com/2019/05/06/oh-my-zsh打造你的炫酷终端/">
 
 
 
@@ -124,7 +128,7 @@
   };
 </script>
 
-  <title>Go语言MD5加密 | BJLC's Blog</title>
+  <title>oh-my-zsh打造你的炫酷终端 | BJLC's Blog</title>
   
 
 
@@ -344,7 +348,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言MD5加密/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/06/oh-my-zsh打造你的炫酷终端/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -361,7 +365,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Go语言MD5加密
+          <h1 class="post-title" itemprop="name headline">oh-my-zsh打造你的炫酷终端
 
               
             
@@ -387,25 +391,9 @@
                 
               
 
-              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
+              <time title="创建时间：2019-05-06 11:30:14" itemprop="dateCreated datePublished" datetime="2019-05-06T11:30:14+08:00">2019-05-06</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-03 18:57:41" itemprop="dateModified" datetime="2019-04-03T18:57:41+08:00">2019-04-03</time>
-              
             
           </span>
 
@@ -421,7 +409,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
 
                 
                 
@@ -465,7 +453,20 @@
       
 
       
-        <p>Go中通过<code>crypto/md5</code>有两种MD5加密方式：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"crypto/md5"</span></span><br><span class="line">    <span class="string">"encoding/hex"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//需要MD5的字符串</span></span><br><span class="line">    str := []<span class="keyword">byte</span>(<span class="string">"hello world"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法一：</span></span><br><span class="line">    <span class="comment">//实例化md5对象，返回hash.Hash对象</span></span><br><span class="line">    m := md5.New()</span><br><span class="line">    m.Write(str)</span><br><span class="line">    <span class="comment">//计算MD5检验和</span></span><br><span class="line">    md5Str := m.Sum(<span class="literal">nil</span>)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str)</span><br><span class="line">    <span class="comment">//转换成16进制</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法二：</span></span><br><span class="line">    md5Str1 := md5.Sum(str)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str1)</span><br><span class="line">    <span class="comment">//转换成16进制,需要注意md5后的数据类型</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str1[:]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <blockquote>
+<p>shell类型很多，<code>Linux</code>下默认是<code>bash</code>，经常看到别人炫酷的终端，很羡慕吧，下面咱们基于开源项目<code>oh-my-zsh</code>打造我们自己的炫酷终端。</p>
+</blockquote>
+<h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装<code>zsh</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//查看单前使用的shell</span><br><span class="line"><span class="meta">$</span> echo $SHELL</span><br><span class="line">/bin/bash</span><br><span class="line"></span><br><span class="line">//查看系统是否已经安装zsh</span><br><span class="line"><span class="meta">$</span> cat /etc/shells</span><br><span class="line">/bin/sh</span><br><span class="line">/bin/bash</span><br><span class="line">/usr/bin/sh</span><br><span class="line">/usr/bin/bash</span><br><span class="line"></span><br><span class="line">//安装zsh（以Centos为例）</span><br><span class="line">yum -y install zsh</span><br><span class="line"></span><br><span class="line">//切换默认shell为zsh，并重启</span><br><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+<h3 id="安装oh-my-zsh"><a href="#安装oh-my-zsh" class="headerlink" title="安装oh-my-zsh"></a>安装oh-my-zsh</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//安装之前请确保已安装git</span><br><span class="line">wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安装<code>oh-my-zsh</code>之后可以安装自己喜欢的主题和插件，这里演示一下自动补全插件<code>zsh-autosuggestions</code>和主题<code>agnosterzak</code>的安装方式。</p>
+</blockquote>
+<h5 id="自动补全插件-zsh-autosuggestions"><a href="#自动补全插件-zsh-autosuggestions" class="headerlink" title="自动补全插件 zsh-autosuggestions"></a>自动补全插件 <code>zsh-autosuggestions</code></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//先获取zsh-autosuggestions</span><br><span class="line">git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions</span><br><span class="line">//然后修改 ~/.zshrc</span><br><span class="line">plugins=(git zsh-autosuggestions)</span><br></pre></td></tr></table></figure>
+<h5 id="主题-agnosterzak"><a href="#主题-agnosterzak" class="headerlink" title="主题 agnosterzak"></a>主题 <code>agnosterzak</code></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//安装agnosterzak主题需要依赖 Powerline fonts</span><br><span class="line">git clone https://github.com/powerline/fonts.git --depth=1</span><br><span class="line">cd fonts</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
+<p><code>可以通过打印这些字符来检验是否支持Powerline fonts</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo "\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://bjlc-bucket.oss-cn-beijing.aliyuncs.com/powerline_support.png?Expires=1557116885&amp;OSSAccessKeyId=TMP.AgHI33h-N3mlD5kUwwBNSFWiIfEz6JSVlFkohMSgkI-7wx8urwWXooSybBqbMC4CFQC8QrUA0nFaP1DsXQ1lkCZVWB_ZZQIVAPUkKNsZLNkWe_yom3IkODx8_YjK&amp;Signature=LFzflV2Fnad78MOWQoe%2BlFgQTqk%3D" alt="支持powerline"><br><a href="https://raw.githubusercontent.com/zakaziko99/agnosterzak-ohmyzsh-theme/master/agnosterzak.zsh-theme" target="_blank" rel="noopener">agnosterzak主题下载地址</a><br><code>将下载的主题放到 ~/.oh-my-zsh/themes，然后修改 ~/.zshrc</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZSH_THEME="agnosterzak"</span><br></pre></td></tr></table></figure></p>
+<p><code>这时候的效果是这样的，这时候如果有新的git文件没被追踪，会是很刺眼的黄色，可以修改刚才下载的主题文件191行自定义颜色。</code><br><img src="http://bjlc-bucket.oss-cn-beijing.aliyuncs.com/git_untraced_file.png?Expires=1557116929&amp;OSSAccessKeyId=TMP.AgHI33h-N3mlD5kUwwBNSFWiIfEz6JSVlFkohMSgkI-7wx8urwWXooSybBqbMC4CFQC8QrUA0nFaP1DsXQ1lkCZVWB_ZZQIVAPUkKNsZLNkWe_yom3IkODx8_YjK&amp;Signature=0MXaJ0S5SPlH5bJDYWpQmJmyKuI%3D" alt="刺眼的未跟踪git文件"><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bgclr='magenta'</span><br><span class="line">fgclr='yellow'</span><br></pre></td></tr></table></figure></p>
+<p><code>改完的效果这样，舒服了很多</code><br><img src="http://bjlc-bucket.oss-cn-beijing.aliyuncs.com/git_untraced_file_alter.png?Expires=1557116971&amp;OSSAccessKeyId=TMP.AgHI33h-N3mlD5kUwwBNSFWiIfEz6JSVlFkohMSgkI-7wx8urwWXooSybBqbMC4CFQC8QrUA0nFaP1DsXQ1lkCZVWB_ZZQIVAPUkKNsZLNkWe_yom3IkODx8_YjK&amp;Signature=LuuwJ1R76VOajq9eV8v4R7JsoYg%3D" alt="舒服的未跟踪git文件"><br><code>oh-my-zsh</code>还有很多强大的功能等着大家去发现呢？赶紧去试试吧！</p>
 
       
     </div>
@@ -489,9 +490,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go/" rel="tag"># Go</a>
-          
-            <a href="/tags/MD5/" rel="tag"># MD5</a>
+            <a href="/tags/zsh/" rel="tag"># zsh</a>
           
         </div>
       
@@ -504,8 +503,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/05/Go语言urlencode和urldecode操作/" rel="next" title="Go语言urlencode和urldecode操作">
-                <i class="fa fa-chevron-left"></i> Go语言urlencode和urldecode操作
+              <a href="/2019/05/06/vld扩展安装/" rel="next" title="vld 扩展安装">
+                <i class="fa fa-chevron-left"></i> vld 扩展安装
               </a>
             
           </div>
@@ -513,10 +512,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/05/Go安装/" rel="prev" title="Go安装">
-                Go安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -560,8 +555,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -671,6 +675,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装zsh"><span class="nav-number">1.</span> <span class="nav-text">安装zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装oh-my-zsh"><span class="nav-number">2.</span> <span class="nav-text">安装oh-my-zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自动补全插件-zsh-autosuggestions"><span class="nav-number">2.0.1.</span> <span class="nav-text">自动补全插件 zsh-autosuggestions</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主题-agnosterzak"><span class="nav-number">2.0.2.</span> <span class="nav-text">主题 agnosterzak</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
