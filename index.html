@@ -340,6 +340,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/08/Win10子系统WSL安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/08/Win10子系统WSL安装/" class="post-title-link" itemprop="url">Win10子系统WSL(Ubuntu18.04)安装</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-08 18:19:08" itemprop="dateCreated datePublished" datetime="2019-05-08T18:19:08+08:00">2019-05-08</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p><code>Windows10</code> 周年更新之后，可以在<code>Windows10</code>上直接运行<code>Linux</code>子系统，也就是<code>Windows Subsystem for Linux(WSL)</code>,安装<code>WSL</code>就可以在<code>Windows10</code>上安装<code>Ubuntu</code>了，感觉还不错。</p>
+</blockquote>
+<p><strong>系统安装要求</strong><br><img src="https://images.coderzj.com/images/wsl.jpg" alt="系统安装要求"></p>
+<p><strong>安装之后第一次打开会报错</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The WSL optional component is not enabled. Please enable it and try again.</span><br><span class="line">See https://aka.ms/wslinstall for details.</span><br><span class="line">Error: 0x8007007e</span><br><span class="line">Press any key to continue...</span><br></pre></td></tr></table></figure></p>
+<p>这个错误就是说上文提到的<code>WSL</code>没有开启，开启的方法也很简单，以管理员身份打开<code>powershell</code>，然后输入以下命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux</span><br></pre></td></tr></table></figure></p>
+<p>安装之后，重启系统就可以了，这时再打开<code>Ubuntu</code>，会提示创建用户名和密码，这时如果创建的名字里面有大写字母会报错，改成小写字母就可以了。报错如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser: Please enter a username matching the regular expression configured via the NAME_REGEX[_SYSTEM] configuration variable.  Use the `--force-badname' option to relax this check or reconfigure NAME_REGEX.</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/08/oh-my-zsh打造你的炫酷终端/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -623,181 +788,6 @@
 <p>&emsp;&emsp;<code>dot</code>是一种图形描述语言，由<code>graphviz</code>工具绘制：<br><code>Vld.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vld</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $num;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($num)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;num = $num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">increase</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;num + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$v = <span class="keyword">new</span> Vld(<span class="number">1</span>);</span><br><span class="line">var_dump($v-&gt;increase());</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;<code>执行 php -dvld.active=1 -dvld.save_paths=1 vld.php</code><br>&emsp;&emsp;<code>进入/tmp目录，执行 dot -Tpng /tmp/paths.dot -o paths.png 生成如下图片:</code><br><img src="https://images.coderzj.com/images/vld.png" alt="Vld.png"><br>&emsp;&emsp;<code>这里扩展一下，使用 graphviz 还可以画流程图哦，很高大上吧，下面一起来看看吧。</code><a href="https://graphviz.gitlab.io/_pages/Download/Download_source.html" target="_blank" rel="noopener">graphviz 官方下载地址</a><br><code>demo.dot</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">digraph demo &#123;</span><br><span class="line">    start [label=<span class="string">"start"</span>]</span><br><span class="line">    op [label=<span class="string">"enter"</span> shape=box]</span><br><span class="line">    end [label=<span class="string">"end"</span>]</span><br><span class="line"></span><br><span class="line">    start-&gt;op-&gt;end</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;<code>执行 dot -Tpng demo.dot -o demo.png 就可以得到如下流程图：</code><br><img src="https://images.coderzj.com/images/demo.png" alt="demo.png"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言MD5加密/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/05/Go语言MD5加密/" class="post-title-link" itemprop="url">Go语言MD5加密</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-03 18:57:41" itemprop="dateModified" datetime="2019-04-03T18:57:41+08:00">2019-04-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Go中通过<code>crypto/md5</code>有两种MD5加密方式：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"crypto/md5"</span></span><br><span class="line">    <span class="string">"encoding/hex"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//需要MD5的字符串</span></span><br><span class="line">    str := []<span class="keyword">byte</span>(<span class="string">"hello world"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法一：</span></span><br><span class="line">    <span class="comment">//实例化md5对象，返回hash.Hash对象</span></span><br><span class="line">    m := md5.New()</span><br><span class="line">    m.Write(str)</span><br><span class="line">    <span class="comment">//计算MD5检验和</span></span><br><span class="line">    md5Str := m.Sum(<span class="literal">nil</span>)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str)</span><br><span class="line">    <span class="comment">//转换成16进制</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法二：</span></span><br><span class="line">    md5Str1 := md5.Sum(str)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str1)</span><br><span class="line">    <span class="comment">//转换成16进制,需要注意md5后的数据类型</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str1[:]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1400,6 +1390,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/05/Go安装/" class="post-title-link" itemprop="url">Go安装</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-14 20:17:54" itemprop="dateModified" datetime="2019-04-14T20:17:54+08:00">2019-04-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取源码包</span><br><span class="line">wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//修改/etc/profile添加GOPATH和GOROOT</span><br><span class="line">export GOPATH=/home/zj/Go</span><br><span class="line">export GOROOT=/usr/src/go</span><br><span class="line">//复制/usr/src/go/bin下文件到/usr/local/bin，使go命令可全局使用</span><br></pre></td></tr></table></figure>
+<p><em><code>vim中go语法高亮</code></em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//更新vim版本到7.4.2，卸载旧版vim</span><br><span class="line">yum remove -y vim-enhanced</span><br><span class="line">//安装新版本vim</span><br><span class="line">wget https://github.com/vim/vim/archive/v7.4.2367.tar.gz</span><br><span class="line">tar zxvf v7.4.2367.tar.gz</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//安装vim插件管理工具</span><br><span class="line">mkdir -p ~/.vim/autoload ~/.vim/bundle</span><br><span class="line">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim</span><br><span class="line">//编辑.vimrc加入如下内容</span><br><span class="line">execute pathogen#infect() </span><br><span class="line">syntax on </span><br><span class="line">filetype plugin indent on</span><br><span class="line">//安装其他vim插件只需要将插件放到~/.vim/bundle里即可</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言JSON操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1575,7 +1741,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go安装/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言MD5加密/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -1595,7 +1761,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/05/Go安装/" class="post-title-link" itemprop="url">Go安装</a>
+                <a href="/2019/05/05/Go语言MD5加密/" class="post-title-link" itemprop="url">Go语言MD5加密</a>
               
             
           </h1>
@@ -1637,7 +1803,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-14 20:17:54" itemprop="dateModified" datetime="2019-04-14T20:17:54+08:00">2019-04-14</time>
+                <time title="修改时间：2019-04-03 18:57:41" itemprop="dateModified" datetime="2019-04-03T18:57:41+08:00">2019-04-03</time>
               
             
           </span>
@@ -1693,8 +1859,7 @@
       
         
           
-            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取源码包</span><br><span class="line">wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//修改/etc/profile添加GOPATH和GOROOT</span><br><span class="line">export GOPATH=/home/zj/Go</span><br><span class="line">export GOROOT=/usr/src/go</span><br><span class="line">//复制/usr/src/go/bin下文件到/usr/local/bin，使go命令可全局使用</span><br></pre></td></tr></table></figure>
-<p><em><code>vim中go语法高亮</code></em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//更新vim版本到7.4.2，卸载旧版vim</span><br><span class="line">yum remove -y vim-enhanced</span><br><span class="line">//安装新版本vim</span><br><span class="line">wget https://github.com/vim/vim/archive/v7.4.2367.tar.gz</span><br><span class="line">tar zxvf v7.4.2367.tar.gz</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//安装vim插件管理工具</span><br><span class="line">mkdir -p ~/.vim/autoload ~/.vim/bundle</span><br><span class="line">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim</span><br><span class="line">//编辑.vimrc加入如下内容</span><br><span class="line">execute pathogen#infect() </span><br><span class="line">syntax on </span><br><span class="line">filetype plugin indent on</span><br><span class="line">//安装其他vim插件只需要将插件放到~/.vim/bundle里即可</span><br></pre></td></tr></table></figure></p>
+            <p>Go中通过<code>crypto/md5</code>有两种MD5加密方式：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"crypto/md5"</span></span><br><span class="line">    <span class="string">"encoding/hex"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//需要MD5的字符串</span></span><br><span class="line">    str := []<span class="keyword">byte</span>(<span class="string">"hello world"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法一：</span></span><br><span class="line">    <span class="comment">//实例化md5对象，返回hash.Hash对象</span></span><br><span class="line">    m := md5.New()</span><br><span class="line">    m.Write(str)</span><br><span class="line">    <span class="comment">//计算MD5检验和</span></span><br><span class="line">    md5Str := m.Sum(<span class="literal">nil</span>)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str)</span><br><span class="line">    <span class="comment">//转换成16进制</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法二：</span></span><br><span class="line">    md5Str1 := md5.Sum(str)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str1)</span><br><span class="line">    <span class="comment">//转换成16进制,需要注意md5后的数据类型</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str1[:]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1912,183 +2077,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/入世春秋/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/05/入世春秋/" class="post-title-link" itemprop="url">入世春秋</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-27 13:32:38" itemprop="dateModified" datetime="2019-03-27T13:32:38+08:00">2019-03-27</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/缥缃醉/" itemprop="url" rel="index"><span itemprop="name">缥缃醉</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<p>&emsp;&emsp;恍惚间，既已入世春秋，庠序雪泥鸿爪仿佛昨日，奈何？余之思，甚易，无齌无衋于其身，欲与佳期共氤氲，放浪形骸撷流水。漫步青石径，谈笑山野间。一朝蓺幽兰，馨香泛葳蕤，可知？花香已满径，辄待伊人还！洎入世，长齌，长衋，甚讟，夥罅隙。今夜无皓月，雨后凉风习习，惘顾，当变，遂执聿以书！<br>&emsp;&emsp;社鼠城狐，鄙之；八面玲珑，蔑之；魑魅魍魉，揶揄之。齮龁日久，难以释怀，尝愤之、齌之。吾觉缧绁缠之，曾几何时，鲰生嚚臣余漦之、雠之，窆之于坟冢；然今余几成鬼蜮，媕娿不前，悲之、觳觫之。余非怙恶不悛，亦无罪不容诛，然若豭豨戆头。余既已虩虩，弇陋、癙矣！虽讟言夥，可诉之？焚琴煮鹤，高山流水！！谮言概不语，诤言、箴言语之，几人闻之，尝见紿矣，呕心沥血、兢兢业业亦不可待见！敬人者，人敬之；韪人者，亦谢之。人之二十余载，无不恫瘝，尝阅幽兰“子如不伤，我不尔觏。君子之伤，君子之守。世人暗蔽，不知贤者。伤不逢时，寄兰作操。”慕之、羡之。谁生厉阶，至今为梗。一傅众咻，鞭长莫及。抽刀出鞘天为遥，日月星辰芒骤韬。苍穹云既殁，瀚海水亦涸。今余思之、忖之，始觉无趣，心燹难熸，吾当返璞归真，无论它朝之目。愿为珈玏，弃之謷言，毷氉，猰貐，消艴，不葸谮言。瘗之奴颜婢膝，撷叶蓺豪情。摧眉折腰，戛乎难哉？踶之以懋，不似曏从之窳，但飨素之纯甄。讆之，骀荡之，遹葳蕤。愿得花香满径，笑揖清风洗我狂！<br>&emsp;&emsp;终，诗一阕，如是，</p>
-<p><center style="font-size:1.3em"><br>一夕尔觏蓺心蕙，<br>清秋褚松花开阑。<br>鲛绡依梦似你眸，<br>梦舟轩翥始愿旻。<br>皎皎寒夜漫蓝溪，<br>瑊玏韶华彰艺馨。<br>蟾宫折桂践梁濠，<br>行懿形姝谓君兰！</center><br>书于丽园<br>二零一八年十二月十三日</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2135,7 +2123,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2203,7 +2191,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
