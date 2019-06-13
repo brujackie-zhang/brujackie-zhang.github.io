@@ -340,6 +340,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/06/13/Docker安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/13/Docker安装/" class="post-title-link" itemprop="url">安装Docker</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-13 23:57:48" itemprop="dateCreated datePublished" datetime="2019-06-13T23:57:48+08:00">2019-06-13</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>Docker是一个开源的应用容器引擎，基于Go语言，Docker可以让开发者打包他们的应用程序以及依赖到一个轻量级、可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器完全使用沙箱机制，相互之间不会有任何接口，更重要的是容器性能开销极低。Docker自17.03版本之后分为社区版（Community Edition: CE）和企业版（Enterprise Edition： EE），平时使用社区版就可以了。</p>
+</blockquote>
+<p>&emsp;&emsp;本文以<code>Centos</code>为例安装<code>Docker 18.06</code>，安装<code>Docker CE</code>要求<code>Centos 7</code>，可以通过这个命令查看<code>Centos</code>版本：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> lsb_release -a</span><br><span class="line">//返回结果如下</span><br><span class="line">LSB Version:    :core-4.1-amd64:core-4.1-noarch</span><br><span class="line">Distributor ID: CentOS</span><br><span class="line">Description:    CentOS Linux release 7.6.1810 (Core)</span><br><span class="line">Release:        7.6.1810</span><br><span class="line">Codename:       Core</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;操作系统满足要求以后，我们可以建立一个<code>Docker repository</code>，之后就可以通过这个仓库来更新和安装<code>Docker</code>了，</p>
+<ol>
+<li><p>建立<code>Docker repository</code>首先需要安装依赖包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置一个稳定的仓库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装<code>Docker CE</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动<code>Docker</code>并且将自己的用户加入<code>docker</code>组：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo systemctl start docker</span><br><span class="line"><span class="meta">$</span> usermod -aG docker yourusername</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行<code>hello-world</code>验证<code>Docker CE</code>安装成功：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker run hello-world</span><br><span class="line">//结果如下</span><br><span class="line">Unable to find image 'hello-world:latest' locally</span><br><span class="line">latest: Pulling from library/hello-world</span><br><span class="line">1b930d010525: Pull complete</span><br><span class="line">Digest: </span><br><span class="line">sha256:0e11c388b664df8a27a901dce21eb89f11d8292f7fca1b3e3c4321bf7897bffe</span><br><span class="line">Status: Downloaded newer image for </span><br><span class="line">hello-world:latest</span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears </span><br><span class="line">to be working correctly.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/12/Linux中修改用户名/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1212,7 +1392,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go安装/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言JSON操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -1232,7 +1412,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/05/Go安装/" class="post-title-link" itemprop="url">Go安装</a>
+                <a href="/2019/05/05/Go语言JSON操作/" class="post-title-link" itemprop="url">Go语言JSON操作</a>
               
             
           </h1>
@@ -1274,7 +1454,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-14 20:17:54" itemprop="dateModified" datetime="2019-04-14T20:17:54+08:00">2019-04-14</time>
+                <time title="修改时间：2019-04-03 21:18:31" itemprop="dateModified" datetime="2019-04-03T21:18:31+08:00">2019-04-03</time>
               
             
           </span>
@@ -1330,8 +1510,7 @@
       
         
           
-            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取源码包</span><br><span class="line">wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//修改/etc/profile添加GOPATH和GOROOT</span><br><span class="line">export GOPATH=/home/zj/Go</span><br><span class="line">export GOROOT=/usr/src/go</span><br><span class="line">//复制/usr/src/go/bin下文件到/usr/local/bin，使go命令可全局使用</span><br></pre></td></tr></table></figure>
-<p><em><code>vim中go语法高亮</code></em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//更新vim版本到7.4.2，卸载旧版vim</span><br><span class="line">yum remove -y vim-enhanced</span><br><span class="line">//安装新版本vim</span><br><span class="line">wget https://github.com/vim/vim/archive/v7.4.2367.tar.gz</span><br><span class="line">tar zxvf v7.4.2367.tar.gz</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//安装vim插件管理工具</span><br><span class="line">mkdir -p ~/.vim/autoload ~/.vim/bundle</span><br><span class="line">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim</span><br><span class="line">//编辑.vimrc加入如下内容</span><br><span class="line">execute pathogen#infect() </span><br><span class="line">syntax on </span><br><span class="line">filetype plugin indent on</span><br><span class="line">//安装其他vim插件只需要将插件放到~/.vim/bundle里即可</span><br></pre></td></tr></table></figure></p>
+            <p>Go语言中通过<code>encoding/json</code>包对<code>JSON</code>串进行处理：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"encoding/json"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造总的JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> GoJson <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Type <span class="keyword">string</span></span><br><span class="line">    Properties Properties</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造内部JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> Properties <span class="keyword">struct</span> &#123;</span><br><span class="line">    Slice <span class="keyword">string</span></span><br><span class="line">    Array <span class="keyword">string</span></span><br><span class="line">    Interface <span class="keyword">string</span></span><br><span class="line">    Struct <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//解析JSON串</span></span><br><span class="line">    <span class="comment">//待解析的JSON串</span></span><br><span class="line">    jsonStr := <span class="string">`&#123;</span></span><br><span class="line"><span class="string">        "name": "go",</span></span><br><span class="line"><span class="string">        "type": "static",</span></span><br><span class="line"><span class="string">        "properties": &#123;</span></span><br><span class="line"><span class="string">            "slice": "切片",</span></span><br><span class="line"><span class="string">            "array": "数组",</span></span><br><span class="line"><span class="string">            "interface": "接口",</span></span><br><span class="line"><span class="string">            "struct": "结构体"</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;`</span></span><br><span class="line">    goJson := GoJson&#123;&#125;</span><br><span class="line">    err := json.Unmarshal([]<span class="keyword">byte</span>(jsonStr), &amp;goJson)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">"Name:%s\nType:%s\nProperties:%s\n"</span>, goJson.Name, goJson.Type, goJson.Properties)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成JSON串</span></span><br><span class="line">    properties := Properties&#123;</span><br><span class="line">        Slice: <span class="string">"没有"</span>,</span><br><span class="line">        Array: <span class="string">"数组"</span>,</span><br><span class="line">        Interface: <span class="string">"接口"</span>,</span><br><span class="line">        Struct: <span class="string">"没有"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    goJson1 := GoJson&#123;</span><br><span class="line">        Name: <span class="string">"PHP"</span>,</span><br><span class="line">        Type: <span class="string">"Dynamic"</span>,</span><br><span class="line">        Properties: properties,</span><br><span class="line">    &#125;</span><br><span class="line">    j, err := json.Marshal(goJson1)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(<span class="keyword">string</span>(j))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1573,7 +1752,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言JSON操作/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -1593,7 +1772,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/05/Go语言JSON操作/" class="post-title-link" itemprop="url">Go语言JSON操作</a>
+                <a href="/2019/05/05/Go安装/" class="post-title-link" itemprop="url">Go安装</a>
               
             
           </h1>
@@ -1635,7 +1814,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-03 21:18:31" itemprop="dateModified" datetime="2019-04-03T21:18:31+08:00">2019-04-03</time>
+                <time title="修改时间：2019-04-14 20:17:54" itemprop="dateModified" datetime="2019-04-14T20:17:54+08:00">2019-04-14</time>
               
             
           </span>
@@ -1691,182 +1870,8 @@
       
         
           
-            <p>Go语言中通过<code>encoding/json</code>包对<code>JSON</code>串进行处理：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"encoding/json"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造总的JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> GoJson <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Type <span class="keyword">string</span></span><br><span class="line">    Properties Properties</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造内部JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> Properties <span class="keyword">struct</span> &#123;</span><br><span class="line">    Slice <span class="keyword">string</span></span><br><span class="line">    Array <span class="keyword">string</span></span><br><span class="line">    Interface <span class="keyword">string</span></span><br><span class="line">    Struct <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//解析JSON串</span></span><br><span class="line">    <span class="comment">//待解析的JSON串</span></span><br><span class="line">    jsonStr := <span class="string">`&#123;</span></span><br><span class="line"><span class="string">        "name": "go",</span></span><br><span class="line"><span class="string">        "type": "static",</span></span><br><span class="line"><span class="string">        "properties": &#123;</span></span><br><span class="line"><span class="string">            "slice": "切片",</span></span><br><span class="line"><span class="string">            "array": "数组",</span></span><br><span class="line"><span class="string">            "interface": "接口",</span></span><br><span class="line"><span class="string">            "struct": "结构体"</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;`</span></span><br><span class="line">    goJson := GoJson&#123;&#125;</span><br><span class="line">    err := json.Unmarshal([]<span class="keyword">byte</span>(jsonStr), &amp;goJson)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">"Name:%s\nType:%s\nProperties:%s\n"</span>, goJson.Name, goJson.Type, goJson.Properties)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成JSON串</span></span><br><span class="line">    properties := Properties&#123;</span><br><span class="line">        Slice: <span class="string">"没有"</span>,</span><br><span class="line">        Array: <span class="string">"数组"</span>,</span><br><span class="line">        Interface: <span class="string">"接口"</span>,</span><br><span class="line">        Struct: <span class="string">"没有"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    goJson1 := GoJson&#123;</span><br><span class="line">        Name: <span class="string">"PHP"</span>,</span><br><span class="line">        Type: <span class="string">"Dynamic"</span>,</span><br><span class="line">        Properties: properties,</span><br><span class="line">    &#125;</span><br><span class="line">    j, err := json.Marshal(goJson1)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(<span class="keyword">string</span>(j))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言MD5加密/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/05/Go语言MD5加密/" class="post-title-link" itemprop="url">Go语言MD5加密</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-03 18:57:41" itemprop="dateModified" datetime="2019-04-03T18:57:41+08:00">2019-04-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Go中通过<code>crypto/md5</code>有两种MD5加密方式：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"crypto/md5"</span></span><br><span class="line">    <span class="string">"encoding/hex"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//需要MD5的字符串</span></span><br><span class="line">    str := []<span class="keyword">byte</span>(<span class="string">"hello world"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法一：</span></span><br><span class="line">    <span class="comment">//实例化md5对象，返回hash.Hash对象</span></span><br><span class="line">    m := md5.New()</span><br><span class="line">    m.Write(str)</span><br><span class="line">    <span class="comment">//计算MD5检验和</span></span><br><span class="line">    md5Str := m.Sum(<span class="literal">nil</span>)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str)</span><br><span class="line">    <span class="comment">//转换成16进制</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法二：</span></span><br><span class="line">    md5Str1 := md5.Sum(str)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str1)</span><br><span class="line">    <span class="comment">//转换成16进制,需要注意md5后的数据类型</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str1[:]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取源码包</span><br><span class="line">wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//修改/etc/profile添加GOPATH和GOROOT</span><br><span class="line">export GOPATH=/home/zj/Go</span><br><span class="line">export GOROOT=/usr/src/go</span><br><span class="line">//复制/usr/src/go/bin下文件到/usr/local/bin，使go命令可全局使用</span><br></pre></td></tr></table></figure>
+<p><em><code>vim中go语法高亮</code></em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//更新vim版本到7.4.2，卸载旧版vim</span><br><span class="line">yum remove -y vim-enhanced</span><br><span class="line">//安装新版本vim</span><br><span class="line">wget https://github.com/vim/vim/archive/v7.4.2367.tar.gz</span><br><span class="line">tar zxvf v7.4.2367.tar.gz</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//安装vim插件管理工具</span><br><span class="line">mkdir -p ~/.vim/autoload ~/.vim/bundle</span><br><span class="line">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim</span><br><span class="line">//编辑.vimrc加入如下内容</span><br><span class="line">execute pathogen#infect() </span><br><span class="line">syntax on </span><br><span class="line">filetype plugin indent on</span><br><span class="line">//安装其他vim插件只需要将插件放到~/.vim/bundle里即可</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -2129,7 +2134,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2154,7 +2159,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2201,7 +2208,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
