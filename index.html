@@ -340,6 +340,246 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/06/14/Docker安装LNMP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/14/Docker安装LNMP/" class="post-title-link" itemprop="url">Docker 安装LNMP</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-14 00:01:15" itemprop="dateCreated datePublished" datetime="2019-06-14T00:01:15+08:00">2019-06-14</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>在 <code>/home/用户名/</code>下创建如下文件夹和文件：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/home/blueyi/www</span><br><span class="line">├── data</span><br><span class="line">├── nginx</span><br><span class="line">│   └── conf.d</span><br><span class="line">│       └── default.conf</span><br><span class="line">└── web</span><br><span class="line">    ├── index.html</span><br><span class="line">    └── index.php</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这些文件夹和文件用于挂载，<code>default.conf</code>内容如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line"><span class="meta">		#</span>添加伪静态支持</span><br><span class="line">        try_files $uri $uri/ /index.php?$query_string;</span><br><span class="line">        index  index.php  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">	    #php 地址直接填容器名</span><br><span class="line">        fastcgi_pass   php-fpm73:9000;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME /var/www/html/$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li><p>安装 <code>mysql5.7</code>，并进入容器设置远程访问：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>拉取mysql5.7镜像</span><br><span class="line">docker pull mysql:5.7</span><br><span class="line"><span class="meta">#</span>创建mysql5.7容器</span><br><span class="line">docker run --name mysql57 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d -v ~/www/data:/var/lib/mysql mysql:5.7</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>进入mysql容器</span><br><span class="line">docker exec -it mysql57 bash</span><br><span class="line"><span class="meta">#</span>连接mysql设置远程访问</span><br><span class="line">mysql -uroot -p </span><br><span class="line">GRANT ALL ON *.* TO 'root'@'%';</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装PHP7.3：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>拉取PHP7.3镜像</span><br><span class="line">docker pull php:7.3-fpm</span><br><span class="line"><span class="meta">#</span>创建PHP7.3容器并关联mysql5.7</span><br><span class="line">docker run --name php-fpm73 -d -v ~/www/web:/var/www/html --link mysql57:mysql php:7.3-fpm</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>进入PHP7.3容器并安装mysql扩展</span><br><span class="line">docker exec -it php-fpm73 bash</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y libfreetype6 libfreetype6-dev libmcrypt-dev libmcrypt4 libcurl3-dev</span><br><span class="line">apt install build-essential libprotobuf-dev libboost-dev openssl protobuf-compiler</span><br><span class="line">docker-php-ext-install pdo pdo_mysql </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>退出PHP7.3容器，重启PHP7.3容器</span><br><span class="line">docker restart php-fpm73</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装nginx:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>拉取nginx镜像</span><br><span class="line">docker pull nginx</span><br><span class="line"><span class="meta">#</span>创建nginx容器</span><br><span class="line">docker run -d --name nginx -p 80:80 -v ~/www/web/:/usr/share/nginx/html -v ~/www/nginx/conf.d:/etc/nginx/conf.d --link php-fpm73:php-fpm nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装composer:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>拉取docker镜像</span><br><span class="line">docker pull composer</span><br><span class="line"><span class="meta">#</span>创建composer容器，并生成Laravel项目</span><br><span class="line">docker run --rm -it --volume ~/www/web/laravel:/app composer create-project laravel/laravel laravel5.7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装phpmyadmin:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name phpmyadmin -d --link mysql57:db -p 8080:80 phpmyadmin/phpmyadmin</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>Docker删除镜像相关命令:</strong></p>
+<ol>
+<li>查询镜像：<br><code>docker images</code></li>
+<li>查询容器：<br><code>docker ps -a</code></li>
+<li>删除容器：<br><code>docker rm 容器id</code></li>
+<li>删除镜像：<br><code>docker rmi 镜像id</code><blockquote>
+<p>注意：</p>
+<ol>
+<li>删除前需要确保容器已经停止；</li>
+<li>docker rmi 删除镜像，docker rm 删除容器；</li>
+<li>必须先删除容器再删除镜像。</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<p><strong>docker run 相关命令(通过run命令创建新的容器)：</strong><br>命令格式：<code>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</code><br>常用选项说明：</p>
+<ul>
+<li><code>-d, --detach=false</code>，指定容器运行于前台还是后台，默认false</li>
+<li><code>-i, --interactive=false</code>，打开STDIN，用于控制台交互</li>
+<li><code>-t, --tty=false</code>，分配tty设备，支持终端登录，默认false</li>
+<li><code>-u, --user=&quot;&quot;</code>，指定容器的用户</li>
+<li><code>-a, --attach=[]</code>，登录容器（必须是<code>docker run -d</code>启动的容器）</li>
+<li><code>-w, --workdir=&quot;&quot;</code>，指定容器工作目录</li>
+<li><code>-c, --cpu-shares=0</code>，设置容器CPU权重，在CPU共享场景使用</li>
+<li><code>-e, --env=[]</code>，制定环境变量，容器中可以使用此环境变量</li>
+<li><code>-m, --memory=&quot;&quot;</code>，指定容器内存上限</li>
+<li><code>-p, --publish=[]</code>，指定容器暴露端口</li>
+<li><code>-h, --hostname=&quot;&quot;</code>，指定容器主机名</li>
+<li><code>-v, --volume=[]</code>，给容器挂载存储卷，挂载到容器某个目录</li>
+<li><code>--volumesfrom=[]</code>，给容器挂载其他容器上的卷，挂载到容器某个目录</li>
+<li><code>--cap-add=[]</code>，添加权限</li>
+<li><code>--cap-drop=[]</code>，删除权限</li>
+<li><code>--cidfile=&quot;&quot;</code>，运行容器后，在指定容器中写入容器PID值，一种典型的监控系统用法</li>
+<li><code>--cpuset=&quot;&quot;</code>，设置容器可以使用那些CPU，此参数可以用来容器独占CPU</li>
+<li><code>--device=[]</code>，添加主机设备给容器，相当于设备直通</li>
+<li><code>--dns=[]</code>，指定容器dns服务器</li>
+<li><code>--dns-search=[]</code>，指定容器dns搜索域名，写入到容器<code>/etc/resolv.conf</code>文件</li>
+<li><code>--entrypoint=&quot;&quot;</code>，覆盖image的入口点</li>
+<li><code>--env-file=[]</code>，制定环境变量文件，文件格式每行一个环境变量</li>
+<li><code>--expose=[]</code>，指定容器暴露的端口，即修改镜像暴露端口</li>
+<li><code>--link=[]</code>，制定容器间关联，使用其他容器IP、env等信息</li>
+<li><code>--lxc-conf=[]</code>，指定容器配置文件，只有在指定<code>--exec-driver=lxc</code>时使用</li>
+<li><code>--name=&quot;&quot;</code>，指定容器名字，后续可通过名字管理容器，links特性需要使用名字</li>
+<li><code>--net=&quot;bridge&quot;</code>，容器网络设置：<ul>
+<li>bridge：使用<code>docker daemon</code>指定的网桥</li>
+<li>host：容器使用主机网络</li>
+<li>container:NAME_OR_ID：使用其他容器的网络，共享IP和PORT等网络资源</li>
+<li>none：容器使用自己的网络（类似bridge）</li>
+</ul>
+</li>
+<li><code>--privileged=false</code>，指定容器是否为特权容器，特权容器拥有所有capabilities</li>
+<li><code>--restart=&quot;no&quot;</code>，指定容器停止后的重启策略：<ul>
+<li>no：容器退出时不重启</li>
+<li>on-failure：容器故障退出（返回值非零）时重启</li>
+<li>always：容器退出时总是重启</li>
+</ul>
+</li>
+<li><code>--rm=false</code>，指定容器停止后自动删除容器（不支持<code>docker run -d</code>启动的容器）</li>
+<li><code>--sig-proxy=true</code>，设置由代理接受并处理信号，但是<code>SIGCHLD、SIGSTOP、SIGKILL</code>不能被代理</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/06/13/Docker安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1392,7 +1632,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言JSON操作/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/神奇的宏替换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -1412,7 +1652,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/05/Go语言JSON操作/" class="post-title-link" itemprop="url">Go语言JSON操作</a>
+                <a href="/2019/05/05/神奇的宏替换/" class="post-title-link" itemprop="url">神奇的宏替换</a>
               
             
           </h1>
@@ -1454,182 +1694,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-03 21:18:31" itemprop="dateModified" datetime="2019-04-03T21:18:31+08:00">2019-04-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Go语言中通过<code>encoding/json</code>包对<code>JSON</code>串进行处理：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"encoding/json"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造总的JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> GoJson <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Type <span class="keyword">string</span></span><br><span class="line">    Properties Properties</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造内部JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> Properties <span class="keyword">struct</span> &#123;</span><br><span class="line">    Slice <span class="keyword">string</span></span><br><span class="line">    Array <span class="keyword">string</span></span><br><span class="line">    Interface <span class="keyword">string</span></span><br><span class="line">    Struct <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//解析JSON串</span></span><br><span class="line">    <span class="comment">//待解析的JSON串</span></span><br><span class="line">    jsonStr := <span class="string">`&#123;</span></span><br><span class="line"><span class="string">        "name": "go",</span></span><br><span class="line"><span class="string">        "type": "static",</span></span><br><span class="line"><span class="string">        "properties": &#123;</span></span><br><span class="line"><span class="string">            "slice": "切片",</span></span><br><span class="line"><span class="string">            "array": "数组",</span></span><br><span class="line"><span class="string">            "interface": "接口",</span></span><br><span class="line"><span class="string">            "struct": "结构体"</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;`</span></span><br><span class="line">    goJson := GoJson&#123;&#125;</span><br><span class="line">    err := json.Unmarshal([]<span class="keyword">byte</span>(jsonStr), &amp;goJson)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">"Name:%s\nType:%s\nProperties:%s\n"</span>, goJson.Name, goJson.Type, goJson.Properties)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成JSON串</span></span><br><span class="line">    properties := Properties&#123;</span><br><span class="line">        Slice: <span class="string">"没有"</span>,</span><br><span class="line">        Array: <span class="string">"数组"</span>,</span><br><span class="line">        Interface: <span class="string">"接口"</span>,</span><br><span class="line">        Struct: <span class="string">"没有"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    goJson1 := GoJson&#123;</span><br><span class="line">        Name: <span class="string">"PHP"</span>,</span><br><span class="line">        Type: <span class="string">"Dynamic"</span>,</span><br><span class="line">        Properties: properties,</span><br><span class="line">    &#125;</span><br><span class="line">    j, err := json.Marshal(goJson1)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(<span class="keyword">string</span>(j))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/PHP7新特性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/05/PHP7新特性/" class="post-title-link" itemprop="url">PHP7新特性</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-24 16:26:53" itemprop="dateModified" datetime="2019-03-24T16:26:53+08:00">2019-03-24</time>
+                <time title="修改时间：2019-03-27 10:49:46" itemprop="dateModified" datetime="2019-03-27T10:49:46+08:00">2019-03-27</time>
               
             
           </span>
@@ -1685,17 +1750,19 @@
       
         
           
-            <p><code>PHP7除了在性能方面提升了很多，也加入了很多新特性，一起看一下吧。</code></p>
-<p><strong><code>1、太空船操作符（&lt;=&gt;）</code></strong><br>&emsp;&emsp;太空船操作符用于比较两个表达式，大于、等于和小于时分别返回1、0、-1。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="number">1</span> &lt;=&gt; <span class="number">1</span>; <span class="comment">//0</span></span><br><span class="line"><span class="keyword">echo</span> <span class="number">1</span> &lt;=&gt; <span class="number">0</span>; <span class="comment">//1</span></span><br><span class="line"><span class="keyword">echo</span> <span class="number">1.8</span> &lt;=&gt; <span class="number">2</span>; <span class="comment">//-1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'a'</span> &lt;=&gt; <span class="string">'a'</span>; <span class="comment">//0</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'a'</span> &lt;=&gt; <span class="string">'b'</span>; <span class="comment">//-1</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'b'</span> &lt;=&gt; <span class="string">'a'</span>; <span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><code>2、标量类型申明和返回值类型声明</code></strong><br>&emsp;&emsp;PHP7可以对以下几种标量类型的参数做声明：<code>字符串(string)</code>、<code>整型(int)</code>、<code>浮点型(float)</code>，<code>布尔型(bool)</code>。参数类型声明不受限于默认模式和严格模式，默认模式时传入的参数不符合声明类型会进行类型转换，严格模式则会报错。<br><code>参数类型声明</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//声明为严格模式,注释此行将不会报错</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">(int ...$ints)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(sum(<span class="number">1</span>, <span class="string">'1.1'</span>, <span class="number">1.1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">declare(strict_types = 1);</span></span><br><span class="line"><span class="comment">PHP Fatal error:  Uncaught TypeError: Argument 2 passed to sum() must be of the type integer, string given</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">declare(strict_types = 1);</span></span><br><span class="line"><span class="comment">int(3)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p><code>返回值类型声明</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//声明为严格模式，注释此行将不会报错</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">(int ...$ints)</span> : <span class="title">int</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(sum(<span class="number">1</span>, <span class="string">'1.1'</span>, <span class="number">1.1</span>));</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">declare(strict_types = 1);</span></span><br><span class="line"><span class="comment">PHP Fatal error:  Uncaught TypeError: Argument 2 passed to sum() must be of the type integer, string given</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">declare(strict_types = 0);</span></span><br><span class="line"><span class="comment">int(3)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;PHP7.1可以将函数返回值类型定义为 <code>viod</code> ,无论是否开启严格模式，只要函数中有 <code>return;</code>，那么其他 <code>return</code>语句都将报错。<strong>参数类型不可以声明为 <code>viod</code></strong>。<br><code>返回值声明为 void</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testVoid</span><span class="params">(int ...$ints)</span> : <span class="title">void</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(testVoid(<span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>));</span><br><span class="line"><span class="comment">/*运行结果如下：</span></span><br><span class="line"><span class="comment">return array_sum($ints);</span></span><br><span class="line"><span class="comment">PHP Fatal error:  A void function must not return a value</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return null;</span></span><br><span class="line"><span class="comment">PHP Fatal error:  A void function must not return a value (did you mean "return;" instead of "return null;"?)</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return;</span></span><br><span class="line"><span class="comment">NULL</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;PHP7.1对于参数类型和返回值类型还可以是<code>可空类型</code>，在参数或者返回值类型声明前加<code>?</code>即可。<br><code>可空参数类型和返回值类型</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">(?int ...$ints)</span> : ?<span class="title">int</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">    <span class="keyword">return</span> strval(implode(<span class="string">','</span>, $ints));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">var_dump(test(<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>));</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">return array_sum($ints);</span></span><br><span class="line"><span class="comment">int(7)</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return strval(implode(',', $ints));</span></span><br><span class="line"><span class="comment">PHP Fatal error:  Uncaught TypeError: Return value of test() must be of the type integer or null, string returned</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return null;</span></span><br><span class="line"><span class="comment">NULL</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return;</span></span><br><span class="line"><span class="comment">PHP Fatal error:  A function with return type must return a value (did you mean "return null;" instead of "return;"?)</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><code>3、null合并运算符</code></strong><br>&emsp;&emsp;PHP 7以前我们通常会写这样的代码：<br>&emsp;&emsp;<code>$name = isset($res[&#39;name&#39;]) ? $res[&#39;name&#39;] : &#39;&#39;;</code><br>&emsp;&emsp;PHP7以后我们可以这样写：<br>&emsp;&emsp;<code>$name = $res[&#39;name&#39;] ?? &#39;&#39;;</code><br>&emsp;&emsp;这样就极大简化了我们的代码。<br>&emsp;&emsp;对于这样的代码我们也可以做简化：<br>&emsp;&emsp;<code>$name = !empty($res[&#39;name&#39;]) ? $res[&#39;name&#39;] : &#39;&#39;;</code><br>&emsp;&emsp;<code>$name = $res[&#39;name&#39;] ?: &#39;&#39;;</code><br>&emsp;&emsp;对于连续的三元运算符还可以这样写：<br>&emsp;&emsp;<code>$name = $res[&#39;name&#39;] ?? $data[&#39;name&#39;] ?? &#39;&#39;;</code><br><strong><code>4、define定义常量数组</code></strong><br>&emsp;&emsp;PHP7之前无法通过<code>define</code>来定义一个常量数组，PHP7支持。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(<span class="string">'TYPES'</span>, [</span><br><span class="line"><span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">]);</span><br><span class="line">print_r(TYPES);</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">Array</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [0] =&gt; 1</span></span><br><span class="line"><span class="comment">    [1] =&gt; 2</span></span><br><span class="line"><span class="comment">    [2] =&gt; 3</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><code>5、批量导入namespace命名空间</code></strong><br>&emsp;&emsp;PHP7之前如果需要导入同一个<code>namespace</code>的多个类，需要这样写：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\<span class="title">A</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\<span class="title">B</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\<span class="title">C</span>;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;PHP7可以这样写：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\&#123;<span class="title">A</span>, <span class="title">B</span>, <span class="title">C</span>&#125;;</span><br></pre></td></tr></table></figure></p>
-<p><strong><code>6、throwable接口</code></strong><br>&emsp;&emsp;PHP7之前如果代码有<code>语法错误</code>，或者<code>fatal error</code>程序会直接报错退出，PHP7实现了<code>throwable</code>接口，原来的<code>Exception</code>和部分<code>Error</code>实现了该接口，那么这种<code>Error</code>和<code>Exception</code>会被第一个<code>try catch</code>捕获。没有匹配的<code>catch</code>块，则会调用<code>异常处理函数</code>，如果没有注册，则会<code>fatal error</code>。<code>Error</code>类并非继承<code>Exception</code>，所以要想捕获<code>Error</code>，可以<code>catch (Error $e) {}</code>或者通过注册异常处理函数<code>set_exception_handler()</code>来捕获<code>Error</code>。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    test();</span><br><span class="line">&#125; <span class="keyword">catch</span> (Error $e) &#123;</span><br><span class="line">    print_r($e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">set_exception_handler(<span class="function"><span class="keyword">function</span> <span class="params">($e)</span> </span>&#123;</span><br><span class="line">    print_r($e);</span><br><span class="line">&#125;);</span><br><span class="line">test();</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">Error Object</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [message:protected] =&gt; Call to undefined function test()</span></span><br><span class="line"><span class="comment">    [string:Error:private] =&gt;</span></span><br><span class="line"><span class="comment">    [code:protected] =&gt; 0</span></span><br><span class="line"><span class="comment">    [file:protected] =&gt; D:\xampp\htdocs\demo\bz.github.io\exception.php</span></span><br><span class="line"><span class="comment">    [line:protected] =&gt; 14</span></span><br><span class="line"><span class="comment">    [trace:Error:private] =&gt; Array</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    [previous:Error:private] =&gt;</span></span><br><span class="line"><span class="comment">    [xdebug_message] =&gt;</span></span><br><span class="line"><span class="comment">Error: Call to undefined function test()</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><code>7、intdiv函数</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> intdiv(<span class="number">10</span>, <span class="number">3</span>); <span class="comment">// 3</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="number">10</span> / <span class="number">3</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure></p>
+            <p>&emsp;&emsp;在C语言中可以使用<code>#define</code>来指定一个标识符（宏名）代表一个字符串。宏定义有两种方式，一种有参数宏定义，一种无参数宏定义。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//无参数宏定义</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> 宏名 字符串</span></span><br><span class="line"><span class="comment">//有参数宏定义</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> 宏名(参数) 字符串</span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;<strong>关于宏的几点说明：</strong><br>1、宏名一般大写；<br>2、宏是预编译处理不做语法检查和计算，仅替换；<br>3、宏定义末尾不加分号；<br>4、宏使用<code>#define</code>定义，使用<code>#undef</code>取消定义；<br>5、宏定义可以嵌套，不会递归替换；<br>6、字符串<code>&quot;&quot;</code>中不包含宏，宏定义不分配内存，变量定义分配内存；<br>7、宏名和参数间的括号不能有空格；<br>8、<code>#</code>用于在宏定义的参数两端加上<code>&quot;&quot;</code>，<code>##</code>用于拼接宏；<br>9、每次宏展开的结果会被重复扫描，直到没有任何可以展开的宏为止；<br>10、每展开一个宏，都会记住这次展开，在这个宏展开的结果和后续展开中不会重复展开相同的宏；<br>11、带参数的宏，先对参数展开，除非宏定义体中有<code>#</code>和<code>##</code>。<br>&emsp;&emsp;<strong>针对8,9条给出一个说明例子：demo.c</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> foo foo bar</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> bar bar bar foo</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    foo;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">先展开foo =&gt; foo bar,因为foo已经展开过了，之后的foo不再展开</span></span><br><span class="line"><span class="comment">此时展开bar =&gt; foo bar bar foo</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">通过 gcc -E demo.c 得到如下结果：</span></span><br><span class="line"><span class="comment">int main()</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    foo bar bar foo;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">说明结论正确。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;学习了宏定义以后我们来看一下PHP源码中的宏替换，PHP源码中有一个内存分配的宏替换，这个宏的位置在<code>/usr/src/php-7.1.6/Zend/zend_alloc.h</code>文件的<code>106</code>行：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">define</span> ZEND_ALLOCATOR(size) \</span></span><br><span class="line">    ZEND_MM_BINS_INFO(_ZEND_BIN_ALLOCATOR_SELECTOR_START, size, y) \</span><br><span class="line">    ((size &lt;= ZEND_MM_MAX_LARGE_SIZE) ? _emalloc_large(size) : _emalloc_huge(size)) \</span><br><span class="line">    ZEND_MM_BINS_INFO(_ZEND_BIN_ALLOCATOR_SELECTOR_END, size, y)</span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> _emalloc(size) \</span></span><br><span class="line">    (__builtin_constant_p(size) ? \</span><br><span class="line">        ZEND_ALLOCATOR(size) \</span><br><span class="line">    : \</span><br><span class="line">        _emalloc(size) \</span><br><span class="line">    )</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们可以看到里面有四个宏定义，其中<code>ZEND_MM_BINS_INFO</code>和<code>ZEND_MM_MAX_LARGE_SIZE</code>这两个宏在<code>/usr/src/php-7.1.6/Zend/zend_alloc_sizes.h</code>中，详情如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> ZEND_ALLOC_SIZES_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZEND_ALLOC_SIZES_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZEND_MM_CHUNK_SIZE (2 * 1024 * 1024)               <span class="comment">/* 2 MB  */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZEND_MM_PAGE_SIZE  (4 * 1024)                      <span class="comment">/* 4 KB  */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZEND_MM_PAGES      (ZEND_MM_CHUNK_SIZE / ZEND_MM_PAGE_SIZE)  <span class="comment">/* 512 */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZEND_MM_FIRST_PAGE (1)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZEND_MM_MIN_SMALL_SIZE      8</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZEND_MM_MAX_SMALL_SIZE      3072</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZEND_MM_MAX_LARGE_SIZE      (ZEND_MM_CHUNK_SIZE - (ZEND_MM_PAGE_SIZE * ZEND_MM_FIRST_PAGE))</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* num, size, count, pages */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ZEND_MM_BINS_INFO(_, x, y) \</span></span><br><span class="line">    _( <span class="number">0</span>,    <span class="number">8</span>,  <span class="number">512</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _( <span class="number">1</span>,   <span class="number">16</span>,  <span class="number">256</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _( <span class="number">2</span>,   <span class="number">24</span>,  <span class="number">170</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _( <span class="number">3</span>,   <span class="number">32</span>,  <span class="number">128</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _( <span class="number">4</span>,   <span class="number">40</span>,  <span class="number">102</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _( <span class="number">5</span>,   <span class="number">48</span>,   <span class="number">85</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _( <span class="number">6</span>,   <span class="number">56</span>,   <span class="number">73</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _( <span class="number">7</span>,   <span class="number">64</span>,   <span class="number">64</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _( <span class="number">8</span>,   <span class="number">80</span>,   <span class="number">51</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _( <span class="number">9</span>,   <span class="number">96</span>,   <span class="number">42</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _(<span class="number">10</span>,  <span class="number">112</span>,   <span class="number">36</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _(<span class="number">11</span>,  <span class="number">128</span>,   <span class="number">32</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _(<span class="number">12</span>,  <span class="number">160</span>,   <span class="number">25</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _(<span class="number">13</span>,  <span class="number">192</span>,   <span class="number">21</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _(<span class="number">14</span>,  <span class="number">224</span>,   <span class="number">18</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _(<span class="number">15</span>,  <span class="number">256</span>,   <span class="number">16</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _(<span class="number">16</span>,  <span class="number">320</span>,   <span class="number">64</span>, <span class="number">5</span>, x, y) \</span><br><span class="line">    _(<span class="number">17</span>,  <span class="number">384</span>,   <span class="number">32</span>, <span class="number">3</span>, x, y) \</span><br><span class="line">    _(<span class="number">18</span>,  <span class="number">448</span>,    <span class="number">9</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _(<span class="number">19</span>,  <span class="number">512</span>,    <span class="number">8</span>, <span class="number">1</span>, x, y) \</span><br><span class="line">    _(<span class="number">20</span>,  <span class="number">640</span>,   <span class="number">32</span>, <span class="number">5</span>, x, y) \</span><br><span class="line">    _(<span class="number">21</span>,  <span class="number">768</span>,   <span class="number">16</span>, <span class="number">3</span>, x, y) \</span><br><span class="line">    _(<span class="number">22</span>,  <span class="number">896</span>,    <span class="number">9</span>, <span class="number">2</span>, x, y) \</span><br><span class="line">    _(<span class="number">23</span>, <span class="number">1024</span>,    <span class="number">8</span>, <span class="number">2</span>, x, y) \</span><br><span class="line">    _(<span class="number">24</span>, <span class="number">1280</span>,   <span class="number">16</span>, <span class="number">5</span>, x, y) \</span><br><span class="line">    _(<span class="number">25</span>, <span class="number">1536</span>,    <span class="number">8</span>, <span class="number">3</span>, x, y) \</span><br><span class="line">    _(<span class="number">26</span>, <span class="number">1792</span>,   <span class="number">16</span>, <span class="number">7</span>, x, y) \</span><br><span class="line">    _(<span class="number">27</span>, <span class="number">2048</span>,    <span class="number">8</span>, <span class="number">4</span>, x, y) \</span><br><span class="line">    _(<span class="number">28</span>, <span class="number">2560</span>,    <span class="number">8</span>, <span class="number">5</span>, x, y) \</span><br><span class="line">    _(<span class="number">29</span>, <span class="number">3072</span>,    <span class="number">4</span>, <span class="number">3</span>, x, y)</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* ZEND_ALLOC_SIZES_H */</span></span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;我们可以把这个宏从代码里面摘出来<code>test_zend.c</code>如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"zend_alloc_sizes.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> _ZEND_BIN_ALLOCATOR_SELECTOR_START(_num, _size, _elements, _pages, size, y) \</span></span><br><span class="line">    ((size &lt;= _size) ? _emalloc_ ## _size() :</span><br><span class="line"># define _ZEND_BIN_ALLOCATOR_SELECTOR_END(_num, _size, _elements, _pages, size, y) \</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> ZEND_ALLOCATOR(size) \</span></span><br><span class="line">    ZEND_MM_BINS_INFO(_ZEND_BIN_ALLOCATOR_SELECTOR_START, size, y) \</span><br><span class="line">    ((size &lt;= ZEND_MM_MAX_LARGE_SIZE) ? _emalloc_large(size) : _emalloc_huge(size)) \</span><br><span class="line">    ZEND_MM_BINS_INFO(_ZEND_BIN_ALLOCATOR_SELECTOR_END, size, y)</span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> _emalloc(size) \</span></span><br><span class="line">    (ZEND_ALLOCATOR(size))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    _emalloc(size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;接下来我们来一步步展开这个宏：<br><code>1、展开 _emalloc(size)</code><br>&emsp;&emsp;展开以后发现<code>ZEND_ALLOCATOR(size)</code>这个宏<br><code>2、展开 ZEND_ALLOCATOR(size)</code><br>&emsp;&emsp;展开以后发现<code>ZEND_MM_BINS_INFO(_ZEND_BIN_ALLOCATOR_SELECTOR_START, size, y)</code>这个宏<br><code>3、展开 ZEND_MM_BINS_INFO(_ZEND_BIN_ALLOCATOR_SELECTOR_START, size, y)</code><br>&emsp;&emsp;结合前面的<code>ZEND_MM_BINS_INFO(_, x, y)</code>得到如下结果:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">_ZEND_BIN_ALLOCATOR_SELECTOR_START(<span class="number">0</span>, <span class="number">8</span>, <span class="number">512</span>, <span class="number">1</span>, size, y) \</span><br><span class="line">_ZEND_BIN_ALLOCATOR_SELECTOR_START(<span class="number">1</span>, <span class="number">16</span>, <span class="number">256</span>, <span class="number">1</span>, size, y) \</span><br><span class="line">                        .</span><br><span class="line">                        .</span><br><span class="line">                        .</span><br><span class="line">_ZEND_BIN_ALLOCATOR_SELECTOR_START(<span class="number">29</span>, <span class="number">3072</span>, <span class="number">4</span>, <span class="number">3</span>, size, y) \</span><br></pre></td></tr></table></figure></p>
+<p><code>4、展开 _ZEND_BIN_ALLOCATOR_SELECTOR_START(_num, _size, _elements, _pages, size, y)</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">((size &lt;= <span class="number">8</span>) ? _emalloc_8() : ((size &lt;= <span class="number">16</span> ? _emalloc_16() :</span><br><span class="line">.........................................................</span><br><span class="line">((size &lt;= <span class="number">3072</span>) ? _emalloc_3072() :</span><br></pre></td></tr></table></figure></p>
+<p><code>5、展开 ZEND_MM_MAX_LARGE_SIZE</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((size &lt;= ((<span class="number">2</span> * <span class="number">1024</span> * <span class="number">1024</span>) - ((<span class="number">4</span> * <span class="number">1024</span>) * (<span class="number">1</span>)))) ? lloc_large(size) : _emalloc_huge(size))</span><br></pre></td></tr></table></figure></p>
+<p><code>6、展开 ZEND_MM_BINS_INFO(_ZEND_BIN_ALLOCATOR_SELECTOR_END, size, y)</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">_ZEND_BIN_ALLOCATOR_SELECTOR_END(<span class="number">0</span>, <span class="number">8</span>, <span class="number">512</span>, <span class="number">1</span>, size, y) \</span><br><span class="line">_ZEND_BIN_ALLOCATOR_SELECTOR_END(<span class="number">1</span>, <span class="number">16</span>, <span class="number">256</span>, <span class="number">1</span>, size, y) \</span><br><span class="line">                        .</span><br><span class="line">                        .</span><br><span class="line">                        .</span><br><span class="line">_ZEND_BIN_ALLOCATOR_SELECTOR_END(<span class="number">29</span>, <span class="number">3072</span>, <span class="number">4</span>, <span class="number">3</span>, size, y) \</span><br></pre></td></tr></table></figure></p>
+<p><code>7、展开 _ZEND_BIN_ALLOCATOR_SELECTOR_END(_num, _size, _elements, _pages, size, y)</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">)))))))))))))))))))))))))))))))</span><br></pre></td></tr></table></figure></p>
+<p><code>8、到此所有宏展开完毕，组合以后得到如下结果</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(((size &lt;= <span class="number">8</span>) ? _emalloc_8() : ((size &lt;= <span class="number">16</span> ? _emalloc_16() :</span><br><span class="line">.........................................................</span><br><span class="line">((size &lt;= <span class="number">3072</span>) ? _emalloc_3072() : ((size &lt;= ((<span class="number">2</span> * <span class="number">1024</span> * <span class="number">1024</span>) - ((<span class="number">4</span> * <span class="number">1024</span>) * (<span class="number">1</span>)))) ? lloc_large(size) : _emalloc_huge(size)) )))))))))))))))))))))))))))))))</span><br></pre></td></tr></table></figure></p>
+<p><code>9、执行 gcc -E test_zend.c 得到结果如下</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    (((size &lt;= <span class="number">8</span>) ? _emalloc_8() : ((size &lt;= <span class="number">16</span>) ? _emalloc_16() : ((size &lt;= <span class="number">24</span>) ? _emalloc_24() : ((size &lt;= <span class="number">32</span>) ? _emalloc_32() : ((size &lt;= <span class="number">40</span>) ? _emalloc_40() : ((size &lt;= <span class="number">48</span>) ? _emalloc_48() : ((size &lt;= <span class="number">56</span>) ? _emalloc_56() : ((size &lt;= <span class="number">64</span>) ? _emalloc_64() : ((size &lt;= <span class="number">80</span>) ? _emalloc_80() : ((size &lt;= <span class="number">96</span>) ? _emalloc_96() : ((size &lt;= <span class="number">112</span>) ? _emalloc_112() : ((size &lt;= <span class="number">128</span>) ? _emalloc_128() : ((size &lt;= <span class="number">160</span>) ? _emalloc_160() : ((size &lt;= <span class="number">192</span>) ? _emalloc_192() : ((size &lt;= <span class="number">224</span>) ? _emalloc_224() : ((size &lt;= <span class="number">256</span>) ? _emalloc_256() : ((size &lt;= <span class="number">320</span>) ? _emalloc_320() : ((size &lt;= <span class="number">384</span>) ? _emalloc_384() : ((size &lt;= <span class="number">448</span>) ? _emalloc_448() : ((size &lt;= <span class="number">512</span>) ? _emalloc_512() : ((size &lt;= <span class="number">640</span>) ? _emalloc_640() : ((size &lt;= <span class="number">768</span>) ? _emalloc_768() : ((size &lt;= <span class="number">896</span>) ? _emalloc_896() : ((size &lt;= <span class="number">1024</span>) ? _emalloc_1024() : ((size &lt;= <span class="number">1280</span>) ? _emalloc_1280() : ((size &lt;= <span class="number">1536</span>) ? _emalloc_1536() : ((size &lt;= <span class="number">1792</span>) ? _emalloc_1792() : ((size &lt;= <span class="number">2048</span>) ? _emalloc_2048() : ((size &lt;= <span class="number">2560</span>) ? _emalloc_2560() : ((size &lt;= <span class="number">3072</span>) ? _emalloc_3072() : ((size &lt;= ((<span class="number">2</span> * <span class="number">1024</span> * <span class="number">1024</span>) - ((<span class="number">4</span> * <span class="number">1024</span>) * (<span class="number">1</span>)))) ? _emalloc_large(size) : _emalloc_huge(size)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;验证正确，这就是宏替换，看源码会有很多这样复杂的宏定义，只要认真仔细，都是可以轻松替换的。赶快去试试吧。</p>
 
           
         
@@ -1928,7 +1995,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言urlencode和urldecode操作/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言JSON操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -1948,7 +2015,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/05/Go语言urlencode和urldecode操作/" class="post-title-link" itemprop="url">Go语言urlencode和urldecode操作</a>
+                <a href="/2019/05/05/Go语言JSON操作/" class="post-title-link" itemprop="url">Go语言JSON操作</a>
               
             
           </h1>
@@ -1990,7 +2057,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-03 22:21:00" itemprop="dateModified" datetime="2019-04-03T22:21:00+08:00">2019-04-03</time>
+                <time title="修改时间：2019-04-03 21:18:31" itemprop="dateModified" datetime="2019-04-03T21:18:31+08:00">2019-04-03</time>
               
             
           </span>
@@ -2046,7 +2113,7 @@
       
         
           
-            <p>Go语言中可以通过<code>net/url</code>来进行<code>urlencode</code>和<code>urldecode</code>操作：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"net/url"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    u := url.Values&#123;&#125;</span><br><span class="line">    <span class="comment">//urlencode</span></span><br><span class="line">    u.Add(<span class="string">"name"</span>, <span class="string">"golang是编译型语言"</span>)</span><br><span class="line">    u.Add(<span class="string">"type"</span>, <span class="string">"static静态类型"</span>)</span><br><span class="line">    urlencodeStr := u.Encode()</span><br><span class="line">    fmt.Println(urlencodeStr)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//urldecode</span></span><br><span class="line">    urldecodeStr, err := url.ParseQuery(urlencodeStr)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"urldecode错误,Error:%s\n"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(urldecodeStr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+            <p>Go语言中通过<code>encoding/json</code>包对<code>JSON</code>串进行处理：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"encoding/json"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造总的JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> GoJson <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Type <span class="keyword">string</span></span><br><span class="line">    Properties Properties</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造内部JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> Properties <span class="keyword">struct</span> &#123;</span><br><span class="line">    Slice <span class="keyword">string</span></span><br><span class="line">    Array <span class="keyword">string</span></span><br><span class="line">    Interface <span class="keyword">string</span></span><br><span class="line">    Struct <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//解析JSON串</span></span><br><span class="line">    <span class="comment">//待解析的JSON串</span></span><br><span class="line">    jsonStr := <span class="string">`&#123;</span></span><br><span class="line"><span class="string">        "name": "go",</span></span><br><span class="line"><span class="string">        "type": "static",</span></span><br><span class="line"><span class="string">        "properties": &#123;</span></span><br><span class="line"><span class="string">            "slice": "切片",</span></span><br><span class="line"><span class="string">            "array": "数组",</span></span><br><span class="line"><span class="string">            "interface": "接口",</span></span><br><span class="line"><span class="string">            "struct": "结构体"</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;`</span></span><br><span class="line">    goJson := GoJson&#123;&#125;</span><br><span class="line">    err := json.Unmarshal([]<span class="keyword">byte</span>(jsonStr), &amp;goJson)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">"Name:%s\nType:%s\nProperties:%s\n"</span>, goJson.Name, goJson.Type, goJson.Properties)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成JSON串</span></span><br><span class="line">    properties := Properties&#123;</span><br><span class="line">        Slice: <span class="string">"没有"</span>,</span><br><span class="line">        Array: <span class="string">"数组"</span>,</span><br><span class="line">        Interface: <span class="string">"接口"</span>,</span><br><span class="line">        Struct: <span class="string">"没有"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    goJson1 := GoJson&#123;</span><br><span class="line">        Name: <span class="string">"PHP"</span>,</span><br><span class="line">        Type: <span class="string">"Dynamic"</span>,</span><br><span class="line">        Properties: properties,</span><br><span class="line">    &#125;</span><br><span class="line">    j, err := json.Marshal(goJson1)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(<span class="keyword">string</span>(j))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -2134,7 +2201,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2210,7 +2277,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

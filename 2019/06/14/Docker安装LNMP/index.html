@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="Docker是一个开源的应用容器引擎，基于Go语言，Docker可以让开发者打包他们的应用程序以及依赖到一个轻量级、可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器完全使用沙箱机制，相互之间不会有任何接口，更重要的是容器性能开销极低。Docker自17.03版本之后分为社区版（Community Edition: CE）和企业版（Enterprise Edition：">
-<meta name="keywords" content="Docker">
+  <meta name="description" content="在 /home/用户名/下创建如下文件夹和文件：12345678/home/blueyi/www├── data├── nginx│   └── conf.d│       └── default.conf└── web    ├── index.html    └── index.php   这些文件夹和文件用于挂载，default.conf内容如下：123456789101112131415">
+<meta name="keywords" content="Docker,LNMP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安装Docker">
-<meta property="og:url" content="http://www.coderzj.com/2019/06/13/Docker安装/index.html">
+<meta property="og:title" content="Docker 安装LNMP">
+<meta property="og:url" content="http://www.coderzj.com/2019/06/14/Docker安装LNMP/index.html">
 <meta property="og:site_name" content="BJLC&#39;s Blog">
-<meta property="og:description" content="Docker是一个开源的应用容器引擎，基于Go语言，Docker可以让开发者打包他们的应用程序以及依赖到一个轻量级、可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器完全使用沙箱机制，相互之间不会有任何接口，更重要的是容器性能开销极低。Docker自17.03版本之后分为社区版（Community Edition: CE）和企业版（Enterprise Edition：">
+<meta property="og:description" content="在 /home/用户名/下创建如下文件夹和文件：12345678/home/blueyi/www├── data├── nginx│   └── conf.d│       └── default.conf└── web    ├── index.html    └── index.php   这些文件夹和文件用于挂载，default.conf内容如下：123456789101112131415">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-13T15:57:48.590Z">
+<meta property="og:updated_time" content="2019-06-13T16:01:15.807Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安装Docker">
-<meta name="twitter:description" content="Docker是一个开源的应用容器引擎，基于Go语言，Docker可以让开发者打包他们的应用程序以及依赖到一个轻量级、可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器完全使用沙箱机制，相互之间不会有任何接口，更重要的是容器性能开销极低。Docker自17.03版本之后分为社区版（Community Edition: CE）和企业版（Enterprise Edition：">
+<meta name="twitter:title" content="Docker 安装LNMP">
+<meta name="twitter:description" content="在 /home/用户名/下创建如下文件夹和文件：12345678/home/blueyi/www├── data├── nginx│   └── conf.d│       └── default.conf└── web    ├── index.html    └── index.php   这些文件夹和文件用于挂载，default.conf内容如下：123456789101112131415">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.coderzj.com/2019/06/13/Docker安装/">
+  <link rel="canonical" href="http://www.coderzj.com/2019/06/14/Docker安装LNMP/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>安装Docker | BJLC's Blog</title>
+  <title>Docker 安装LNMP | BJLC's Blog</title>
   
 
 
@@ -344,7 +344,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/06/13/Docker安装/">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/06/14/Docker安装LNMP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="清墨彰蓺">
@@ -361,7 +361,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">安装Docker
+          <h1 class="post-title" itemprop="name headline">Docker 安装LNMP
 
               
             
@@ -387,7 +387,7 @@
                 
               
 
-              <time title="创建时间：2019-06-13 23:57:48" itemprop="dateCreated datePublished" datetime="2019-06-13T23:57:48+08:00">2019-06-13</time>
+              <time title="创建时间：2019-06-14 00:01:15" itemprop="dateCreated datePublished" datetime="2019-06-14T00:01:15+08:00">2019-06-14</time>
             
 
             
@@ -449,28 +449,88 @@
       
 
       
-        <blockquote>
-<p>Docker是一个开源的应用容器引擎，基于Go语言，Docker可以让开发者打包他们的应用程序以及依赖到一个轻量级、可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器完全使用沙箱机制，相互之间不会有任何接口，更重要的是容器性能开销极低。Docker自17.03版本之后分为社区版（Community Edition: CE）和企业版（Enterprise Edition： EE），平时使用社区版就可以了。</p>
-</blockquote>
-<p>&emsp;&emsp;本文以<code>Centos</code>为例安装<code>Docker 18.06</code>，安装<code>Docker CE</code>要求<code>Centos 7</code>，可以通过这个命令查看<code>Centos</code>版本：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> lsb_release -a</span><br><span class="line">//返回结果如下</span><br><span class="line">LSB Version:    :core-4.1-amd64:core-4.1-noarch</span><br><span class="line">Distributor ID: CentOS</span><br><span class="line">Description:    CentOS Linux release 7.6.1810 (Core)</span><br><span class="line">Release:        7.6.1810</span><br><span class="line">Codename:       Core</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;操作系统满足要求以后，我们可以建立一个<code>Docker repository</code>，之后就可以通过这个仓库来更新和安装<code>Docker</code>了，</p>
-<ol>
-<li><p>建立<code>Docker repository</code>首先需要安装依赖包：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置一个稳定的仓库：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装<code>Docker CE</code>：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动<code>Docker</code>并且将自己的用户加入<code>docker</code>组：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo systemctl start docker</span><br><span class="line"><span class="meta">$</span> usermod -aG docker yourusername</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行<code>hello-world</code>验证<code>Docker CE</code>安装成功：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker run hello-world</span><br><span class="line">//结果如下</span><br><span class="line">Unable to find image 'hello-world:latest' locally</span><br><span class="line">latest: Pulling from library/hello-world</span><br><span class="line">1b930d010525: Pull complete</span><br><span class="line">Digest: </span><br><span class="line">sha256:0e11c388b664df8a27a901dce21eb89f11d8292f7fca1b3e3c4321bf7897bffe</span><br><span class="line">Status: Downloaded newer image for </span><br><span class="line">hello-world:latest</span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears </span><br><span class="line">to be working correctly.</span><br></pre></td></tr></table></figure>
+        <ol>
+<li>在 <code>/home/用户名/</code>下创建如下文件夹和文件：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/home/blueyi/www</span><br><span class="line">├── data</span><br><span class="line">├── nginx</span><br><span class="line">│   └── conf.d</span><br><span class="line">│       └── default.conf</span><br><span class="line">└── web</span><br><span class="line">    ├── index.html</span><br><span class="line">    └── index.php</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<p>这些文件夹和文件用于挂载，<code>default.conf</code>内容如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line"><span class="meta">		#</span>添加伪静态支持</span><br><span class="line">        try_files $uri $uri/ /index.php?$query_string;</span><br><span class="line">        index  index.php  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">	    #php 地址直接填容器名</span><br><span class="line">        fastcgi_pass   php-fpm73:9000;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME /var/www/html/$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li><p>安装 <code>mysql5.7</code>，并进入容器设置远程访问：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>拉取mysql5.7镜像</span><br><span class="line">docker pull mysql:5.7</span><br><span class="line"><span class="meta">#</span>创建mysql5.7容器</span><br><span class="line">docker run --name mysql57 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d -v ~/www/data:/var/lib/mysql mysql:5.7</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>进入mysql容器</span><br><span class="line">docker exec -it mysql57 bash</span><br><span class="line"><span class="meta">#</span>连接mysql设置远程访问</span><br><span class="line">mysql -uroot -p </span><br><span class="line">GRANT ALL ON *.* TO 'root'@'%';</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装PHP7.3：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>拉取PHP7.3镜像</span><br><span class="line">docker pull php:7.3-fpm</span><br><span class="line"><span class="meta">#</span>创建PHP7.3容器并关联mysql5.7</span><br><span class="line">docker run --name php-fpm73 -d -v ~/www/web:/var/www/html --link mysql57:mysql php:7.3-fpm</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>进入PHP7.3容器并安装mysql扩展</span><br><span class="line">docker exec -it php-fpm73 bash</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y libfreetype6 libfreetype6-dev libmcrypt-dev libmcrypt4 libcurl3-dev</span><br><span class="line">apt install build-essential libprotobuf-dev libboost-dev openssl protobuf-compiler</span><br><span class="line">docker-php-ext-install pdo pdo_mysql </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>退出PHP7.3容器，重启PHP7.3容器</span><br><span class="line">docker restart php-fpm73</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装nginx:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>拉取nginx镜像</span><br><span class="line">docker pull nginx</span><br><span class="line"><span class="meta">#</span>创建nginx容器</span><br><span class="line">docker run -d --name nginx -p 80:80 -v ~/www/web/:/usr/share/nginx/html -v ~/www/nginx/conf.d:/etc/nginx/conf.d --link php-fpm73:php-fpm nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装composer:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>拉取docker镜像</span><br><span class="line">docker pull composer</span><br><span class="line"><span class="meta">#</span>创建composer容器，并生成Laravel项目</span><br><span class="line">docker run --rm -it --volume ~/www/web/laravel:/app composer create-project laravel/laravel laravel5.7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装phpmyadmin:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name phpmyadmin -d --link mysql57:db -p 8080:80 phpmyadmin/phpmyadmin</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>Docker删除镜像相关命令:</strong></p>
+<ol>
+<li>查询镜像：<br><code>docker images</code></li>
+<li>查询容器：<br><code>docker ps -a</code></li>
+<li>删除容器：<br><code>docker rm 容器id</code></li>
+<li>删除镜像：<br><code>docker rmi 镜像id</code><blockquote>
+<p>注意：</p>
+<ol>
+<li>删除前需要确保容器已经停止；</li>
+<li>docker rmi 删除镜像，docker rm 删除容器；</li>
+<li>必须先删除容器再删除镜像。</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<p><strong>docker run 相关命令(通过run命令创建新的容器)：</strong><br>命令格式：<code>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</code><br>常用选项说明：</p>
+<ul>
+<li><code>-d, --detach=false</code>，指定容器运行于前台还是后台，默认false</li>
+<li><code>-i, --interactive=false</code>，打开STDIN，用于控制台交互</li>
+<li><code>-t, --tty=false</code>，分配tty设备，支持终端登录，默认false</li>
+<li><code>-u, --user=&quot;&quot;</code>，指定容器的用户</li>
+<li><code>-a, --attach=[]</code>，登录容器（必须是<code>docker run -d</code>启动的容器）</li>
+<li><code>-w, --workdir=&quot;&quot;</code>，指定容器工作目录</li>
+<li><code>-c, --cpu-shares=0</code>，设置容器CPU权重，在CPU共享场景使用</li>
+<li><code>-e, --env=[]</code>，制定环境变量，容器中可以使用此环境变量</li>
+<li><code>-m, --memory=&quot;&quot;</code>，指定容器内存上限</li>
+<li><code>-p, --publish=[]</code>，指定容器暴露端口</li>
+<li><code>-h, --hostname=&quot;&quot;</code>，指定容器主机名</li>
+<li><code>-v, --volume=[]</code>，给容器挂载存储卷，挂载到容器某个目录</li>
+<li><code>--volumesfrom=[]</code>，给容器挂载其他容器上的卷，挂载到容器某个目录</li>
+<li><code>--cap-add=[]</code>，添加权限</li>
+<li><code>--cap-drop=[]</code>，删除权限</li>
+<li><code>--cidfile=&quot;&quot;</code>，运行容器后，在指定容器中写入容器PID值，一种典型的监控系统用法</li>
+<li><code>--cpuset=&quot;&quot;</code>，设置容器可以使用那些CPU，此参数可以用来容器独占CPU</li>
+<li><code>--device=[]</code>，添加主机设备给容器，相当于设备直通</li>
+<li><code>--dns=[]</code>，指定容器dns服务器</li>
+<li><code>--dns-search=[]</code>，指定容器dns搜索域名，写入到容器<code>/etc/resolv.conf</code>文件</li>
+<li><code>--entrypoint=&quot;&quot;</code>，覆盖image的入口点</li>
+<li><code>--env-file=[]</code>，制定环境变量文件，文件格式每行一个环境变量</li>
+<li><code>--expose=[]</code>，指定容器暴露的端口，即修改镜像暴露端口</li>
+<li><code>--link=[]</code>，制定容器间关联，使用其他容器IP、env等信息</li>
+<li><code>--lxc-conf=[]</code>，指定容器配置文件，只有在指定<code>--exec-driver=lxc</code>时使用</li>
+<li><code>--name=&quot;&quot;</code>，指定容器名字，后续可通过名字管理容器，links特性需要使用名字</li>
+<li><code>--net=&quot;bridge&quot;</code>，容器网络设置：<ul>
+<li>bridge：使用<code>docker daemon</code>指定的网桥</li>
+<li>host：容器使用主机网络</li>
+<li>container:NAME_OR_ID：使用其他容器的网络，共享IP和PORT等网络资源</li>
+<li>none：容器使用自己的网络（类似bridge）</li>
+</ul>
+</li>
+<li><code>--privileged=false</code>，指定容器是否为特权容器，特权容器拥有所有capabilities</li>
+<li><code>--restart=&quot;no&quot;</code>，指定容器停止后的重启策略：<ul>
+<li>no：容器退出时不重启</li>
+<li>on-failure：容器故障退出（返回值非零）时重启</li>
+<li>always：容器退出时总是重启</li>
+</ul>
+</li>
+<li><code>--rm=false</code>，指定容器停止后自动删除容器（不支持<code>docker run -d</code>启动的容器）</li>
+<li><code>--sig-proxy=true</code>，设置由代理接受并处理信号，但是<code>SIGCHLD、SIGSTOP、SIGKILL</code>不能被代理</li>
+</ul>
 
       
     </div>
@@ -496,6 +556,8 @@
           
             <a href="/tags/Docker/" rel="tag"># Docker</a>
           
+            <a href="/tags/LNMP/" rel="tag"># LNMP</a>
+          
         </div>
       
 
@@ -507,8 +569,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/12/Linux中修改用户名/" rel="next" title="Linux中修改用户名">
-                <i class="fa fa-chevron-left"></i> Linux中修改用户名
+              <a href="/2019/06/13/Docker安装/" rel="next" title="安装Docker">
+                <i class="fa fa-chevron-left"></i> 安装Docker
               </a>
             
           </div>
@@ -516,10 +578,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/14/Docker安装LNMP/" rel="prev" title="Docker 安装LNMP">
-                Docker 安装LNMP <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
