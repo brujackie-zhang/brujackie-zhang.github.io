@@ -340,6 +340,366 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/PHP7新特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/05/PHP7新特性/" class="post-title-link" itemprop="url">PHP7新特性</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-24 16:26:53" itemprop="dateModified" datetime="2019-03-24T16:26:53+08:00">2019-03-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>PHP7除了在性能方面提升了很多，也加入了很多新特性，一起看一下吧。</code></p>
+<p><strong><code>1、太空船操作符（&lt;=&gt;）</code></strong><br>&emsp;&emsp;太空船操作符用于比较两个表达式，大于、等于和小于时分别返回1、0、-1。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="number">1</span> &lt;=&gt; <span class="number">1</span>; <span class="comment">//0</span></span><br><span class="line"><span class="keyword">echo</span> <span class="number">1</span> &lt;=&gt; <span class="number">0</span>; <span class="comment">//1</span></span><br><span class="line"><span class="keyword">echo</span> <span class="number">1.8</span> &lt;=&gt; <span class="number">2</span>; <span class="comment">//-1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'a'</span> &lt;=&gt; <span class="string">'a'</span>; <span class="comment">//0</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'a'</span> &lt;=&gt; <span class="string">'b'</span>; <span class="comment">//-1</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'b'</span> &lt;=&gt; <span class="string">'a'</span>; <span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
+<p><strong><code>2、标量类型申明和返回值类型声明</code></strong><br>&emsp;&emsp;PHP7可以对以下几种标量类型的参数做声明：<code>字符串(string)</code>、<code>整型(int)</code>、<code>浮点型(float)</code>，<code>布尔型(bool)</code>。参数类型声明不受限于默认模式和严格模式，默认模式时传入的参数不符合声明类型会进行类型转换，严格模式则会报错。<br><code>参数类型声明</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//声明为严格模式,注释此行将不会报错</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">(int ...$ints)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(sum(<span class="number">1</span>, <span class="string">'1.1'</span>, <span class="number">1.1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">declare(strict_types = 1);</span></span><br><span class="line"><span class="comment">PHP Fatal error:  Uncaught TypeError: Argument 2 passed to sum() must be of the type integer, string given</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">declare(strict_types = 1);</span></span><br><span class="line"><span class="comment">int(3)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p><code>返回值类型声明</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//声明为严格模式，注释此行将不会报错</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">(int ...$ints)</span> : <span class="title">int</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(sum(<span class="number">1</span>, <span class="string">'1.1'</span>, <span class="number">1.1</span>));</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">declare(strict_types = 1);</span></span><br><span class="line"><span class="comment">PHP Fatal error:  Uncaught TypeError: Argument 2 passed to sum() must be of the type integer, string given</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">declare(strict_types = 0);</span></span><br><span class="line"><span class="comment">int(3)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;PHP7.1可以将函数返回值类型定义为 <code>viod</code> ,无论是否开启严格模式，只要函数中有 <code>return;</code>，那么其他 <code>return</code>语句都将报错。<strong>参数类型不可以声明为 <code>viod</code></strong>。<br><code>返回值声明为 void</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testVoid</span><span class="params">(int ...$ints)</span> : <span class="title">void</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var_dump(testVoid(<span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>));</span><br><span class="line"><span class="comment">/*运行结果如下：</span></span><br><span class="line"><span class="comment">return array_sum($ints);</span></span><br><span class="line"><span class="comment">PHP Fatal error:  A void function must not return a value</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return null;</span></span><br><span class="line"><span class="comment">PHP Fatal error:  A void function must not return a value (did you mean "return;" instead of "return null;"?)</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return;</span></span><br><span class="line"><span class="comment">NULL</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;PHP7.1对于参数类型和返回值类型还可以是<code>可空类型</code>，在参数或者返回值类型声明前加<code>?</code>即可。<br><code>可空参数类型和返回值类型</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">declare</span>(strict_types = <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">(?int ...$ints)</span> : ?<span class="title">int</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array_sum($ints);</span><br><span class="line">    <span class="keyword">return</span> strval(implode(<span class="string">','</span>, $ints));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">var_dump(test(<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>));</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">return array_sum($ints);</span></span><br><span class="line"><span class="comment">int(7)</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return strval(implode(',', $ints));</span></span><br><span class="line"><span class="comment">PHP Fatal error:  Uncaught TypeError: Return value of test() must be of the type integer or null, string returned</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return null;</span></span><br><span class="line"><span class="comment">NULL</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">return;</span></span><br><span class="line"><span class="comment">PHP Fatal error:  A function with return type must return a value (did you mean "return null;" instead of "return;"?)</span></span><br></pre></td></tr></table></figure></p>
+<p><strong><code>3、null合并运算符</code></strong><br>&emsp;&emsp;PHP 7以前我们通常会写这样的代码：<br>&emsp;&emsp;<code>$name = isset($res[&#39;name&#39;]) ? $res[&#39;name&#39;] : &#39;&#39;;</code><br>&emsp;&emsp;PHP7以后我们可以这样写：<br>&emsp;&emsp;<code>$name = $res[&#39;name&#39;] ?? &#39;&#39;;</code><br>&emsp;&emsp;这样就极大简化了我们的代码。<br>&emsp;&emsp;对于这样的代码我们也可以做简化：<br>&emsp;&emsp;<code>$name = !empty($res[&#39;name&#39;]) ? $res[&#39;name&#39;] : &#39;&#39;;</code><br>&emsp;&emsp;<code>$name = $res[&#39;name&#39;] ?: &#39;&#39;;</code><br>&emsp;&emsp;对于连续的三元运算符还可以这样写：<br>&emsp;&emsp;<code>$name = $res[&#39;name&#39;] ?? $data[&#39;name&#39;] ?? &#39;&#39;;</code><br><strong><code>4、define定义常量数组</code></strong><br>&emsp;&emsp;PHP7之前无法通过<code>define</code>来定义一个常量数组，PHP7支持。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">define(<span class="string">'TYPES'</span>, [</span><br><span class="line"><span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">]);</span><br><span class="line">print_r(TYPES);</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">Array</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [0] =&gt; 1</span></span><br><span class="line"><span class="comment">    [1] =&gt; 2</span></span><br><span class="line"><span class="comment">    [2] =&gt; 3</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p><strong><code>5、批量导入namespace命名空间</code></strong><br>&emsp;&emsp;PHP7之前如果需要导入同一个<code>namespace</code>的多个类，需要这样写：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\<span class="title">A</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\<span class="title">B</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\<span class="title">C</span>;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;PHP7可以这样写：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">Namespace</span>\&#123;<span class="title">A</span>, <span class="title">B</span>, <span class="title">C</span>&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong><code>6、throwable接口</code></strong><br>&emsp;&emsp;PHP7之前如果代码有<code>语法错误</code>，或者<code>fatal error</code>程序会直接报错退出，PHP7实现了<code>throwable</code>接口，原来的<code>Exception</code>和部分<code>Error</code>实现了该接口，那么这种<code>Error</code>和<code>Exception</code>会被第一个<code>try catch</code>捕获。没有匹配的<code>catch</code>块，则会调用<code>异常处理函数</code>，如果没有注册，则会<code>fatal error</code>。<code>Error</code>类并非继承<code>Exception</code>，所以要想捕获<code>Error</code>，可以<code>catch (Error $e) {}</code>或者通过注册异常处理函数<code>set_exception_handler()</code>来捕获<code>Error</code>。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    test();</span><br><span class="line">&#125; <span class="keyword">catch</span> (Error $e) &#123;</span><br><span class="line">    print_r($e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">set_exception_handler(<span class="function"><span class="keyword">function</span> <span class="params">($e)</span> </span>&#123;</span><br><span class="line">    print_r($e);</span><br><span class="line">&#125;);</span><br><span class="line">test();</span><br><span class="line"><span class="comment">/*执行结果如下：</span></span><br><span class="line"><span class="comment">Error Object</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [message:protected] =&gt; Call to undefined function test()</span></span><br><span class="line"><span class="comment">    [string:Error:private] =&gt;</span></span><br><span class="line"><span class="comment">    [code:protected] =&gt; 0</span></span><br><span class="line"><span class="comment">    [file:protected] =&gt; D:\xampp\htdocs\demo\bz.github.io\exception.php</span></span><br><span class="line"><span class="comment">    [line:protected] =&gt; 14</span></span><br><span class="line"><span class="comment">    [trace:Error:private] =&gt; Array</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    [previous:Error:private] =&gt;</span></span><br><span class="line"><span class="comment">    [xdebug_message] =&gt;</span></span><br><span class="line"><span class="comment">Error: Call to undefined function test()</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p><strong><code>7、intdiv函数</code></strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> intdiv(<span class="number">10</span>, <span class="number">3</span>); <span class="comment">// 3</span></span><br><span class="line"><span class="keyword">echo</span> intval(<span class="number">10</span> / <span class="number">3</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言urlencode和urldecode操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/05/Go语言urlencode和urldecode操作/" class="post-title-link" itemprop="url">Go语言urlencode和urldecode操作</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-03 22:21:00" itemprop="dateModified" datetime="2019-04-03T22:21:00+08:00">2019-04-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Go语言中可以通过<code>net/url</code>来进行<code>urlencode</code>和<code>urldecode</code>操作：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"net/url"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    u := url.Values&#123;&#125;</span><br><span class="line">    <span class="comment">//urlencode</span></span><br><span class="line">    u.Add(<span class="string">"name"</span>, <span class="string">"golang是编译型语言"</span>)</span><br><span class="line">    u.Add(<span class="string">"type"</span>, <span class="string">"static静态类型"</span>)</span><br><span class="line">    urlencodeStr := u.Encode()</span><br><span class="line">    fmt.Println(urlencodeStr)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//urldecode</span></span><br><span class="line">    urldecodeStr, err := url.ParseQuery(urlencodeStr)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"urldecode错误,Error:%s\n"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(urldecodeStr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言MD5加密/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -459,6 +819,357 @@
         
           
             <p>Go中通过<code>crypto/md5</code>有两种MD5加密方式：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"crypto/md5"</span></span><br><span class="line">    <span class="string">"encoding/hex"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//需要MD5的字符串</span></span><br><span class="line">    str := []<span class="keyword">byte</span>(<span class="string">"hello world"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法一：</span></span><br><span class="line">    <span class="comment">//实例化md5对象，返回hash.Hash对象</span></span><br><span class="line">    m := md5.New()</span><br><span class="line">    m.Write(str)</span><br><span class="line">    <span class="comment">//计算MD5检验和</span></span><br><span class="line">    md5Str := m.Sum(<span class="literal">nil</span>)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str)</span><br><span class="line">    <span class="comment">//转换成16进制</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法二：</span></span><br><span class="line">    md5Str1 := md5.Sum(str)</span><br><span class="line">    fmt.Printf(<span class="string">"%x\n"</span>, md5Str1)</span><br><span class="line">    <span class="comment">//转换成16进制,需要注意md5后的数据类型</span></span><br><span class="line">    fmt.Println(hex.EncodeToString(md5Str1[:]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言JSON操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/05/Go语言JSON操作/" class="post-title-link" itemprop="url">Go语言JSON操作</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-03 21:18:31" itemprop="dateModified" datetime="2019-04-03T21:18:31+08:00">2019-04-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Go语言中通过<code>encoding/json</code>包对<code>JSON</code>串进行处理：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"encoding/json"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造总的JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> GoJson <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Type <span class="keyword">string</span></span><br><span class="line">    Properties Properties</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造内部JSON串结构体</span></span><br><span class="line"><span class="keyword">type</span> Properties <span class="keyword">struct</span> &#123;</span><br><span class="line">    Slice <span class="keyword">string</span></span><br><span class="line">    Array <span class="keyword">string</span></span><br><span class="line">    Interface <span class="keyword">string</span></span><br><span class="line">    Struct <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//解析JSON串</span></span><br><span class="line">    <span class="comment">//待解析的JSON串</span></span><br><span class="line">    jsonStr := <span class="string">`&#123;</span></span><br><span class="line"><span class="string">        "name": "go",</span></span><br><span class="line"><span class="string">        "type": "static",</span></span><br><span class="line"><span class="string">        "properties": &#123;</span></span><br><span class="line"><span class="string">            "slice": "切片",</span></span><br><span class="line"><span class="string">            "array": "数组",</span></span><br><span class="line"><span class="string">            "interface": "接口",</span></span><br><span class="line"><span class="string">            "struct": "结构体"</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;`</span></span><br><span class="line">    goJson := GoJson&#123;&#125;</span><br><span class="line">    err := json.Unmarshal([]<span class="keyword">byte</span>(jsonStr), &amp;goJson)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">"Name:%s\nType:%s\nProperties:%s\n"</span>, goJson.Name, goJson.Type, goJson.Properties)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成JSON串</span></span><br><span class="line">    properties := Properties&#123;</span><br><span class="line">        Slice: <span class="string">"没有"</span>,</span><br><span class="line">        Array: <span class="string">"数组"</span>,</span><br><span class="line">        Interface: <span class="string">"接口"</span>,</span><br><span class="line">        Struct: <span class="string">"没有"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    goJson1 := GoJson&#123;</span><br><span class="line">        Name: <span class="string">"PHP"</span>,</span><br><span class="line">        Type: <span class="string">"Dynamic"</span>,</span><br><span class="line">        Properties: properties,</span><br><span class="line">    &#125;</span><br><span class="line">    j, err := json.Marshal(goJson1)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"%s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(<span class="keyword">string</span>(j))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/揖槛扶风/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/05/揖槛扶风/" class="post-title-link" itemprop="url">揖槛扶风</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-27 13:10:26" itemprop="dateModified" datetime="2019-03-27T13:10:26+08:00">2019-03-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/缥缃醉/" itemprop="url" rel="index"><span itemprop="name">缥缃醉</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<center style="font-size:1.3em">桂影斑驳夜黯淡，茶色涟涟印清秋。<br>登楼饮风候月盏，青丝残灯笼桃面。<br>云歇雨住萤草离，几壶明月共婵娟？<br>提笔扶风寄花笺，稻香醉竹人长久！</center>
 
           
         
@@ -692,192 +1403,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/LNMP源码编译安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/05/LNMP源码编译安装/" class="post-title-link" itemprop="url">LNMP源码编译安装</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-14 18:15:52" itemprop="dateModified" datetime="2019-04-14T18:15:52+08:00">2019-04-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>LNMP是一个Web应用软件组合，即（Linux+Nginx+MySQL+PHP）</p>
-</blockquote>
-<p>&emsp;&emsp;首先你需要一个<code>Linux</code>系统，可以是<code>Centos</code>、<code>Debian</code>、<code>Ubuntu</code>等类<code>Linux/Unix</code>系统，下面我们来逐个进行编译安装，这里以<code>Centos</code>为例：</p>
-<h3 id="1、Nginx（Nginx1-14-2）"><a href="#1、Nginx（Nginx1-14-2）" class="headerlink" title="1、Nginx（Nginx1.14.2）"></a>1、Nginx（Nginx1.14.2）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//安装依赖</span><br><span class="line">yum install -y pcre-devel zlib-devel openssl-devel</span><br><span class="line">//获取源码</span><br><span class="line">wget http://nginx.org/download/nginx-1.14.2.tar.gz</span><br><span class="line">//解压安装</span><br><span class="line">tar -zxvf nginx-1.14.2.tar.gz</span><br><span class="line">cd nginx-1.14.2</span><br><span class="line">./configure --prefix=/usr/local/nginx</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//创建用户www</span><br><span class="line">groupadd www</span><br><span class="line">useradd -g www www</span><br><span class="line">//修改nginx.conf配置文件支持php</span><br><span class="line"> fastcgi_param  SCRIPT_FILENAME </span><br><span class="line"><span class="meta">$</span>document_root$fastcgi_script_name;</span><br></pre></td></tr></table></figure>
-<h3 id="2、MySQL（MySQL5-7）"><a href="#2、MySQL（MySQL5-7）" class="headerlink" title="2、MySQL（MySQL5.7）"></a>2、MySQL（MySQL5.7）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line">//安装依赖</span><br><span class="line">yum -y install gcc gcc-c++ ncurses ncurses-devel cmake bison</span><br><span class="line">//获取源码</span><br><span class="line">wget https://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz</span><br><span class="line">wget http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.13.tar.gz</span><br><span class="line">//创建MySQL用户和用户组</span><br><span class="line">groupadd -r mysql &amp;&amp; useradd -r -g mysql -s /sbin/nologin -M mysql</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf  boost_1_59_0.tar.gz</span><br><span class="line">tar -zxvf  mysql-5.7.13.tar.gz</span><br><span class="line">//创建数据目录</span><br><span class="line">mkdir -p /data/mysql</span><br><span class="line">//进入mysql-5.7.13预编译MySQL</span><br><span class="line">cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql \</span><br><span class="line">-DMYSQL_DATADIR=/data/mysql \</span><br><span class="line">-DWITH_BOOST=../boost_1_59_0 \</span><br><span class="line">-DSYSCONFDIR=/etc \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_PARTITION_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_FEDERATED_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_BLACKHOLE_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DENABLE_DTRACE=0 \</span><br><span class="line">-DDEFAULT_CHARSET=utf8mb4 \</span><br><span class="line">-DDEFAULT_COLLATION=utf8mb4_general_ci \</span><br><span class="line">-DWITH_EMBEDDED_SERVER=1</span><br><span class="line">//编译安装</span><br><span class="line">make -j `grep processor /proc/cpuinfo | wc -l`</span><br><span class="line">make install</span><br><span class="line">//设置启动脚本，开机自启动</span><br><span class="line">cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line">chmod +x /etc/init.d/mysqld</span><br><span class="line">systemctl enable mysqld</span><br><span class="line">//修改my.cnf配置文件</span><br><span class="line">cat &gt; /etc/my.cnf &lt;&lt; EOF</span><br><span class="line">[client]</span><br><span class="line">port = 3306</span><br><span class="line">socket = /dev/shm/mysql.sock</span><br><span class="line">[mysqld]</span><br><span class="line">port = 3306</span><br><span class="line">socket = /dev/shm/mysql.sock</span><br><span class="line">basedir = /usr/local/mysql</span><br><span class="line">datadir = /data/mysql</span><br><span class="line">pid-file = /data/mysql/mysql.pid</span><br><span class="line">user = mysql</span><br><span class="line">bind-address = 0.0.0.0</span><br><span class="line">server-id = 1</span><br><span class="line">init-connect = 'SET NAMES utf8mb4'</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line"><span class="meta">#</span>skip-name-resolve#skip-networking</span><br><span class="line">back_log = 300</span><br><span class="line">max_connections = 1000</span><br><span class="line">max_connect_errors = 6000</span><br><span class="line">open_files_limit = 65535</span><br><span class="line">table_open_cache = 128</span><br><span class="line">max_allowed_packet = 4M</span><br><span class="line">binlog_cache_size = 1M</span><br><span class="line">max_heap_table_size = 8M</span><br><span class="line">tmp_table_size = 16M</span><br><span class="line">read_buffer_size = 2M</span><br><span class="line">read_rnd_buffer_size = 8M</span><br><span class="line">sort_buffer_size = 8M</span><br><span class="line">join_buffer_size = 8M</span><br><span class="line">key_buffer_size = 4M</span><br><span class="line">thread_cache_size = 8</span><br><span class="line">query_cache_type = 1</span><br><span class="line">query_cache_size = 8M</span><br><span class="line">query_cache_limit = 2M</span><br><span class="line">ft_min_word_len = 4</span><br><span class="line">log_bin = mysql-bin</span><br><span class="line">binlog_format = mixed</span><br><span class="line">expire_logs_days = 30</span><br><span class="line">log_error = /data/mysql/mysql-error.log</span><br><span class="line">slow_query_log = 1</span><br><span class="line">long_query_time = 1</span><br><span class="line">slow_query_log_file = /data/mysql/mysql-slow.log</span><br><span class="line">performance_schema = 0</span><br><span class="line">explicit_defaults_for_timestamp</span><br><span class="line"><span class="meta">#</span>lower_case_table_names = 1</span><br><span class="line">skip-external-locking</span><br><span class="line">default_storage_engine = InnoDB</span><br><span class="line"><span class="meta">#</span>default-storage-engine = MyISAM</span><br><span class="line">innodb_file_per_table = 1</span><br><span class="line">innodb_open_files = 500</span><br><span class="line">innodb_buffer_pool_size = 64M</span><br><span class="line">innodb_write_io_threads = 4</span><br><span class="line">innodb_read_io_threads = 4</span><br><span class="line">innodb_thread_concurrency = 0</span><br><span class="line">innodb_purge_threads = 1</span><br><span class="line">innodb_flush_log_at_trx_commit = 2</span><br><span class="line">innodb_log_buffer_size = 2M</span><br><span class="line">innodb_log_file_size = 32M</span><br><span class="line">innodb_log_files_in_group = 3</span><br><span class="line">innodb_max_dirty_pages_pct = 90</span><br><span class="line">innodb_lock_wait_timeout = 120</span><br><span class="line">bulk_insert_buffer_size = 8M</span><br><span class="line">myisam_sort_buffer_size = 8M</span><br><span class="line">myisam_max_sort_file_size = 10G</span><br><span class="line">myisam_repair_threads = 1</span><br><span class="line">interactive_timeout = 28800</span><br><span class="line">wait_timeout = 28800</span><br><span class="line">[mysqldump]</span><br><span class="line">quick</span><br><span class="line">max_allowed_packet = 16M</span><br><span class="line">[myisamchk]</span><br><span class="line">key_buffer_size = 8M</span><br><span class="line">sort_buffer_size = 8M</span><br><span class="line">read_buffer = 4M</span><br><span class="line">write_buffer = 4M</span><br><span class="line">EOF</span><br><span class="line">//初始化数据库</span><br><span class="line">mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql</span><br><span class="line">//启动数据库</span><br><span class="line">systemctl start mysqld</span><br><span class="line">//设置数据库root用户密码</span><br><span class="line">mysql_secure_installation</span><br><span class="line">//设置MySQL服务可被其他服务调用</span><br><span class="line">echo "/usr/local/mysql/lib" &gt; /etc/ld.so.conf.d/mysql.conf</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
-<h3 id="3、PHP（PHP7-1-6）"><a href="#3、PHP（PHP7-1-6）" class="headerlink" title="3、PHP（PHP7.1.6）"></a>3、PHP（PHP7.1.6）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">//安装依赖</span><br><span class="line">yum -y install libxml2 libxml2-devel openssl openssl-devel curl-devel libjpeg-devel libpng-devel freetype-devel libmcrypt-devel</span><br><span class="line">//解压安装</span><br><span class="line">tar -zxvf php-7.1.6.tar.gz</span><br><span class="line">./configure \</span><br><span class="line">--prefix=/usr/local/php71 \</span><br><span class="line">--exec-prefix=/usr/local/php71 \</span><br><span class="line">--bindir=/usr/local/php71/bin \</span><br><span class="line">--sbindir=/usr/local/php71/sbin \</span><br><span class="line">--includedir=/usr/local/php71/include \</span><br><span class="line">--libdir=/usr/local/php71/lib/php \</span><br><span class="line">--mandir=/usr/local/php71/php/man \</span><br><span class="line">--with-config-file-path=/usr/local/php71/etc \</span><br><span class="line">--with-mysql-sock=/dev/shm/mysql.sock \</span><br><span class="line">--with-mcrypt=/usr/include \</span><br><span class="line">--with-mhash \</span><br><span class="line">--with-openssl \</span><br><span class="line">--with-mysqli=shared,mysqlnd \</span><br><span class="line">--with-pdo-mysql=shared,mysqlnd \</span><br><span class="line">--with-gd \</span><br><span class="line">--with-iconv \</span><br><span class="line">--with-zlib \</span><br><span class="line">--enable-zip \</span><br><span class="line">--enable-inline-optimization \</span><br><span class="line">--disable-debug \</span><br><span class="line">--disable-rpath \</span><br><span class="line">--enable-shared \</span><br><span class="line">--enable-xml \</span><br><span class="line">--enable-bcmath \</span><br><span class="line">--enable-shmop \</span><br><span class="line">--enable-sysvsem \</span><br><span class="line">--enable-mbregex \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--enable-ftp \</span><br><span class="line">--enable-gd-native-ttf \</span><br><span class="line">--enable-pcntl \</span><br><span class="line">--enable-sockets \</span><br><span class="line">--with-xmlrpc \</span><br><span class="line">--enable-soap \</span><br><span class="line">--without-pear \</span><br><span class="line">--with-gettext \</span><br><span class="line">--enable-session \</span><br><span class="line">--with-curl \</span><br><span class="line">--with-jpeg-dir \</span><br><span class="line">--with-freetype-dir \</span><br><span class="line">--enable-opcache \</span><br><span class="line">--enable-fpm \</span><br><span class="line">--with-fpm-user=www \</span><br><span class="line">--with-fpm-group=www \</span><br><span class="line">--without-gdbm \</span><br><span class="line">--disable-fileinfo</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//配置nginx支持php-fpm，首先创建www用户和用户组</span><br><span class="line">groupadd www</span><br><span class="line">useradd -g www www</span><br><span class="line">//复制php-fpm配置文件</span><br><span class="line">cd /usr/local/php71/etc</span><br><span class="line">cp php-fpm.conf.default php-fpm.conf</span><br><span class="line">//进入php-fpm.d目录，复制www.conf文件</span><br><span class="line">cd php-fpm.d</span><br><span class="line">cp www.conf.default www.conf</span><br><span class="line">//从PHP源码复制php.ini文件</span><br><span class="line">cp /usr/src/php-7.1.6/php.ini-development /usr/local/php71/etc/php.ini</span><br></pre></td></tr></table></figure>
-<p><em><code>编译安装扩展时出现如下错误，这是因为没有安装autoconf</code></em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//错误</span><br><span class="line">Cannot find autoconf. Please check your autoconf installation and the $PHP_AUTOCONF environment variable. Then, rerun this scrip</span><br><span class="line">//解决办法</span><br><span class="line">yum -y install m4</span><br><span class="line">yum -y install autoconf</span><br></pre></td></tr></table></figure></p>
-<h3 id="4、安装composer"><a href="#4、安装composer" class="headerlink" title="4、安装composer"></a>4、安装composer</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//下载composer</span><br><span class="line">curl -sS https://getcomposer.org/installer | php</span><br><span class="line">//将composer.phar移入bin目录，使composer可全局使用</span><br><span class="line">mv composer.phar /usr/local/bin/composer</span><br><span class="line">//切换国内源，以加快composer速度</span><br><span class="line">composer config -g repo.packagist composer https://packagist.laravel-china.org</span><br></pre></td></tr></table></figure>
-<h3 id="5、安装redis（redis5-03）"><a href="#5、安装redis（redis5-03）" class="headerlink" title="5、安装redis（redis5.03）"></a>5、安装redis（redis5.03）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//获取redis源码</span><br><span class="line">wget http://download.redis.io/releases/redis-5.0.3.tar.gz</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf redis-5.0.3.tar.gz</span><br><span class="line">//安装</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//修改redis.conf,使redis后台运行</span><br><span class="line">daemonize yes</span><br><span class="line">//启动redis</span><br><span class="line">redis-server redis.conf</span><br></pre></td></tr></table></figure>
-<p><em><code>安装redis扩展</code></em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//获取源码</span><br><span class="line">git clone  https://github.com/phpredis/phpredis.git</span><br><span class="line">//安装</span><br><span class="line">phpize</span><br><span class="line">./configure --with-php-config=/usr/local/php71/bin/php-config</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//将生成的redis.so加入php.ini文件</span><br></pre></td></tr></table></figure></p>
-<h3 id="6、安装swoole扩展（swoole4-3-2）"><a href="#6、安装swoole扩展（swoole4-3-2）" class="headerlink" title="6、安装swoole扩展（swoole4.3.2）"></a>6、安装swoole扩展（swoole4.3.2）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//获取源码</span><br><span class="line">git clone https://github.com/swoole/swoole-src/releases/tag/v4.3.2-rc1</span><br><span class="line">//安装</span><br><span class="line">phpize</span><br><span class="line">./configure --with-php-config=/usr/local/php71/bin/php-config</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//将生成的swoole.so加入php.ini文件</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/神奇的宏替换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1009,357 +1534,6 @@
 <p><code>8、到此所有宏展开完毕，组合以后得到如下结果</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(((size &lt;= <span class="number">8</span>) ? _emalloc_8() : ((size &lt;= <span class="number">16</span> ? _emalloc_16() :</span><br><span class="line">.........................................................</span><br><span class="line">((size &lt;= <span class="number">3072</span>) ? _emalloc_3072() : ((size &lt;= ((<span class="number">2</span> * <span class="number">1024</span> * <span class="number">1024</span>) - ((<span class="number">4</span> * <span class="number">1024</span>) * (<span class="number">1</span>)))) ? lloc_large(size) : _emalloc_huge(size)) )))))))))))))))))))))))))))))))</span><br></pre></td></tr></table></figure></p>
 <p><code>9、执行 gcc -E test_zend.c 得到结果如下</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    (((size &lt;= <span class="number">8</span>) ? _emalloc_8() : ((size &lt;= <span class="number">16</span>) ? _emalloc_16() : ((size &lt;= <span class="number">24</span>) ? _emalloc_24() : ((size &lt;= <span class="number">32</span>) ? _emalloc_32() : ((size &lt;= <span class="number">40</span>) ? _emalloc_40() : ((size &lt;= <span class="number">48</span>) ? _emalloc_48() : ((size &lt;= <span class="number">56</span>) ? _emalloc_56() : ((size &lt;= <span class="number">64</span>) ? _emalloc_64() : ((size &lt;= <span class="number">80</span>) ? _emalloc_80() : ((size &lt;= <span class="number">96</span>) ? _emalloc_96() : ((size &lt;= <span class="number">112</span>) ? _emalloc_112() : ((size &lt;= <span class="number">128</span>) ? _emalloc_128() : ((size &lt;= <span class="number">160</span>) ? _emalloc_160() : ((size &lt;= <span class="number">192</span>) ? _emalloc_192() : ((size &lt;= <span class="number">224</span>) ? _emalloc_224() : ((size &lt;= <span class="number">256</span>) ? _emalloc_256() : ((size &lt;= <span class="number">320</span>) ? _emalloc_320() : ((size &lt;= <span class="number">384</span>) ? _emalloc_384() : ((size &lt;= <span class="number">448</span>) ? _emalloc_448() : ((size &lt;= <span class="number">512</span>) ? _emalloc_512() : ((size &lt;= <span class="number">640</span>) ? _emalloc_640() : ((size &lt;= <span class="number">768</span>) ? _emalloc_768() : ((size &lt;= <span class="number">896</span>) ? _emalloc_896() : ((size &lt;= <span class="number">1024</span>) ? _emalloc_1024() : ((size &lt;= <span class="number">1280</span>) ? _emalloc_1280() : ((size &lt;= <span class="number">1536</span>) ? _emalloc_1536() : ((size &lt;= <span class="number">1792</span>) ? _emalloc_1792() : ((size &lt;= <span class="number">2048</span>) ? _emalloc_2048() : ((size &lt;= <span class="number">2560</span>) ? _emalloc_2560() : ((size &lt;= <span class="number">3072</span>) ? _emalloc_3072() : ((size &lt;= ((<span class="number">2</span> * <span class="number">1024</span> * <span class="number">1024</span>) - ((<span class="number">4</span> * <span class="number">1024</span>) * (<span class="number">1</span>)))) ? _emalloc_large(size) : _emalloc_huge(size)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;&emsp;验证正确，这就是宏替换，看源码会有很多这样复杂的宏定义，只要认真仔细，都是可以轻松替换的。赶快去试试吧。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go语言urlencode和urldecode操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/05/Go语言urlencode和urldecode操作/" class="post-title-link" itemprop="url">Go语言urlencode和urldecode操作</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-03 22:21:00" itemprop="dateModified" datetime="2019-04-03T22:21:00+08:00">2019-04-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Go语言中可以通过<code>net/url</code>来进行<code>urlencode</code>和<code>urldecode</code>操作：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"net/url"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    u := url.Values&#123;&#125;</span><br><span class="line">    <span class="comment">//urlencode</span></span><br><span class="line">    u.Add(<span class="string">"name"</span>, <span class="string">"golang是编译型语言"</span>)</span><br><span class="line">    u.Add(<span class="string">"type"</span>, <span class="string">"static静态类型"</span>)</span><br><span class="line">    urlencodeStr := u.Encode()</span><br><span class="line">    fmt.Println(urlencodeStr)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//urldecode</span></span><br><span class="line">    urldecodeStr, err := url.ParseQuery(urlencodeStr)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"urldecode错误,Error:%s\n"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(urldecodeStr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/05/Go安装/" class="post-title-link" itemprop="url">Go安装</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-14 20:17:54" itemprop="dateModified" datetime="2019-04-14T20:17:54+08:00">2019-04-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取源码包</span><br><span class="line">wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//修改/etc/profile添加GOPATH和GOROOT</span><br><span class="line">export GOPATH=/home/zj/Go</span><br><span class="line">export GOROOT=/usr/src/go</span><br><span class="line">//复制/usr/src/go/bin下文件到/usr/local/bin，使go命令可全局使用</span><br></pre></td></tr></table></figure>
-<p><em><code>vim中go语法高亮</code></em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//更新vim版本到7.4.2，卸载旧版vim</span><br><span class="line">yum remove -y vim-enhanced</span><br><span class="line">//安装新版本vim</span><br><span class="line">wget https://github.com/vim/vim/archive/v7.4.2367.tar.gz</span><br><span class="line">tar zxvf v7.4.2367.tar.gz</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//安装vim插件管理工具</span><br><span class="line">mkdir -p ~/.vim/autoload ~/.vim/bundle</span><br><span class="line">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim</span><br><span class="line">//编辑.vimrc加入如下内容</span><br><span class="line">execute pathogen#infect() </span><br><span class="line">syntax on </span><br><span class="line">filetype plugin indent on</span><br><span class="line">//安装其他vim插件只需要将插件放到~/.vim/bundle里即可</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1793,7 +1967,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
