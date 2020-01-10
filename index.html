@@ -340,6 +340,216 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2020/01/10/PHP trim函数剖析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/10/PHP trim函数剖析/" class="post-title-link" itemprop="url">PHP trim函数剖析</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-10 13:48:03" itemprop="dateCreated datePublished" datetime="2020-01-10T13:48:03+08:00">2020-01-10</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>这周遇到了一个关于 <code>trim</code> 函数的问题，问题是这样产生的，由于业务上需要计算购买人数，并对购买人数做特殊展示处理，规则是这样的购买人数大于 <code>10000</code> 展示 <code>xx.x万</code> 人，小于 <code>10000</code> 则展示原数据，产品还有一个特殊需求那就是如果计算结果刚好是 <code>xx.0</code> 那么 <code>.0</code> 是不需要的，所以当时是这么处理的 <code>$buyNum = trim(round($buyNum / 10000, 1), &#39;.0&#39;);</code> ，当数据是诸如 <code>16.0</code> 这样的时候是没有问题的，但是 <code>10.0</code> 这种数据就有问题了，由于 <code>trim</code> 函数特性，最终得到的结果是 <code>1</code>，和我们的预期大相径庭，那么这究竟是怎么一回事呢？那我们就一步步来探究它吧，彻底搞懂它，避免之后再踩坑。以下 <code>PHP源码</code> 基于 <code>PHP7.1.6</code>.</p>
+</blockquote>
+<p>我们先看一下 <a href="https://www.php.net/manual/en/function.trim.php" target="_blank" rel="noopener">PHP 官方文档 trim</a> 的解释：</p>
+<ul>
+<li><p><code>trim</code> 函数原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trim ( <span class="built_in">string</span> $str [, <span class="built_in">string</span> $character_mask = <span class="string">" \t\n\r\0\x0B"</span> ] ) : <span class="built_in">string</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>trim</code> 函数说明：</p>
+<blockquote>
+<p>This function returns a string with whitespace stripped from the beginning and end of str. Without the second parameter, trim() will strip these characters:</p>
+<ul>
+<li>“ “ (ASCII 32 (0x20)), an ordinary space.</li>
+<li>“\t” (ASCII 9 (0x09)), a tab.</li>
+<li>“\n” (ASCII 10 (0x0A)), a new line (line feed).</li>
+<li>“\r” (ASCII 13 (0x0D)), a carriage return.</li>
+<li>“\0” (ASCII 0 (0x00)), the NUL-byte.</li>
+<li>“\x0B” (ASCII 11 (0x0B)), a vertical tab.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>trim</code> 参数说明：<blockquote>
+<ul>
+<li>str<br>The string that will be trimmed.</li>
+<li>character_mask<br>Optionally, the stripped characters can also be specified using the character_mask parameter. Simply list all characters that you want to be stripped. With .. you can specify a range of characters.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><code>PHP官方</code> 文档说的是这个函数的一个简单用法，没有第二个参数的时候，<code>trim</code> 函数默认去除 <code>&#39; &#39;（空格）</code>、<code>\t（水平制表符）</code>、<code>\n（换行符）</code>、<code>\r（回车符）</code>、<code>\0（空字节符）</code>、<code>\x0B/\v（垂直制表符）</code>等几种字符。加了第二个参数以后就是去除所指定的字符，通过 <code>..</code> 可以指定范围，看这个解释那么如下两个例子应该得到什么结果呢？<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$str = <span class="string">'Hello World'</span>;</span><br><span class="line">$a = trim($str, <span class="string">'Hdle'</span>);</span><br><span class="line">$b = trim($str, <span class="string">'HdWr'</span>);</span><br><span class="line">var_dump($a);</span><br><span class="line">var_dump($b);</span><br></pre></td></tr></table></figure></p>
+<p>结果应该是：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string(<span class="number">5</span>) <span class="string">"o Wor"</span></span><br><span class="line">string(<span class="number">7</span>) <span class="string">"ello ol"</span></span><br></pre></td></tr></table></figure></p>
+<p>执行以后呢？<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string(<span class="number">5</span>) <span class="string">"o Wor"</span></span><br><span class="line">string(<span class="number">9</span>) <span class="string">"ello Worl"</span></span><br></pre></td></tr></table></figure></p>
+<p>和我们预期的结果区别不小，这是怎么回事呢？<br>回到我的那个处理购买人数问题上：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$buyNum = <span class="number">99907</span>;</span><br><span class="line">$buyNum = trim(round($buyNum / <span class="number">10000</span>, <span class="number">1</span>), <span class="string">'.0'</span>);</span><br><span class="line">var_dump($buyNum);</span><br><span class="line"><span class="comment">//string(1) "1"</span></span><br></pre></td></tr></table></figure></p>
+<p>有点奇怪吧，甚至是有点迷惑，这到底是什么意思呢？当然这个问题不用这个方法也能处理，但是 <code>trim</code> 不能处理或者说处理的不对到底是什么情况呢？看 <code>PHP 官方</code> 文档那应该结果就是 <code>1</code> ，再看文档没有其他说明了，那就不看了吗？No！我们可以看 <code>trim</code> 源码实现，探究它的本质，真正了解它的实现原理，之后就不会再犯同样的错误，同样在别人说这个 <code>trim</code> 函数不好用有坑的时候你能知道为什么会有坑，坑是怎么产生的。</p>
+<p><code>trim</code> 源码实现在 <code>php-7.1.6/ext/standard/string.c</code> 中的 <code>php_trim</code> 方法，核心代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* &#123;&#123;&#123; php_trim()</span></span><br><span class="line"><span class="comment"> * mode 1 : trim left</span></span><br><span class="line"><span class="comment"> * mode 2 : trim right</span></span><br><span class="line"><span class="comment"> * mode 3 : trim left and right</span></span><br><span class="line"><span class="comment"> * what indicates which chars are to be trimmed. NULL-&gt;default (' \t\n\r\v\0')</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">PHPAPI zend_string *<span class="title">php_trim</span><span class="params">(zend_string *str, <span class="keyword">char</span> *what, <span class="keyword">size_t</span> what_len, <span class="keyword">int</span> mode)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *c = ZSTR_VAL(str);</span><br><span class="line">    <span class="keyword">size_t</span> len = ZSTR_LEN(str);</span><br><span class="line">    <span class="keyword">register</span> <span class="keyword">size_t</span> i;</span><br><span class="line">    <span class="keyword">size_t</span> trimmed = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> mask[<span class="number">256</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (what) &#123;</span><br><span class="line">        <span class="keyword">if</span> (what_len == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">char</span> p = *what;</span><br><span class="line">            <span class="keyword">if</span> (mode &amp; <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (c[i] == p) &#123;</span><br><span class="line">                        trimmed++;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                len -= trimmed;</span><br><span class="line">                c += trimmed;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (mode &amp; <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (len &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    i = len - <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">do</span> &#123;</span><br><span class="line">                        <span class="keyword">if</span> (c[i] == p) &#123;</span><br><span class="line">                            len--;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">while</span> (i-- != <span class="number">0</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            php_charmask((<span class="keyword">unsigned</span> <span class="keyword">char</span>*)what, what_len, mask);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (mode &amp; <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (mask[(<span class="keyword">unsigned</span> <span class="keyword">char</span>)c[i]]) &#123;</span><br><span class="line">                        trimmed++;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                len -= trimmed;</span><br><span class="line">                c += trimmed;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (mode &amp; <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (len &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    i = len - <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">do</span> &#123;</span><br><span class="line">                        <span class="keyword">if</span> (mask[(<span class="keyword">unsigned</span> <span class="keyword">char</span>)c[i]]) &#123;</span><br><span class="line">                            len--;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">while</span> (i-- != <span class="number">0</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (mode &amp; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((<span class="keyword">unsigned</span> <span class="keyword">char</span>)c[i] &lt;= <span class="string">' '</span> &amp;&amp;</span><br><span class="line">                    (c[i] == <span class="string">' '</span> || c[i] == <span class="string">'\n'</span> || c[i] == <span class="string">'\r'</span> || c[i] == <span class="string">'\t'</span> || c[i] == <span class="string">'\v'</span> || c[i] == <span class="string">'\0'</span>)) &#123;</span><br><span class="line">                    trimmed++;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            len -= trimmed;</span><br><span class="line">            c += trimmed;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (mode &amp; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (len &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                i = len - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">do</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> ((<span class="keyword">unsigned</span> <span class="keyword">char</span>)c[i] &lt;= <span class="string">' '</span> &amp;&amp;</span><br><span class="line">                        (c[i] == <span class="string">' '</span> || c[i] == <span class="string">'\n'</span> || c[i] == <span class="string">'\r'</span> || c[i] == <span class="string">'\t'</span> || c[i] == <span class="string">'\v'</span> || c[i] == <span class="string">'\0'</span>)) &#123;</span><br><span class="line">                        len--;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">while</span> (i-- != <span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ZSTR_LEN(str) == len) &#123;</span><br><span class="line">        <span class="keyword">return</span> zend_string_copy(str);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> zend_string_init(c, len, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>函数上面的注释说明了这个函数的参数含义：</p>
+<ul>
+<li><code>str</code>：原字符串</li>
+<li><code>what</code>：需要去除的指定字符串</li>
+<li><code>what_len</code>：需要去除的指定字符串长度</li>
+<li><code>mode</code>：去除类型，左去除，右去除，左右去除</li>
+</ul>
+<p><code>trim</code> 函数处理逻辑：</p>
+<ol>
+<li>判断是否设置去除内容 <code>what</code>，没有设置去除默认字符（<code>&#39; \t\n\r\v\0&#39;</code>）;</li>
+<li>判断去除内容长度，1个字符和多个字符去除;</li>
+<li>使用 <code>mode</code> 与 <code>1</code> 和 <code>2</code> 按位与运算判断左右去除;</li>
+<li><code>trim</code> 多个字符去除，是循环去除，直到遇到第一个不在列表中的字符。</li>
+</ol>
+<p>这里我们看多字符去除，单字符去除没有歧义，主要是对多字符去除有疑惑，多字符去除主要处理在 <code>php_charmask</code> 函数，定义如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* &#123;&#123;&#123; php_charmask</span></span><br><span class="line"><span class="comment"> * Fills a 256-byte bytemask with input. You can specify a range like 'a..z',</span></span><br><span class="line"><span class="comment"> * it needs to be incrementing.</span></span><br><span class="line"><span class="comment"> * Returns: FAILURE/SUCCESS whether the input was correct (i.e. no range errors)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">php_charmask</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span> *input, <span class="keyword">size_t</span> len, <span class="keyword">char</span> *mask)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *end;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> result = SUCCESS;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">memset</span>(mask, <span class="number">0</span>, <span class="number">256</span>);</span><br><span class="line">    <span class="keyword">for</span> (end = input+len; input &lt; end; input++) &#123;</span><br><span class="line">        c=*input;</span><br><span class="line">        <span class="keyword">if</span> ((input+<span class="number">3</span> &lt; end) &amp;&amp; input[<span class="number">1</span>] == <span class="string">'.'</span> &amp;&amp; input[<span class="number">2</span>] == <span class="string">'.'</span></span><br><span class="line">                &amp;&amp; input[<span class="number">3</span>] &gt;= c) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(mask+c, <span class="number">1</span>, input[<span class="number">3</span>] - c + <span class="number">1</span>);</span><br><span class="line">            input+=<span class="number">3</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((input+<span class="number">1</span> &lt; end) &amp;&amp; input[<span class="number">0</span>] == <span class="string">'.'</span> &amp;&amp; input[<span class="number">1</span>] == <span class="string">'.'</span>) &#123;</span><br><span class="line">            <span class="comment">/* Error, try to be as helpful as possible:</span></span><br><span class="line"><span class="comment">               (a range ending/starting with '.' won't be captured here) */</span></span><br><span class="line">            <span class="keyword">if</span> (end-len &gt;= input) &#123; <span class="comment">/* there was no 'left' char */</span></span><br><span class="line">                php_error_docref(<span class="literal">NULL</span>, E_WARNING, <span class="string">"Invalid '..'-range, no character to the left of '..'"</span>);</span><br><span class="line">                result = FAILURE;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (input+<span class="number">2</span> &gt;= end) &#123; <span class="comment">/* there is no 'right' char */</span></span><br><span class="line">                php_error_docref(<span class="literal">NULL</span>, E_WARNING, <span class="string">"Invalid '..'-range, no character to the right of '..'"</span>);</span><br><span class="line">                result = FAILURE;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (input[<span class="number">-1</span>] &gt; input[<span class="number">2</span>]) &#123; <span class="comment">/* wrong order */</span></span><br><span class="line">                php_error_docref(<span class="literal">NULL</span>, E_WARNING, <span class="string">"Invalid '..'-range, '..'-range needs to be incrementing"</span>);</span><br><span class="line">                result = FAILURE;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/* <span class="doctag">FIXME:</span> better error (a..b..c is the only left possibility?) */</span></span><br><span class="line">            php_error_docref(<span class="literal">NULL</span>, E_WARNING, <span class="string">"Invalid '..'-range"</span>);</span><br><span class="line">            result = FAILURE;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            mask[c]=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>php_charmask</code> 函数使用一个 <code>mask</code> 字节数组来标记那些需要去除的字符串，然后执行操作和去除一个字符类似，只是结束条件是寻找到第一个不在字符表里的元素。同时我们也能看到函数对于范围去除的处理，也就是 <code>trim</code> 函数第二个参数中的 <code>..</code> ，同时也说明了在使用 <code>trim</code> 函数时第二个参数不能有三个点 <code>...</code> 否则会报错。<br>了解了 <code>trim</code> 函数内部实现原理以后，下面我们来通过 <code>GDB</code> 跟踪一下函数内部实现<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"> gdb php</span><br><span class="line">GNU gdb (GDB) Red Hat Enterprise Linux 7.6.1-114.el7</span><br><span class="line">Copyright (C) 2013 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type "show copying"</span><br><span class="line">and "show warranty" for details.</span><br><span class="line">This GDB was configured as "x86_64-redhat-linux-gnu".</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;...</span><br><span class="line">Reading symbols from /usr/local/php71/bin/php...done.</span><br><span class="line">(gdb) b php_charmask</span><br><span class="line">Breakpoint 1 at 0x730705: php_charmask. (4 locations)</span><br><span class="line">(gdb) r ~/Code/PHP/trim.php</span><br><span class="line">Starting program: /bin/php ~/Code/PHP/trim.php</span><br><span class="line">[Thread debugging using libthread_db enabled]</span><br><span class="line">Using host libthread_db library "/lib64/libthread_db.so.1".</span><br><span class="line"></span><br><span class="line">Breakpoint 1, php_trim (str=0x7ffff1c03560, what=0x7ffff1c03598 ".0",</span><br><span class="line">    what_len=2, mode=3) at /usr/src/php-7.1.6/ext/standard/string.c:829</span><br><span class="line">829                             php_charmask((unsigned char*)what, what_len, mask);</span><br><span class="line">(gdb) s</span><br><span class="line">php_charmask (mask=0x7fffffffaa30 "", len=2, input=0x7ffff1c03598 ".0")</span><br><span class="line">    at /usr/src/php-7.1.6/ext/standard/string.c:751</span><br><span class="line">751             memset(mask, 0, 256);</span><br><span class="line">(gdb) n</span><br><span class="line">752             for (end = input+len; input &lt; end; input++) &#123;</span><br><span class="line">(gdb) p input</span><br><span class="line"><span class="meta">$</span>1 = (unsigned char *) 0x7ffff1c03598 ".0"</span><br><span class="line">(gdb) p *input</span><br><span class="line"><span class="meta">$</span>2 = 46 '.'</span><br><span class="line">(gdb) n</span><br><span class="line">751             memset(mask, 0, 256);</span><br><span class="line">(gdb)</span><br><span class="line">752             for (end = input+len; input &lt; end; input++) &#123;</span><br><span class="line">(gdb)</span><br><span class="line">751             memset(mask, 0, 256);</span><br><span class="line">(gdb)</span><br><span class="line">752             for (end = input+len; input &lt; end; input++) &#123;</span><br><span class="line">(gdb)</span><br><span class="line">761                             if (end-len &gt;= input) &#123; /* there was no 'left' char */</span><br><span class="line">(gdb)</span><br><span class="line">php_trim (str=0x7ffff1c03560, what=&lt;optimized out&gt;, what_len=&lt;optimized out&gt;,</span><br><span class="line">    mode=&lt;optimized out&gt;) at /usr/src/php-7.1.6/ext/standard/string.c:829</span><br><span class="line">829                             php_charmask((unsigned char*)what, what_len, mask);</span><br><span class="line">(gdb) s</span><br><span class="line">php_charmask (mask=0x7fffffffaa30 "", len=&lt;optimized out&gt;,</span><br><span class="line">    input=0x7ffff1c03598 ".0") at /usr/src/php-7.1.6/ext/standard/string.c:754</span><br><span class="line">754                     if ((input+3 &lt; end) &amp;&amp; input[1] == '.' &amp;&amp; input[2] == '.'</span><br><span class="line">(gdb)</span><br><span class="line">753                     c=*input;</span><br><span class="line">(gdb) p c</span><br><span class="line"><span class="meta">$</span>3 = &lt;optimized out&gt;</span><br><span class="line">(gdb) p *input</span><br><span class="line"><span class="meta">$</span>4 = 46 '.'</span><br><span class="line">(gdb) n</span><br><span class="line">754                     if ((input+3 &lt; end) &amp;&amp; input[1] == '.' &amp;&amp; input[2] == '.'</span><br><span class="line">(gdb) n</span><br><span class="line">758                     &#125; else if ((input+1 &lt; end) &amp;&amp; input[0] == '.' &amp;&amp; input[1] == '.') &#123;</span><br><span class="line">(gdb) n</span><br><span class="line">797             size_t len = ZSTR_LEN(str);</span><br><span class="line">(gdb) p str</span><br><span class="line"><span class="meta">$</span>5 = (zend_string *) 0x7ffff1c03560</span><br><span class="line">(gdb) p *str</span><br><span class="line"><span class="meta">$</span>6 = &#123;gc = &#123;refcount = 0, u = &#123;v = &#123;type = 6 '\006', flags = 2 '\002',</span><br><span class="line">        gc_info = 0&#125;, type_info = 518&#125;&#125;, h = 9223372043238031460, len = 4,</span><br><span class="line">  val = "1"&#125;</span><br><span class="line">(gdb) p len</span><br><span class="line"><span class="meta">$</span>7 = 4</span><br><span class="line">(gdb) n</span><br><span class="line">829                             php_charmask((unsigned char*)what, what_len, mask);</span><br><span class="line">(gdb) s</span><br><span class="line">php_charmask (mask=0x7fffffffaa30 "", len=&lt;optimized out&gt;,</span><br><span class="line">    input=0x7ffff1c03599 "0") at /usr/src/php-7.1.6/ext/standard/string.c:754</span><br><span class="line">754                     if ((input+3 &lt; end) &amp;&amp; input[1] == '.' &amp;&amp; input[2] == '.'</span><br><span class="line">(gdb)</span><br><span class="line">753                     c=*input;</span><br><span class="line">(gdb)</span><br><span class="line">754                     if ((input+3 &lt; end) &amp;&amp; input[1] == '.' &amp;&amp; input[2] == '.'</span><br><span class="line">(gdb)</span><br><span class="line">758                     &#125; else if ((input+1 &lt; end) &amp;&amp; input[0] == '.' &amp;&amp; input[1] == '.') &#123;</span><br><span class="line">(gdb)</span><br><span class="line">781                             mask[c]=1;</span><br><span class="line"></span><br><span class="line">(gdb) p c</span><br><span class="line"><span class="meta">$</span>8 = 48 '0'</span><br><span class="line">(gdb) n</span><br><span class="line">752             for (end = input+len; input &lt; end; input++) &#123;</span><br><span class="line">(gdb)</span><br><span class="line">php_trim (str=0x7ffff1c03560, what=&lt;optimized out&gt;, what_len=&lt;optimized out&gt;,</span><br><span class="line">    mode=&lt;optimized out&gt;) at /usr/src/php-7.1.6/ext/standard/string.c:831</span><br><span class="line">831                             if (mode &amp; 1) &#123;</span><br><span class="line">(gdb)</span><br><span class="line">797             size_t len = ZSTR_LEN(str);</span><br><span class="line">(gdb) n</span><br><span class="line">831                             if (mode &amp; 1) &#123;</span><br><span class="line">(gdb) n</span><br><span class="line">832                                     for (i = 0; i &lt; len; i++) &#123;</span><br><span class="line">(gdb) n</span><br><span class="line">833                                             if (mask[(unsigned char)c[i]]) &#123;</span><br><span class="line">(gdb) n</span><br><span class="line">839                                     len -= trimmed;</span><br><span class="line">(gdb) n</span><br><span class="line">840                                     c += trimmed;</span><br><span class="line">(gdb) n</span><br><span class="line">839                                     len -= trimmed;</span><br><span class="line">(gdb) n</span><br><span class="line">842                             if (mode &amp; 2) &#123;</span><br><span class="line">(gdb) n</span><br><span class="line">843                                     if (len &gt; 0) &#123;</span><br><span class="line">(gdb) n</span><br><span class="line">846                                                     if (mask[(unsigned char)c[i]]) &#123;</span><br><span class="line">(gdb) p c</span><br><span class="line"><span class="meta">$</span>10 = 0x7ffff1c03578 "10.0"</span><br><span class="line">(gdb) p c[i]</span><br><span class="line"><span class="meta">$</span>11 = 48 '0'</span><br><span class="line">(gdb) p i</span><br><span class="line"><span class="meta">$</span>12 = 3</span><br><span class="line">(gdb) n</span><br><span class="line">851                                             &#125; while (i-- != 0);</span><br><span class="line">(gdb) n</span><br><span class="line">846                                                     if (mask[(unsigned char)c[i]]) &#123;</span><br><span class="line">(gdb) p c[i]</span><br><span class="line"><span class="meta">$</span>13 = 46 '.'</span><br><span class="line">(gdb) p i</span><br><span class="line"><span class="meta">$</span>14 = 2</span><br><span class="line">(gdb) n</span><br><span class="line">851                                             &#125; while (i-- != 0);</span><br><span class="line">(gdb) n</span><br><span class="line">846                                                     if (mask[(unsigned char)c[i]]) &#123;</span><br><span class="line">(gdb) p c[i]</span><br><span class="line"><span class="meta">$</span>15 = 48 '0'</span><br><span class="line">(gdb) n</span><br><span class="line">851                                             &#125; while (i-- != 0);</span><br><span class="line">(gdb) n</span><br><span class="line">846                                                     if (mask[(unsigned char)c[i]]) &#123;</span><br><span class="line">(gdb) p c[i]</span><br><span class="line"><span class="meta">$</span>16 = 49 '1'</span><br><span class="line">(gdb) p i</span><br><span class="line"><span class="meta">$</span>17 = 0</span><br><span class="line">(gdb) n</span><br><span class="line">883             if (ZSTR_LEN(str) == len) &#123;</span><br><span class="line">(gdb) p len</span><br><span class="line"><span class="meta">$</span>18 = 1</span><br><span class="line">(gdb) n</span><br><span class="line">886                     return zend_string_init(c, len, 0);</span><br><span class="line">(gdb) p c</span><br><span class="line"><span class="meta">$</span>19 = 0x7ffff1c03578 "10.0"</span><br><span class="line">(gdb)</span><br><span class="line"><span class="meta">$</span>20 = 0x7ffff1c03578 "10.0"</span><br><span class="line">(gdb) p *c</span><br><span class="line"><span class="meta">$</span>21 = 49 '1'</span><br></pre></td></tr></table></figure></p>
+<p>最终验证了我们的结论，也加深了对 <code>trim</code> 函数的理解，这里做个延伸，由于 <code>trim</code> 是基于字节去除的，所以在去除中文的时候可能会出现乱码，这是由于汉字是 <code>UTF-8</code> 编码，一个汉字占 <code>3字节</code>,所以可能会出现乱码，知道了函数实现原理以及实现细节可以避免踩很多坑。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; trim('品、', '、')</span><br><span class="line">=&gt; b<span class="string">"å“"</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/09/26/LNMP源码编译安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1906,182 +2116,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/05/Go安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/05/Go安装/" class="post-title-link" itemprop="url">Go安装</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-05 15:01:14" itemprop="dateCreated datePublished" datetime="2019-05-05T15:01:14+08:00">2019-05-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-14 20:17:54" itemprop="dateModified" datetime="2019-04-14T20:17:54+08:00">2019-04-14</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取源码包</span><br><span class="line">wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//解压</span><br><span class="line">tar -zxvf go1.12.4.linux-amd64.tar.gz</span><br><span class="line">//修改/etc/profile添加GOPATH和GOROOT</span><br><span class="line">export GOPATH=/home/zj/Go</span><br><span class="line">export GOROOT=/usr/src/go</span><br><span class="line">//复制/usr/src/go/bin下文件到/usr/local/bin，使go命令可全局使用</span><br></pre></td></tr></table></figure>
-<p><em><code>vim中go语法高亮</code></em><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//更新vim版本到7.4.2，卸载旧版vim</span><br><span class="line">yum remove -y vim-enhanced</span><br><span class="line">//安装新版本vim</span><br><span class="line">wget https://github.com/vim/vim/archive/v7.4.2367.tar.gz</span><br><span class="line">tar zxvf v7.4.2367.tar.gz</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">//安装vim插件管理工具</span><br><span class="line">mkdir -p ~/.vim/autoload ~/.vim/bundle</span><br><span class="line">curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim</span><br><span class="line">//编辑.vimrc加入如下内容</span><br><span class="line">execute pathogen#infect() </span><br><span class="line">syntax on </span><br><span class="line">filetype plugin indent on</span><br><span class="line">//安装其他vim插件只需要将插件放到~/.vim/bundle里即可</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2128,7 +2162,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2206,7 +2240,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2250,7 +2286,7 @@
       <div class="footer-inner">
         <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user-secret"></i>
   </span>
