@@ -340,6 +340,185 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2020/02/27/PHP中令人疑惑的strtotime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="清墨彰蓺">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BJLC's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/27/PHP中令人疑惑的strtotime/" class="post-title-link" itemprop="url">PHP中令人疑惑的strtotime</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-27 14:31:57" itemprop="dateCreated datePublished" datetime="2020-02-27T14:31:57+08:00">2020-02-27</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>&emsp;&emsp;在处理时间的时候我们经常会使用 <code>strtotime</code> 结合 <code>-1 month</code>、<code>+1 month</code>、<code>next month</code>、<code>last month</code>，但有时候会得到很困惑的结果，所以使用这个函数的时候会很没底，下面我们来看看吧。</p>
+</blockquote>
+<p><strong>举个例子：</strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$date = date(<span class="string">'Y-m-d'</span>, strtotime(<span class="string">'-1 month'</span>, strtotime(<span class="string">'2020-07-31'</span>)));</span><br><span class="line">var_dump($date);</span><br><span class="line"><span class="comment">//执行结果</span></span><br><span class="line"><span class="comment">//string(10) "2020-07-01"</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>&emsp;&emsp;输出怎么是 <code>2020-07-01</code>呢？我们期望的是 <code>2020-06-30</code>，下面一步步说明这样处理的逻辑：</p>
+<ol>
+<li>先做 <code>-1 month</code> 操作，当前是 <code>07-31</code>,减去一个月是 <code>06-31</code>;</li>
+<li>做日期规范化，因为6月没有31号，所以 <code>06-31</code> 就变成 <code>07-01</code> 了。<br>我们来验证一下第二步：<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="meta">&lt;?php</span></span><br><span class="line">&gt; var_dump(date(<span class="string">'Y-m-d'</span>, strtotime(<span class="string">'2020-06-31'</span>)));</span><br><span class="line">&gt; <span class="comment">//执行结果</span></span><br><span class="line">&gt; string(<span class="number">10</span>) <span class="string">"2020-07-01"</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>&emsp;&emsp;也就是说只要涉及到大小月的最后一天就可能有这个疑惑，验证一下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="meta">&lt;?php</span></span><br><span class="line">&gt; var_dump(date(<span class="string">"Y-m-d"</span>, strtotime(<span class="string">"-1 month"</span>, strtotime(<span class="string">"2020-03-31"</span>))));</span><br><span class="line">&gt; <span class="comment">//输出2020-03-02</span></span><br><span class="line">&gt; var_dump(date(<span class="string">"Y-m-d"</span>, strtotime(<span class="string">"+1 month"</span>, strtotime(<span class="string">"2020-08-31"</span>))));</span><br><span class="line">&gt; <span class="comment">//输出2020-10-01</span></span><br><span class="line">&gt; var_dump(date(<span class="string">"Y-m-d"</span>, strtotime(<span class="string">"next month"</span>, strtotime(<span class="string">"2020-01-31"</span>))));</span><br><span class="line">&gt; <span class="comment">//输出2020-03-02</span></span><br><span class="line">&gt; var_dump(date(<span class="string">"Y-m-d"</span>, strtotime(<span class="string">"last month"</span>, strtotime(<span class="string">"2020-03-31"</span>))));</span><br><span class="line">&gt; <span class="comment">//输出2020-03-02</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>&emsp;&emsp;那怎么处理这种时间呢？别着急，从 <code>PHP5.3</code> 开始，<code>date</code> 函数新增了一系列修正语来明确整个问题，也就是 <code>first day of</code> 和 <code>last day of</code> 来限定 <code>date</code> 不自动规范化，验证一下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="meta">&lt;?php</span></span><br><span class="line">&gt; var_dump(date(<span class="string">"Y-m-d"</span>, strtotime(<span class="string">"last day of -1 month"</span>, strtotime(<span class="string">"2020-03-31"</span>))));</span><br><span class="line">&gt; <span class="comment">//输出2020-02-29</span></span><br><span class="line">&gt; var_dump(date(<span class="string">"Y-m-d"</span>, strtotime(<span class="string">"first day of +1 month"</span>, strtotime(<span class="string">"2020-08-31"</span>))));</span><br><span class="line">&gt; <span class="comment">//输出2020-09-01</span></span><br><span class="line">&gt; var_dump(date(<span class="string">"Y-m-d"</span>, strtotime(<span class="string">"first day of next month"</span>, strtotime(<span class="string">"2020-01-31"</span>))));</span><br><span class="line">&gt; <span class="comment">//输出2020-02-01</span></span><br><span class="line">&gt; var_dump(date(<span class="string">"Y-m-d"</span>, strtotime(<span class="string">"last day of last month"</span>, strtotime(<span class="string">"2020-03-31"</span>))));</span><br><span class="line">&gt; <span class="comment">//输出2020-02-29</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>&emsp;&emsp;搞清楚了，以后就可以放心使用了。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2020/01/10/PHP trim函数剖析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1949,178 +2128,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coderzj.com/2019/05/08/vld扩展安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="清墨彰蓺">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BJLC's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/08/vld扩展安装/" class="post-title-link" itemprop="url">vld 扩展安装</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-08 14:25:36" itemprop="dateCreated datePublished" datetime="2019-05-08T14:25:36+08:00">2019-05-08</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&emsp;&emsp;在学习和研究PHP的过程中，总会需要查看<code>opcodes</code>,可以使用PHP自带的<code>phpdbg</code>命令进行查看，也可以通过<code>vld</code>扩展进行查看。<br><code>a.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">echo</span> $a;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*phpdbg查看OPCode如下：</span></span><br><span class="line"><span class="comment">phpdbg -p* a.php</span></span><br><span class="line"><span class="comment">function name: (null)</span></span><br><span class="line"><span class="comment">L1-4 &#123;main&#125;() /root/PHPSourceCode/a.php - 0x7f0962c780a0 + 5 ops</span></span><br><span class="line"><span class="comment"> L2    #0     EXT_STMT</span></span><br><span class="line"><span class="comment"> L2    #1     ASSIGN                  $a                   1</span></span><br><span class="line"><span class="comment"> L3    #2     EXT_STMT</span></span><br><span class="line"><span class="comment"> L3    #3     ECHO                    $a</span></span><br><span class="line"><span class="comment"> L4    #4     RETURN                  1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">vld查看OPCode如下：</span></span><br><span class="line"><span class="comment">php -d vld.active=1 a.php</span></span><br><span class="line"><span class="comment">Finding entry points</span></span><br><span class="line"><span class="comment">Branch analysis from position: 0</span></span><br><span class="line"><span class="comment">1 jumps found. (Code = 62) Position 1 = -2</span></span><br><span class="line"><span class="comment">filename:       /root/PHPSourceCode/a.php</span></span><br><span class="line"><span class="comment">function name:  (null)</span></span><br><span class="line"><span class="comment">number of ops:  5</span></span><br><span class="line"><span class="comment">compiled vars:  !0 = $a</span></span><br><span class="line"><span class="comment">line     #* E I O op                           fetch          ext  return  operands</span></span><br><span class="line"><span class="comment">-------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">   2     0  E &gt;   EXT_STMT</span></span><br><span class="line"><span class="comment">         1        ASSIGN                                                   !0, 1</span></span><br><span class="line"><span class="comment">   3     2        EXT_STMT</span></span><br><span class="line"><span class="comment">         3        ECHO                                                     !0</span></span><br><span class="line"><span class="comment">   4     4      &gt; RETURN                                                   1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">branch: #  0; line:     2-    4; sop:     0; eop:     4; out0:  -2</span></span><br><span class="line"><span class="comment">path #1: 0,</span></span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>vld</code>扩展安装如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/derickr/vld.git</span><br><span class="line">cd vld</span><br><span class="line">./configure --with-php-config=/usr/local/php/bin/php-config --enable-vld</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;安装成功后通过<code>php --ini</code>找到<code>php.ini</code>配置文件加入<code>extension=vld.so</code>，重启<code>php-fpm</code>，可以通过<code>php -m | grep vld</code>来查看是否安装完成，然后就可以使用<code>vld</code>来查看PHP执行的opcodes了。<br>&emsp;&emsp;<code>vld</code>常用扩展参数说明：</p>
-<blockquote>
-<p><code>vld.active</code>：是否激活<code>vld</code>，默认是<code>0</code>（不激活）,<code>1</code>（激活）<br><code>vld.execute</code> ：是否输出执行结果，默认是<code>1</code>（输出）,<code>0</code>（不输出）<br><code>vld.verbosity</code>：是否输出更详细的opcodes，大于等于<code>3</code>和小于<code>0</code>是（输出<code>op1、op2、result</code>），<code>0,1,2</code>效果一样不输出<code>op1、op2、result</code>，默认<code>1</code><br><code>vld.save_dir</code>：指定文件输出路径，默认为<code>/tmp</code><br><code>vld.save_paths</code>：控制是否输出<code>dot语言文件</code>，默认<code>0</code>（不输出），<code>1</code>（输出）</p>
-</blockquote>
-<p>&emsp;&emsp;<code>dot</code>是一种图形描述语言，由<code>graphviz</code>工具绘制：<br><code>Vld.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vld</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $num;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($num)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;num = $num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">increase</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;num + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$v = <span class="keyword">new</span> Vld(<span class="number">1</span>);</span><br><span class="line">var_dump($v-&gt;increase());</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>执行 php -dvld.active=1 -dvld.save_paths=1 vld.php</code><br>&emsp;&emsp;<code>进入/tmp目录，执行 dot -Tpng /tmp/paths.dot -o paths.png 生成如下图片:</code><br><img src="https://images.coderzj.com/images/vld.png" alt="Vld.png"><br>&emsp;&emsp;<code>这里扩展一下，使用 graphviz 还可以画流程图哦，很高大上吧，下面一起来看看吧。</code><a href="https://graphviz.gitlab.io/_pages/Download/Download_source.html" target="_blank" rel="noopener">graphviz 官方下载地址</a><br><code>demo.dot</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">digraph demo &#123;</span><br><span class="line">    start [label=<span class="string">"start"</span>]</span><br><span class="line">    op [label=<span class="string">"enter"</span> shape=box]</span><br><span class="line">    end [label=<span class="string">"end"</span>]</span><br><span class="line"></span><br><span class="line">    start-&gt;op-&gt;end</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;<code>执行 dot -Tpng demo.dot -o demo.png 就可以得到如下流程图：</code><br><img src="https://images.coderzj.com/images/demo.png" alt="demo.png"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2162,7 +2174,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2242,7 +2254,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
